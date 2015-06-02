@@ -1,0 +1,8 @@
+packages/
+Seaman.Web/bin/
+Seaman.Web/obj/
+Seaman.Core/bin/
+Seaman.Core/obj/
+Seaman.EntityFramework/obj/
+Seaman.EntityFramework/bin/
+

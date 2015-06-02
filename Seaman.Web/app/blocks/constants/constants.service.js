@@ -1,0 +1,22 @@
+﻿(function () {
+    angular.module("blocks.constantsService")
+        .constant('AUTH_EVENTS', {
+            userReceived: 'user-received',
+            loginSuccess: 'auth-login-success',
+            loginFailed: 'auth-login-failed',
+            logoutSuccess: 'auth-logout-success',
+            sessionTimeout: 'auth-session-timeout',
+            notAuthenticated: 'auth-not-authenticated',
+            notAuthorized: 'auth-not-authorized',
+            serverError: "server-error"
+        })
+        .constant('USER_ROLES', {
+            admin: 'admin',
+            embryologist: 'embryologist',
+            reportGenerator: 'reportGenerator'
+        })
+        .constant("COMMON", {
+            packageState: ".package",
+            documentState: ".document"
+        });
+})();

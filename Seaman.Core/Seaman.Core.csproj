@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B063B34B-8D2D-4E5B-96D7-BCBE1D804C3D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Seaman.Core</RootNamespace>
+    <AssemblyName>Seaman.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\CaneModel.cs" />
+    <Compile Include="Model\CanisterModel.cs" />
+    <Compile Include="Model\CommentModel.cs" />
+    <Compile Include="Model\CollectionMethodModel.cs" />
+    <Compile Include="Model\NamedBase.cs" />
+    <Compile Include="Model\PhysicianModel.cs" />
+    <Compile Include="Model\LocationModel.cs" />
+    <Compile Include="Model\TankModel.cs" />
+    <Compile Include="SampleManagerBase.cs" />
+    <Compile Include="SeamanException\SeamanAccessDeniedException.cs" />
+    <Compile Include="SeamanException\SeamanException.cs" />
+    <Compile Include="SeamanException\SeamanNotFoundException.cs" />
+    <Compile Include="Database\ISeamanConnection.cs" />
+    <Compile Include="Database\IStorageTransaction.cs" />
+    <Compile Include="Database\IStorageTransactionSource.cs" />
+    <Compile Include="Database\StorageTransaction.cs" />
+    <Compile Include="Database\StorageTransactionAbortedException.cs" />
+    <Compile Include="Hasher\CryptoHasher.cs" />
+    <Compile Include="Hasher\PlainHasher.cs" />
+    <Compile Include="Helpers\CommonHelper.cs" />
+    <Compile Include="Helpers\MimeUtils.cs" />
+    <Compile Include="IPasswordHasher.cs" />
+    <Compile Include="IRepo.cs" />
+    <Compile Include="IUnitOfWork.cs" />
+    <Compile Include="IUserManager.cs" />
+    <Compile Include="Model\IEntity.cs" />
+    <Compile Include="Model\PagedQuery.cs" />
+    <Compile Include="Model\PagedResult.cs" />
+    <Compile Include="Model\RoleModel.cs" />
+    <Compile Include="Model\UserCheckResult.cs" />
+    <Compile Include="Model\UserModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserManagerBase.cs" />
+    <Compile Include="WeekDays.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

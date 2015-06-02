@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seaman.EntityFramework", "Seaman.EntityFramework\Seaman.EntityFramework.csproj", "{57CAAD56-93E1-4D3C-97D2-F93FAFB1680F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seaman.Core", "Seaman.Core\Seaman.Core.csproj", "{B063B34B-8D2D-4E5B-96D7-BCBE1D804C3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Seaman.Web", "Seaman.Web\Seaman.Web.csproj", "{F632A336-00CC-4921-8D9F-2B6AE0C35275}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57CAAD56-93E1-4D3C-97D2-F93FAFB1680F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57CAAD56-93E1-4D3C-97D2-F93FAFB1680F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57CAAD56-93E1-4D3C-97D2-F93FAFB1680F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57CAAD56-93E1-4D3C-97D2-F93FAFB1680F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B063B34B-8D2D-4E5B-96D7-BCBE1D804C3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B063B34B-8D2D-4E5B-96D7-BCBE1D804C3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B063B34B-8D2D-4E5B-96D7-BCBE1D804C3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B063B34B-8D2D-4E5B-96D7-BCBE1D804C3D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F632A336-00CC-4921-8D9F-2B6AE0C35275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F632A336-00CC-4921-8D9F-2B6AE0C35275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F632A336-00CC-4921-8D9F-2B6AE0C35275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F632A336-00CC-4921-8D9F-2B6AE0C35275}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
