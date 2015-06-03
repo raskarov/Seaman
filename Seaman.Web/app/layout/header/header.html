@@ -36,7 +36,7 @@
                 <a href="javascript:;" class="dropdown-toggle" dropdown-toggle ng-disabled="disabled" ui-wave>
                     <img src="images/g1.jpg" alt="" class="img-circle img30_30">
                     <span class="hidden-xs">
-                        <span>{{currentUser.username}}</span>
+                        <span>{{$root.currentUser.name}}</span>
                     </span>
                 </a>
                 <ul class="dropdown-menu with-arrow pull-right scaleInRight animated">
@@ -53,7 +53,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#/pages/signin">
+                        <a href="#" ng-click="hc.logout()">
                             <i class="imd imd-forward"></i>
                             <span>Logout</span>
                         </a>

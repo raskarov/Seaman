@@ -20,14 +20,14 @@ namespace Seaman.Web
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
-            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            config.Filters.Add(new HostAuthenticationFilter(CookieAuthenticationDefaults.AuthenticationType));
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            
+
             GlobalConfiguration.Configuration.Services.Replace(typeof(IExceptionHandler), new SeamanExceptionHandler());
+
             // Web API routes
             config.MapHttpAttributeRoutes();
-
-            FluentValidationModelValidatorProvider.Configure(config);
+            FluentValidation.WebApi.FluentValidationModelValidatorProvider.Configure(config);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

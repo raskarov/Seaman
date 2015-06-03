@@ -31,7 +31,9 @@
                 var stateName = pathParts[1];
                 if (session.id) {
                     var states = $state.get();
-                    var state = states[0];           
+                    var state = _.find(states, function(item) {
+                        return !item.abstract && !item.skipInMenu;
+                    });           
                     if (state) {
                         var subRoute = state.name;
                         $state.go(subRoute);

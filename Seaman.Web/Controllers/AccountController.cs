@@ -4,14 +4,13 @@ using System.Web;
 using System.Web.Http;
 using Microsoft.Owin.Security.Cookies;
 using Seaman.Core;
-using Seaman.Web.App_Start;
 using Seaman.Web.Code;
 using Seaman.Web.Models;
 
 namespace Seaman.Web.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/account")]
+    [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
 
