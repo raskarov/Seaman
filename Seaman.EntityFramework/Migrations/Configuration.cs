@@ -12,7 +12,7 @@ namespace Seaman.EntityFramework.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = false;
         }
 

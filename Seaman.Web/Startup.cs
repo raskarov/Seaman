@@ -5,7 +5,6 @@ using System.Web.Routing;
 using Microsoft.Owin;
 using Owin;
 using Seaman.Web;
-using Seaman.Web.App_Start;
 
 [assembly: OwinStartup(typeof(Startup))]
 

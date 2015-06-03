@@ -2,23 +2,29 @@
 <html lang="en" ng-app="seaman">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width"/>
+    <base href="/">
     <title ng-bind="'Seaman - ' + $root.pageTitle">Seaman Loading</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,500,700,300,300italic,500italic|Roboto+Condensed:400,300' rel='stylesheet' type='text/css'>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/angular.core")
 </head>
-<body ng-controller="ApplicationController as ac" ng-cloak>
-
-    <div class="container body-content">
+<body ng-controller="ApplicationController"
+      id="app"
+      class="app"
+      data-custom-page
+      data-off-canvas-nav
+      ng-cloak>
+    <header id="header" class="header-container header-fixed bg-white" header></header>
+    <div class="main-container">
+        <aside sidebar
+               id="nav-container"
+               class="nav-container nav-fixed nav-vertical bg-dark"></aside>
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Seaman Database</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/angular.core")
     @Scripts.Render("~/angular.ui")
     @Scripts.Render("~/angular.app")
     @RenderSection("scripts", required: false)

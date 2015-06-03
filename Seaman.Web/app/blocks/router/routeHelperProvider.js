@@ -31,10 +31,7 @@
                 var stateName = pathParts[1];
                 if (session.id) {
                     var states = $state.get();
-                    states = _.sortBy(states, "order");
-                    var state = _.find(states, function (item) {
-                        return _.includes(item.name, stateName) && item.name !== stateName && item.data && _.intersection(item.data.authorizedRoles, session.roles).length;
-                    });                    
+                    var state = states[0];           
                     if (state) {
                         var subRoute = state.name;
                         $state.go(subRoute);

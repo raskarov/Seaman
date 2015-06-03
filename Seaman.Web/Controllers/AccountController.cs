@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 using Microsoft.Owin.Security.Cookies;
 using Seaman.Core;
@@ -10,6 +11,7 @@ using Seaman.Web.Models;
 namespace Seaman.Web.Controllers
 {
     [Authorize]
+    [RoutePrefix("api/account")]
     public class AccountController : ApiController
     {
 

@@ -1,6 +1,13 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Web.Http;
 using System.Web.Http.ExceptionHandling;
+using FluentValidation.WebApi;
+using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Seaman.Web.Code;
 
@@ -20,7 +27,7 @@ namespace Seaman.Web
             // Web API routes
             config.MapHttpAttributeRoutes();
 
-            FluentValidation.WebApi.FluentValidationModelValidatorProvider.Configure(config);
+            FluentValidationModelValidatorProvider.Configure(config);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

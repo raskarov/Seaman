@@ -50,8 +50,8 @@
                 }
                 var menuRoute = routes[route.replace("/", "")];
                 if (!menuRoute) return null;
-                var subRoute = _.find(menuRoute.subroutes, { 'order': 1 });
-                if (!subRoute) return null;
+                var subRoute = menuRoute.subroutes && menuRoute.subroutes[0];
+                if (!subRoute) return menuRoute;
                 var result = angular.copy(subRoute);
                 result.url = route + result.url;
                 return result;
@@ -102,7 +102,7 @@
                 var result = getMenuByRole(roles);
                 var subroutes = result.length && result[0].subroutes;
 
-                return subroutes.length && subroutes[0] || null;
+                return subroutes.length && subroutes[0] || result[0];
             }
             return null;
         };

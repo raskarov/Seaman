@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 using Autofac;
 using Autofac.Core;
@@ -10,7 +8,7 @@ using Common.Logging;
 using Seaman.Core;
 using Seaman.EntityFramework;
 
-namespace Seaman.Web.App_Start
+namespace Seaman.Web
 {
     public static class InjectionConfig
     {

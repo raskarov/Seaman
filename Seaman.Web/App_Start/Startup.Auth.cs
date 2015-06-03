@@ -19,11 +19,13 @@ namespace Seaman.Web
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = CookieAuthenticationDefaults.AuthenticationType,
-                //LoginPath = new PathString("/Home/Login"),
-                //LogoutPath = new PathString("/Home/Logout"),
                 Provider = new CookieAuthenticationProvider
                 {
-                    OnValidateIdentity = (ctx) => Task.FromResult(0)
+                    OnValidateIdentity = (ctx) => 
+                    { 
+                        //TODO validate
+                        return Task.FromResult(0); 
+                    } 
                 }
             });
         }
