@@ -10,27 +10,33 @@
         <div class="main-body">
             <div class="card bg-white" ng-show="!lc.isPasswordReseting">
                 <div class="card-content">
-                    <form name="lc.loginForm" class="form-horizontal" ng-submit="lc.loginForm.$valid && lc.login()">
+                    <form name="lc.loginForm" class="form-horizontal form-validation" ng-submit="lc.loginForm.$valid && lc.login()" novalidate>
                         <fieldset>
-                            <div class="form-group">
-                                <div class="ui-input-group">
-                                    <input type="text" required class="form-control" name="username" ng-model="lc.userModel.username">
-                                    <span class="input-bar"></span>
-                                    <label>Email</label>
+                            <md-input-container>
+                                <label for="username">{{lc.loginField.username.title}}</label>
+                                <input type="text" required class="form-control" id="username" name="username" ng-model="lc.userModel.username">
+                                <div ng-messages="lc.loginForm.username.$error">
+                                    <div ng-show="lc.loginForm.$submitted || lc.loginForm.username.$touched">
+                                        <div ng-message="required">{{lc.loginField.username.message.required}}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="ui-input-group">
-                                    <input type="password" required class="form-control" name="password" ng-model="lc.userModel.password">
-                                    <span class="input-bar"></span>
-                                    <label>Password</label>
+                            </md-input-container>
+                            <md-input-container>
+                                <label for="password">{{lc.loginField.password.title}}</label>
+                                <input type="password" required class="form-control" id="password" ng-minlength="{{lc.loginField.password.minLength}}" name="password" ng-model="lc.userModel.password">
+                                <div ng-messages="lc.loginForm.password.$error">
+                                    <div ng-show="lc.loginForm.$submitted || lc.loginForm.password.$touched">
+                                        <div ng-message="required">{{lc.loginField.password.message.required}}</div>
+                                    </div>
+                                    <div ng-message="minlength">{{lc.loginField.password.message.minlength}}</div>
                                 </div>
-                            </div>
+                            </md-input-container>
                             <div class="divider"></div>
                             <div class="form-group">
                                 <a href="#" class="text-muted text-small" ng-click="lc.toogleResetForm()">Forgot your password?</a>
                             </div>
                         </fieldset>
+                        <input type="submit" ng-show="false" />
                     </form>
                 </div>
                 <div class="card-action no-border text-right">
@@ -39,7 +45,7 @@
             </div>
             <div class="card bg-white" ng-show="lc.isPasswordReseting">
                 <div class="card-content">
-                    <form name="lc.resetForm" ng-submit="lc.resetForm.$valid && lc.reset()">
+                    <form name="lc.resetForm" ng-submit="lc.resetForm.$valid && lc.reset()" novalidate>
                         <fieldset>
                             <div class="form-group">
                                 <div class="ui-input-group">
@@ -52,13 +58,14 @@
                                 </div>
                             </div>
                         </fieldset>
+                        <input type="submit" ng-show="false" />
                     </form>
                 </div>
                 <div class="card-action no-border text-right">
                     <a href="#" ng-click="lc.toogleResetForm()">Login</a>
-                    <button type="submit" class="btn btn-raised btn-primary btn-w-md" ng-disabled="lc.resetForm.$invalid">Reset</button>
+                    <a href="#" class="color-primary" ng-click="lc.reset()" ng-disabled="lc.resetForm.$invalid">Reset</a>
                 </div>
-            </div> 
+            </div>
         </div>
 
     </div>

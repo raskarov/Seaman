@@ -46,6 +46,7 @@
     <Compile Include="Model\NamedBase.cs" />
     <Compile Include="Model\PhysicianModel.cs" />
     <Compile Include="Model\LocationModel.cs" />
+    <Compile Include="Model\PositionModel.cs" />
     <Compile Include="Model\TankModel.cs" />
     <Compile Include="SampleManagerBase.cs" />
     <Compile Include="SeamanException\SeamanAccessDeniedException.cs" />

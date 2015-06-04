@@ -32,6 +32,14 @@ namespace Seaman.EntityFramework.Migrations
                 usermanager.AddRoleToUser(user.Id, (Int32)Roles.Admin);
             }
 
+            var embryologist = usermanager.FindByName("Embryologist");
+            if (embryologist == null)
+            {
+                embryologist = usermanager.Add(new UserModel { UserName = "embryologist" });
+                usermanager.SetUserPassword(embryologist.Id, "111111", "plain");
+                usermanager.AddRoleToUser(embryologist.Id, (Int32)Roles.Embryologist);
+            }
+
             context.SaveChanges();
         }
 

@@ -71,6 +71,7 @@
     <Compile Include="Entity\Comment.cs" />
     <Compile Include="Entity\Location.cs" />
     <Compile Include="Entity\Physician.cs" />
+    <Compile Include="Entity\Position.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\Sample.cs" />
     <Compile Include="Entity\Tank.cs" />
@@ -79,6 +80,14 @@
     <Compile Include="Migrations\201506010423267_Initial.cs" />
     <Compile Include="Migrations\201506010423267_Initial.Designer.cs">
       <DependentUpon>201506010423267_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506031813415_ChangeLocation.cs" />
+    <Compile Include="Migrations\201506031813415_ChangeLocation.Designer.cs">
+      <DependentUpon>201506031813415_ChangeLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506040537502_AddPosition.cs" />
+    <Compile Include="Migrations\201506040537502_AddPosition.Designer.cs">
+      <DependentUpon>201506040537502_AddPosition.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +111,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201506010423267_Initial.resx">
       <DependentUpon>201506010423267_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506031813415_ChangeLocation.resx">
+      <DependentUpon>201506031813415_ChangeLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506040537502_AddPosition.resx">
+      <DependentUpon>201506040537502_AddPosition.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

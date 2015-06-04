@@ -38,6 +38,9 @@ namespace Seaman.EntityFramework
 
             Mapper.CreateMap<Tank, TankModel>();
             Mapper.CreateMap<TankModel, Tank>();
+
+            Mapper.CreateMap<Position, PositionModel>();
+            Mapper.CreateMap<PositionModel, Position>();
         }
 
         public static void Check()

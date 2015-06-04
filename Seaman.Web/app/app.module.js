@@ -6,6 +6,8 @@
         //Pages
         "seaman.login",
         "seaman.profile",
-        "seaman.samples"
+        "seaman.samples",
+        "seaman.sample",
+        "seaman.admin"
     ]);
 })();

@@ -1,0 +1,41 @@
+﻿<div class="page">
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">{{cmc.title}}</h2>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <section class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-lg-offset-3">
+                                <form class="form-inline" role="form" name="cmc.methodForm" ng-submit="cmc.save()">
+                                    <md-input-container>
+                                        <label>{{cmc.formTitle}}</label>
+                                        <input type="text" required class="form-control" name="name" ng-model="cmc.method.name">
+                                    </md-input-container>
+                                    <md-button type="submit" class="md-raised md-accent btn-w-md" ng-disabled="cmc.methodForm.$invalid">Save</md-button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="row">
+                <div class="panel panel-default col-md-8 col-md-offset-2">
+                    <div class="panel-body">
+                        <div class="list-group no-margin">
+                            <h3 ng-if="!cmc.collectionMethods.length">No {{cmc.title}} added</h3>
+                            <a href="#" class="list-group-item" ng-repeat="method in cmc.collectionMethods" ng-click="cmc.select(method)">
+                                <p>
+                                    {{method.name}}
+                                    <md-button type="button" class="md-raised btn-w-md md-primary pull-right" ng-click="cmc.remove($event, method.id)">Delete</md-button>
+                                </p>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

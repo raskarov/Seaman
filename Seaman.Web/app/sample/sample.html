@@ -1,0 +1,191 @@
+﻿<div class="page">
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">{{sc.title}}</h2>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <form role="form" name="sc.sampleForm">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card bg-white">
+                                <div class="card-content">
+                                    <span class="card-title">Depositor information</span>
+                                    <md-input-container>
+                                        <label for="depositorLastName">{{sc.sampleField.depositorLastName.title}}</label>
+                                        <input type="text" class="form-control" required id="depositorLastName" name="depositorLastName" ng-model="sc.sampleModel.depositorLastName" />
+                                        <div ng-messages="sc.sampleForm.depositorLastName.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorLastName.$touched">
+                                                <div ng-message="required">{{sc.sampleField.depositorLastName.message.required}}</div>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label for="depositorFirstName">{{sc.sampleField.depositorFirstName.title}}</label>
+                                        <input type="text" class="form-control" required id="depositorFirstName" name="depositorFirstName" ng-model="sc.sampleModel.depositorFirstName">
+                                        <div ng-messages="sc.sampleForm.depositorFirstName.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorFirstName.$touched">
+                                                <div ng-message="required">{{sc.sampleField.depositorFirstName.message.required}}</div>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label for="depositorDob">{{sc.sampleField.depositorDob.title}}</label>
+                                        <input type="text" class="form-control" required id="depositorDob" name="depositorDob" ng-model="sc.sampleModel.depositorDob">
+                                        <div ng-messages="sc.sampleForm.depositorDob.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorDob.$touched">
+                                                <div ng-message="required">{{sc.sampleField.depositorDob.message.required}}</div>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label for="depositorSsn">{{sc.sampleField.depositorSsn.title}}</label>
+                                        <input type="text" class="form-control" required id="depositorSsn" name="depositorSsn" ng-model="sc.sampleModel.depositorSsn">
+                                        <div ng-messages="sc.sampleForm.depositorSsn.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorSsn.$touched">
+                                                <div ng-message="required">{{sc.sampleField.depositorSsn.message.required}}</div>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-white">
+                                <div class="card-content">
+                                    <span class="card-title">Spouse/partner information</span>
+                                    <md-input-container>
+                                        <label for="partnerLastName">{{sc.sampleField.partnerLastName.title}}</label>
+                                        <input type="text" class="form-control" required id="partnerLastName" name="partnerLastName" ng-model="sc.sampleModel.partnerLastName" />
+                                        <div ng-messages="sc.sampleForm.partnerLastName.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerLastName.$touched">
+                                                <div ng-message="required">{{sc.sampleField.partnerLastName.message.required}}</div>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label for="partnerFirstName">{{sc.sampleField.partnerFirstName.title}}</label>
+                                        <input type="text" class="form-control" required id="partnerFirstName" name="partnerFirstName" ng-model="sc.sampleModel.partnerFirstName">
+                                        <div ng-messages="sc.sampleForm.partnerFirstName.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerFirstName.$touched">
+                                                <div ng-message="required">{{sc.sampleField.partnerFirstName.message.required}}</div>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label for="partnerDob">{{sc.sampleField.partnerDob.title}}</label>
+                                        <input type="text" class="form-control" required id="partnerDob" name="partnerDob" ng-model="sc.sampleModel.partnerDob">
+                                        <div ng-messages="sc.sampleForm.partnerDob.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerDob.$touched">
+                                                <div ng-message="required">{{sc.sampleField.partnerDob.message.required}}</div>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label for="partnerSsn">{{sc.sampleField.partnerSsn.title}}</label>
+                                        <input type="text" class="form-control" required id="partnerSsn" name="partnerSsn" ng-model="sc.sampleModel.partnerSsn">
+                                        <div ng-messages="sc.sampleForm.partnerSsn.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerSsn.$touched">
+                                                <div ng-message="required">{{sc.sampleField.partnerSsn.message.required}}</div>
+                                            </div>
+                                        </div>
+                                    </md-input-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card bg-white">
+                                <div class="card-content">
+                                    <span class="card-title">Third Party</span>
+                                    <dd>
+                                        <md-radio-group ng-model="thirdPartyRadio">
+                                            <md-radio-button value="cryobankPurchased">Cryobank Purchased</md-radio-button>
+                                            <md-radio-button value="directedDonor">Directed Donor</md-radio-button>
+                                            <md-radio-button value="anonymousDonor">Anonymous Donor</md-radio-button>
+                                        </md-radio-group>
+                                    </dd>
+                                    <div ng-show="sc.sampleModel.cryobankPurchased">
+                                        <md-input-container>
+                                            <label for="cryobankName">{{sc.sampleField.cryobankName.title}}</label>
+                                            <input type="text" class="form-control" ng-required="sc.sampleModel.cryobankPurchased"
+                                                   id="cryobankName" name="cryobankName" ng-model="sc.sampleModel.cryobankName" />
+                                            <div ng-messages="sc.sampleForm.cryobankName.$error">
+                                                <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.cryobankName.$touched">
+                                                    <div ng-message="required">{{sc.sampleField.cryobankName.message.required}}</div>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container>
+                                            <label for="cryobankVialId">{{sc.sampleField.cryobankVialId.title}}</label>
+                                            <input type="text" class="form-control" ng-required="sc.sampleModel.cryobankPurchased"
+                                                   id="cryobankVialId" name="cryobankVialId" ng-model="sc.sampleModel.cryobankVialId" />
+                                            <div ng-messages="sc.sampleForm.cryobankVialId.$error">
+                                                <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.cryobankVialId.$touched">
+                                                    <div ng-message="required">{{sc.sampleField.cryobankVialId.message.required}}</div>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                    <div ng-show="sc.sampleModel.directedDonor">
+                                        <md-input-container>
+                                            <label for="directedDonorId">{{sc.sampleField.directedDonorId.title}}</label>
+                                            <input type="text" class="form-control" ng-required="sc.sampleModel.directedDonor"
+                                                   id="directedDonorId" name="directedDonorId" ng-model="sc.sampleModel.directedDonorId" />
+                                            <div ng-messages="sc.sampleForm.directedDonorId.$error">
+                                                <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorId.$touched">
+                                                    <div ng-message="required">{{sc.sampleField.directedDonorId.message.required}}</div>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container>
+                                            <label for="directedDonorLastName">{{sc.sampleField.directedDonorLastName.title}}</label>
+                                            <input type="text" class="form-control" ng-required="sc.sampleModel.directedDonor"
+                                                   id="directedDonorLastName" name="directedDonorLastName" ng-model="sc.sampleModel.directedDonorLastName" />
+                                            <div ng-messages="sc.sampleForm.directedDonorLastName.$error">
+                                                <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorLastName.$touched">
+                                                    <div ng-message="required">{{sc.sampleField.directedDonorLastName.message.required}}</div>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                        <md-input-container>
+                                            <label for="directedDonorFirstName">{{sc.sampleField.directedDonorFirstName.title}}</label>
+                                            <input type="text" class="form-control" ng-required="sc.sampleModel.directedDonor"
+                                                   id="directedDonorFirstName" name="directedDonorFirstName" ng-model="sc.sampleModel.directedDonorFirstName" />
+                                            <div ng-messages="sc.sampleForm.directedDonorFirstName.$error">
+                                                <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorFirstName.$touched">
+                                                    <div ng-message="required">{{sc.sampleField.directedDonorFirstName.message.required}}</div>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                    <div ng-show="sc.sampleModel.anonymousDonor">
+                                        <md-input-container>
+                                            <label for="anonymousDonorId">{{sc.sampleField.anonymousDonorId.title}}</label>
+                                            <input type="text" class="form-control" ng-required="sc.sampleModel.anonymousDonor"
+                                                   id="anonymousDonorId" name="anonymousDonorId" ng-model="sc.sampleModel.anonymousDonorId" />
+                                            <div ng-messages="sc.sampleForm.anonymousDonorId.$error">
+                                                <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.anonymousDonorId.$touched">
+                                                    <div ng-message="required">{{sc.sampleField.anonymousDonorId.message.required}}</div>
+                                                </div>
+                                            </div>
+                                        </md-input-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card bg-white">
+                                <div class="card-content">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

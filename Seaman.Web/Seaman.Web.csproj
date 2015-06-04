@@ -251,6 +251,7 @@
     <Compile Include="Code\Helpers\ExceptionHelper.cs" />
     <Compile Include="Code\Helpers\Log4NetExceptionRenderer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -258,6 +259,25 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\admin\admin.module.js" />
+    <Content Include="app\admin\admin.routes.js" />
+    <Content Include="app\admin\admin.service.js" />
+    <Content Include="app\admin\collectionMethod\collectionMethod.controller.js" />
+    <Content Include="app\admin\collectionMethod\collectionMethod.html" />
+    <Content Include="app\admin\collectionMethod\collectionMethod.module.js" />
+    <Content Include="app\admin\collectionMethod\collectionMethod.routes.js" />
+    <Content Include="app\admin\comment\comment.controller.js" />
+    <Content Include="app\admin\comment\comment.html" />
+    <Content Include="app\admin\comment\comment.module.js" />
+    <Content Include="app\admin\comment\comment.routes.js" />
+    <Content Include="app\admin\physician\physician.controller.js" />
+    <Content Include="app\admin\physician\physician.html" />
+    <Content Include="app\admin\physician\physician.module.js" />
+    <Content Include="app\admin\physician\physician.routes.js" />
+    <Content Include="app\admin\storage\storage.controller.js" />
+    <Content Include="app\admin\storage\storage.html" />
+    <Content Include="app\admin\storage\storage.module.js" />
+    <Content Include="app\admin\storage\storage.routes.js" />
     <Content Include="app\app.config.js" />
     <Content Include="app\app.module.js" />
     <Content Include="app\blocks\authentication\auth.service.js" />
@@ -301,6 +321,10 @@
     <Content Include="app\samples\samples.html" />
     <Content Include="app\samples\samples.module.js" />
     <Content Include="app\samples\samples.routes.js" />
+    <Content Include="app\sample\sample.controller.js" />
+    <Content Include="app\sample\sample.html" />
+    <Content Include="app\sample\sample.module.js" />
+    <Content Include="app\sample\sample.routes.js" />
     <Content Include="app\ui\ui.directive.js" />
     <Content Include="app\ui\ui.module.js" />
     <Content Include="app\widgets\notification-messages\notification-messages.html" />

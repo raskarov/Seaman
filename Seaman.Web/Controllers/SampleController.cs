@@ -22,7 +22,7 @@ namespace Seaman.Web.Controllers
         #region Privat
         private readonly Lazy<ISampleManager> _sampleManagerLazy;
 
-        private ISampleManager DocumentManager
+        private ISampleManager SampleManager
         {
             get
             {

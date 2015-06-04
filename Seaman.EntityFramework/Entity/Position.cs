@@ -7,7 +7,7 @@ using Seaman.Core.Model;
 
 namespace Seaman.EntityFramework.Entity
 {
-    public class Tank : TankBase
+    public class Position: PositionBase
     {
         public virtual ICollection<Location> Locations
         {

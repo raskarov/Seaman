@@ -6,14 +6,14 @@
 
     function loginController($rootScope, $location, userService, routes, validation) {
         var vm = this;
-        $rootScope.pageTitle = "Вход";
+        $rootScope.pageTitle = "Sign In";
         vm.isPasswordReseting = false;
         vm.requesting = false;
         vm.userModel = {};
         vm.resetModel = {};
         vm.loginField = {
-            username: validation.newField('Логин', { required: true }),
-            password: validation.newField('Пароль', { required: true, minLength: 6 })
+            username: validation.newField('Login', { required: true }),
+            password: validation.newField('Password', { required: true, minLength: 6 })
         };
 
         vm.login = login;
@@ -25,22 +25,14 @@
             return userService.login(vm.userModel)
                 .then(function (user) {
                     vm.userModel = {};
-                    if ($location.url() === routes.all().login.url) {
-                        var routeForRole = routes.getMenuRouteByRole(user.roles);
-                        if (routeForRole && routeForRole.url) {
-                            $location.url(routeForRole.url);
-                        }
-                    }
                 });
         };
 
         function reset() {
             if (vm.resetForm.$invalid) return false;
-            vm.requesting = true;
             return userService.reset(vm.resetModel)
                 .then(function (res) {
                     vm.resetModel = {};
-                    vm.requesting = false;
                 });
         };
 

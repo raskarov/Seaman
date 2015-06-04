@@ -2,13 +2,13 @@
     angular.module("layout.sidebar")
         .controller("SidebarController", sidebarController);
 
-    sidebarController.$inject = ["$rootScope", "$location", "routes", "session", "AUTH_EVENTS"];
+    sidebarController.$inject = ["$rootScope", "$location", "routes", "session", "USER_ROLES"];
 
-    function sidebarController($rootScope, $location, routes, session, AUTH_EVENTS) {
+    function sidebarController($rootScope, $location, routes, session, roles) {
         var vm = this;
         vm.menuItems = [];
-
-        $rootScope.$on(AUTH_EVENTS.loginSuccess, changeMenu);
+        vm.isAdmin = isAdmin;
+        
         $rootScope.$on('$stateChangeSuccess', function (e, next, current) {
             vm.menuItems = routes.getMenuByRole(session.roles);
             var isCurrentSelected = _.some(vm.menuItems, function (item) {
@@ -45,10 +45,8 @@
             }
         };
 
-        function changeMenu() {
-            if (this.roles && this.roles === session.roles) return;
-            vm.menuItems = routes.getMenuByRole(session.roles);
-            this.roles = session.roles;
-        };
+        function isAdmin() {
+            return session && _.includes(session.roles, roles.admin);
+        }
     };
 })();

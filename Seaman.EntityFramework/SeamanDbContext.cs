@@ -51,7 +51,8 @@ namespace Seaman.EntityFramework
         public IDbSet<Location> Locations { get; set; }
         public IDbSet<Physician> Physicians { get; set; }
         public IDbSet<Sample> Samples { get; set; }
-        public IDbSet<Tank> Tanks { get; set; } 
+        public IDbSet<Tank> Tanks { get; set; }
+        public IDbSet<Position> Positions { get; set; } 
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

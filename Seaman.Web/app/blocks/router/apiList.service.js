@@ -18,6 +18,17 @@
         var getUser = accountPrefix + "/getUser";
         var getProfile = accountPrefix + '/getProfile';
 
+        //Admin
+        var adminPrefix = prefix + "/admin";
+
+        var collectionMethod = adminPrefix + "/collectionMethod";
+        var comment = adminPrefix + "/comment";
+        var physician = adminPrefix + "/physician";
+        var cane = adminPrefix + "/cane";
+        var canister = adminPrefix + "/canister";
+        var tank = adminPrefix + "/tank";
+        var location = adminPrefix + "/location";
+
         return {
             ////Account api
             roles: roles,
@@ -27,7 +38,15 @@
             changePassword: changePassword,
             setPassword: setPassword,
             getUser: getUser,
-            getProfile: getProfile
+            getProfile: getProfile,
+            //Admin
+            collectionMethod: collectionMethod,
+            comment: comment,
+            physician: physician,
+            cane: cane,
+            canister: canister,
+            tank: tank,
+            location: location
         };
     };
 })();

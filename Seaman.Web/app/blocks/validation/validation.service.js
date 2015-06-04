@@ -6,13 +6,13 @@
 
     function validationService(helper) {
         var messages = {
-            required: 'Введите {0}',
-            requiredSelect: 'Выберите {0}',
-            minLength: 'Длинна должна быть не менее {0} символов',
-            maxLength: 'Длина должна быть не более {0} символов',
-            date: 'Введите корректную дату',
-            passwordVerify: 'Пароль и подтверждение пароля не совпадают',
-            compareDate: "Даты не равны"
+            required: 'Enter {0}',
+            requiredSelect: 'Choose {0}',
+            minLength: 'The length has to be more than {0} characters',
+            maxLength: 'The length has to be less than {0} characters',
+            date: 'Enter correct date',
+            passwordVerify: 'Password and password confirmation not compare',
+            compareDate: "Dates not equal"
         };
 
         var service = {
