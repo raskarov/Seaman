@@ -1,1 +1,64 @@
-﻿
+﻿<div class="page">
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">{{sc.title}}</h2>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="card bg-white">
+                    <div class="card-content">
+                        <span class="card-title">Tanks</span>
+                        <div>
+                            <span ng-repeat="tank in sc.tanks">{{tank.name}}</span>
+                        </div>
+                        <md-button type="button" class="md-raised md-accent btn-w-md" ng-click="sc.addTank()">Add Tank</md-button>
+                        <md-button type="button" class="md-raised md-accent btn-w-md" ng-click="sc.remove('tank')" ng-show="sc.tanks.length">Remove Tank</md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="card bg-white">
+                    <div class="card-content">
+                        <span class="card-title">Canisters</span>
+                        <div>
+                            <span ng-repeat="canister in sc.canisters">{{canister.name}}</span>
+                        </div>
+                        <md-button type="button" class="md-raised md-accent btn-w-md" ng-click="sc.addCanister()">Add Canister</md-button>
+                        <md-button type="button" class="md-raised md-accent btn-w-md" ng-click="sc.remove('canister')" ng-show="sc.canisters.length">Remove Canister</md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="card bg-white">
+                    <div class="card-content">
+                        <span class="card-title">Canes</span>
+                        <div ng-repeat="(key, value) in sc.canes | groupBy:'name'">
+                            <span ng-repeat="cane in value">{{cane.name}}-{{cane.color}} </span>
+                        </div>
+
+                        <md-button type="button" class="md-raised md-accent btn-w-md" ng-click="sc.addCane()">Add Cane</md-button>
+                        <md-button type="button" class="md-raised md-accent btn-w-md" ng-click="sc.removeCane()" ng-show="sc.canes.length">Remove Cane</md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row">
+                <div class="card bg-white">
+                    <div class="card-content">
+                        <span class="card-title">Positions</span>
+                        <div>
+                            <span ng-repeat="position in sc.positions">{{position.name}}</span>
+                        </div>
+                        <md-button type="button" class="md-raised md-accent btn-w-md" ng-click="sc.addPosition()">Add Position</md-button>
+                        <md-button type="button" class="md-raised md-accent btn-w-md" ng-click="sc.remove('position')" ng-show="sc.positions.length">Remove Position</md-button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

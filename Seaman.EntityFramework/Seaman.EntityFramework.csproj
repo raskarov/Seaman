@@ -89,6 +89,10 @@
     <Compile Include="Migrations\201506040537502_AddPosition.Designer.cs">
       <DependentUpon>201506040537502_AddPosition.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201506041729068_DobToDateTime.cs" />
+    <Compile Include="Migrations\201506041729068_DobToDateTime.Designer.cs">
+      <DependentUpon>201506041729068_DobToDateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleManager.cs" />
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201506040537502_AddPosition.resx">
       <DependentUpon>201506040537502_AddPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506041729068_DobToDateTime.resx">
+      <DependentUpon>201506041729068_DobToDateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

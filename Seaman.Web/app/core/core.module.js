@@ -9,6 +9,7 @@
         //3rd-party modules
         'ui.router',
         'ngMaterial',
-        'ui.mask'
+        'ngMask',
+        'angular.filter'
     ]);
 })();

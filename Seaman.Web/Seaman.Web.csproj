@@ -278,6 +278,10 @@
     <Content Include="app\admin\storage\storage.html" />
     <Content Include="app\admin\storage\storage.module.js" />
     <Content Include="app\admin\storage\storage.routes.js" />
+    <Content Include="app\admin\user\user.controller.js" />
+    <Content Include="app\admin\user\user.html" />
+    <Content Include="app\admin\user\user.module.js" />
+    <Content Include="app\admin\user\user.routes.js" />
     <Content Include="app\app.config.js" />
     <Content Include="app\app.module.js" />
     <Content Include="app\blocks\authentication\auth.service.js" />
@@ -374,8 +378,10 @@
     <Content Include="images\bg-pattern\bg-pattern8.png" />
     <Content Include="images\bg-pattern\bg-pattern9.png" />
     <Content Include="images\g1.jpg" />
+    <Content Include="Scripts\angular-ui\angular-filter.js" />
     <Content Include="Scripts\angular-ui\angular-ui-tree.js" />
-    <Content Include="Scripts\angular-ui\mask.js" />
+    <Content Include="Scripts\angular-ui\ngMask.js" />
+    <Content Include="Scripts\angular-ui\ui-utils.js" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-aria.js" />
     <Content Include="Scripts\angular\angular-cookies.js" />

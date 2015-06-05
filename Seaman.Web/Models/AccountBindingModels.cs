@@ -35,8 +35,8 @@ namespace Seaman.Web.Models
     public class RegisterBindingModel
     {
         [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string Username { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -90,6 +90,7 @@ namespace Seaman.Web.Models
         public Int32 Id { get; set; }
         public String Name { get; set; }
         public IEnumerable<String> Roles{ get; set; }
-
     }
+
+
 }

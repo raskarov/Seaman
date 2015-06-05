@@ -1,0 +1,41 @@
+﻿<div class="page">
+    <div class="row ui-section">
+        <div class="col-lg-8 clearfix">
+            <h2 class="section-header">{{uc.title}}</h2>
+        </div>
+        <div class="col-md-8">
+            <div class="card bg-white">
+                <div class="card-content">
+                    <span class="card-title">User Info</span>
+                    <form role="form" name="uc.userForm" novalidate>
+                        <md-input-container class="col-md-6">
+                            <label for="login">{{uc.userField.login.title}}</label>
+                            <input type="text" class="form-control" required id="login" name="login" ng-model="uc.userModel.login"/>
+                            <div ng-messages="uc.userForm.login.$error">
+                                <div ng-show="uc.userForm.$submitted || uc.userForm.login.$touched">
+                                    <div ng-message="required">{{uc.userField.login.message.required}}</div>
+                                </div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="col-md-6">
+                            <label for="password">{{uc.userField.password.title}}</label>
+                            <input type="password" class="form-control" required id="password" name="password" ng-model="uc.userModel.password"/>
+                            <div ng-messages="uc.userForm.password.$error">
+                                <div ng-show="uc.userForm.$submitted || uc.userForm.password.$touched">
+                                    <div ng-message="required">{{uc.userField.password.message.required}}</div>
+                                </div>
+                                <div ng-message="minlength">{{uc.userField.password.message.minlength}}</div>
+                            </div>
+                        </md-input-container>
+                        <div class="col-md-12">
+                            <p>Select roles</p>
+                            
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4" data-slim-ucroll>
+        </div>
+    </div>
+</div>

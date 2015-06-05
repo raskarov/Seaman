@@ -10,7 +10,7 @@
             requiredSelect: 'Choose {0}',
             minLength: 'The length has to be more than {0} characters',
             maxLength: 'The length has to be less than {0} characters',
-            date: 'Enter correct date',
+            date: 'Enter date in format "MM/DD/YYYY"',
             passwordVerify: 'Password and password confirmation not compare',
             compareDate: "Dates not equal"
         };

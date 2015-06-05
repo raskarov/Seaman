@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using Microsoft.Owin.Security.Cookies;
@@ -87,7 +90,36 @@ namespace Seaman.Web.Controllers
             _userManager.SetUserPassword(this.GetUserId(), model.NewPassword, DefaultHashMethod);
             return Ok();
         }
-        
+
+        [HttpGet]
+        [Route("user")]
+        public List<UserModel> GetUsers()
+        {
+            return _userManager.GetUsers().ToList();
+        }
+
+        [HttpPost]
+        [Route("user")]
+        public IHttpActionResult AddUser(UserModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var auth = this.GetAuthentication();
+
+            var user = _userManager.Add(model);
+            _userManager.SetUserPassword(user.Id, model.Password, "plain");
+            return Ok();
+        }
+
+        [HttpDelete]
+        [Route("user/{id:int}")]
+        public IHttpActionResult DeleteUser(Int32 id)
+        {
+            _userManager.Remove(id);
+            return Ok();
+        }
+
         //// POST api/Account/SetPassword
         //[Route("SetPassword")]
         //public IHttpActionResult SetPassword(SetPasswordBindingModel model)

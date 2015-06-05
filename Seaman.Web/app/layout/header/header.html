@@ -38,24 +38,9 @@
                     <span>{{$root.currentUser.name}}</span>
                 </a>
                 <ul class="dropdown-menu with-arrow pull-right scaleInRight animated">
-                    <li>
-                        <a href="#/">
-                            <i class="imd imd-home"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#/pages/profile">
-                            <i class="imd imd-person"></i>
-                            <span>Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" ng-click="hc.logout()">
-                            <i class="imd imd-forward"></i>
-                            <span>Logout</span>
-                        </a>
-                    </li>
+                    <li><a href="#/"><i class="imd imd-home"></i><span>Dashboard</span></a></li>
+                    <li><a href="#/pages/profile"><i class="imd imd-person"></i><span>Profile</span></a></li>
+                    <li><a href="#" ng-click="hc.logout()"><i class="imd imd-forward"></i><span>Logout</span></a></li>
                 </ul>
             </li>
         </ul>

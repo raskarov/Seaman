@@ -163,7 +163,6 @@ namespace Seaman.EntityFramework
                 var user = UserById(userId);
                 if (user == null)
                     throw new SeamanException("user not found");
-                //role.Users.Add(user);
                 user.Roles.Add(role);
                 Save();
             }
@@ -207,7 +206,12 @@ namespace Seaman.EntityFramework
         public override IEnumerable<TRoleModel> GetRoles()
         {
             return Mapper.Map<List<TRoleModel>>(_context.Roles);
-        } 
+        }
+
+        public override IEnumerable<TUserModel> GetUsers()
+        {
+            return Mapper.Map<List<TUserModel>>(_context.Users);
+        }
 
         #endregion
 

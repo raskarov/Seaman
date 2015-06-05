@@ -125,7 +125,7 @@ namespace Seaman.Core
         /// <returns></returns>
         IEnumerable<TRole> GetRoles();
 
-
+        IEnumerable<TUser> GetUsers();
     }
 
 

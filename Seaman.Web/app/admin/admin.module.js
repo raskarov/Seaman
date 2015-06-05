@@ -3,6 +3,7 @@
         "admin.collectionMethod",
         "admin.comment",
         "admin.physician",
-        "admin.storage"
+        "admin.storage",
+        "admin.user"
     ]);
 })();

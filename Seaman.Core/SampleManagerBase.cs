@@ -33,7 +33,7 @@ namespace Seaman.Core
         List<CommentModel> GetComments();
         CommentModel SaveComment(CommentModel comment);
         void DeleteComment(Int32 id);
-        
+
 
         List<LocationModel> GetLocations();
         LocationModel SaveLocation(LocationModel location);
@@ -93,11 +93,11 @@ namespace Seaman.Core
 
         public String DepositorFirstName { get; set; }
         public String DepositorLastName { get; set; }
-        public String DepositorDob { get; set; }
+        public DateTime DepositorDob { get; set; }
         public String DepositorSsn { get; set; }
         public String PartnerFirstName { get; set; }
         public String PartnerLastName { get; set; }
-        public String PartnerDob { get; set; }
+        public DateTime PartnerDob { get; set; }
         public String PartnerSsn { get; set; }
 
         public Boolean Autologous { get; set; }
@@ -114,9 +114,12 @@ namespace Seaman.Core
         public String DirectedDonorId { get; set; }
         public String DirectedDonorLastName { get; set; }
         public String DirectedDonorFirstName { get; set; }
+        public DateTime DirectedDonorDob { get; set; }
 
         public Boolean AnonymousDonor { get; set; }
         public String AnonymousDonorId { get; set; }
+
+        public DateTime CreatedDate { get; set; }
 
         public Int32? PhysicianId { get; set; }
         public Int32? CollectionMethodId { get; set; }
@@ -164,11 +167,11 @@ namespace Seaman.Core
 
         public String DepositorFirstName { get; set; }
         public String DepositorLastName { get; set; }
-        public String DepositorDob { get; set; }
+        public DateTime DepositorDob { get; set; }
         public String DepositorSsn { get; set; }
         public String PartnerFirstName { get; set; }
         public String PartnerLastName { get; set; }
-        public String PartnerDob { get; set; }
+        public DateTime PartnerDob { get; set; }
         public String PartnerSsn { get; set; }
         public Boolean Autologous { get; set; }
         public Boolean Refreeze { get; set; }
@@ -184,6 +187,7 @@ namespace Seaman.Core
         public String DirectedDonorId { get; set; }
         public String DirectedDonorLastName { get; set; }
         public String DirectedDonorFirstName { get; set; }
+        public DateTime DirectedDonorDob { get; set; }
 
         public Boolean AnonymousDonor { get; set; }
         public String AnonymousDonorId { get; set; }

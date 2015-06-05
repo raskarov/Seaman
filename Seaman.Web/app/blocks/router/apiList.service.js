@@ -17,6 +17,8 @@
         var setPassword = accountPrefix + "/setPassword";
         var getUser = accountPrefix + "/getUser";
         var getProfile = accountPrefix + '/getProfile';
+        var user = accountPrefix + "/user";
+        
 
         //Admin
         var adminPrefix = prefix + "/admin";
@@ -27,6 +29,7 @@
         var cane = adminPrefix + "/cane";
         var canister = adminPrefix + "/canister";
         var tank = adminPrefix + "/tank";
+        var position = adminPrefix + "/position";
         var location = adminPrefix + "/location";
 
         return {
@@ -39,6 +42,7 @@
             setPassword: setPassword,
             getUser: getUser,
             getProfile: getProfile,
+            user: user,
             //Admin
             collectionMethod: collectionMethod,
             comment: comment,
@@ -46,6 +50,7 @@
             cane: cane,
             canister: canister,
             tank: tank,
+            position: position,
             location: location
         };
     };

@@ -92,6 +92,98 @@ namespace Seaman.Web.Controllers
             SampleManager.DeletePhysician(id);
         }
 
+        [HttpGet]
+        [Route("tank")]
+        public List<TankModel> GetTanks()
+        {
+            return SampleManager.GetTanks();
+        }
+
+        [HttpPost]
+        [Route("tank")]
+        public TankModel PostTank(TankModel model)
+        {
+            if (!ModelState.IsValid)
+                throw new SeamanInvalidModelException();
+            return SampleManager.SaveTank(model);
+        }
+
+        [HttpDelete]
+        [Route("tank/{id:int}")]
+        public void DeleteTank(Int32 id)
+        {
+            SampleManager.DeleteTank(id);
+        }
+
+        [HttpGet]
+        [Route("canister")]
+        public List<CanisterModel> GetCanisters()
+        {
+            return SampleManager.GetCanisters();
+        }
+
+        [HttpPost]
+        [Route("canister")]
+        public CanisterModel PostCanister(CanisterModel model)
+        {
+            if (!ModelState.IsValid)
+                throw new SeamanInvalidModelException();
+            return SampleManager.SaveCanister(model);
+        }
+
+        [HttpDelete]
+        [Route("canister/{id:int}")]
+        public void DeleteCanister(Int32 id)
+        {
+            SampleManager.DeleteCanister(id);
+        }
+
+        [HttpGet]
+        [Route("cane")]
+        public List<CaneModel> GetCanes()
+        {
+            return SampleManager.GetCanes();
+        }
+
+        [HttpPost]
+        [Route("cane")]
+        public CaneModel PostCane(CaneModel model)
+        {
+            if (!ModelState.IsValid)
+                throw new SeamanInvalidModelException();
+            return SampleManager.SaveCane(model);
+        }
+
+        [HttpDelete]
+        [Route("cane/{id:int}")]
+        public void DeleteCane(Int32 id)
+        {
+            SampleManager.DeleteCane(id);
+        }
+
+        [HttpGet]
+        [Route("position")]
+        public List<PositionModel> GetPositions()
+        {
+            return SampleManager.GetPositions();
+        }
+
+        [HttpPost]
+        [Route("position")]
+        public PositionModel PostPosition(PositionModel model)
+        {
+            if (!ModelState.IsValid)
+                throw new SeamanInvalidModelException();
+            return SampleManager.SavePosition(model);
+        }
+
+        [HttpDelete]
+        [Route("position/{id:int}")]
+        public void DeletePosition(Int32 id)
+        {
+            SampleManager.DeletePosition(id);
+        }
+
 
         #endregion
 

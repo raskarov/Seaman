@@ -8,7 +8,7 @@ namespace Seaman.Core
 {
     public class UserModel : UserProfileBase
     {
-        
+       
     }
 
     public class UserBase : IEntity

@@ -191,6 +191,7 @@ namespace Seaman.Core
         /// <returns></returns>
         public abstract IEnumerable<TRole> GetRoles();
 
+        public abstract IEnumerable<TUser> GetUsers();
 
         #region Protected
 

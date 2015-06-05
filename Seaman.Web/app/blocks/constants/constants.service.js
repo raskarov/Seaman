@@ -17,6 +17,17 @@
         })
         .constant("COMMON", {
             packageState: ".package",
-            documentState: ".document"
+            documentState: ".document",
+            alphabet: "abcdefghijklmnopqrstuvwxyz"
+        })
+        .constant("COLORS", {
+            white: "white",
+            blue: "blue",
+            green: "green",
+            black: "black",
+            red: "red",
+            yellow: "yellow",
+            purple: "purple",
+            orange: "orange"
         });
 })();
