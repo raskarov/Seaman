@@ -1,25 +1,25 @@
 ﻿<div class="page">
     <div class="row ui-section">
-        <div class="col-lg-8 clearfix">
+        <div class="col-md-8 clearfix">
             <h2 class="section-header">{{uc.title}}</h2>
         </div>
         <div class="col-md-8">
             <div class="card bg-white">
                 <div class="card-content">
                     <span class="card-title">User Info</span>
-                    <form role="form" name="uc.userForm" novalidate>
+                    <form role="form" name="uc.userForm" novalidate ng-submit="uc.userForm.$valid && uc.saveUser()">
                         <md-input-container class="col-md-6">
-                            <label for="login">{{uc.userField.login.title}}</label>
-                            <input type="text" class="form-control" required id="login" name="login" ng-model="uc.userModel.login"/>
-                            <div ng-messages="uc.userForm.login.$error">
-                                <div ng-show="uc.userForm.$submitted || uc.userForm.login.$touched">
-                                    <div ng-message="required">{{uc.userField.login.message.required}}</div>
+                            <label for="username">{{uc.userField.username.title}}</label>
+                            <input type="text" class="form-control" required id="username" name="username" ng-model="uc.userModel.name" />
+                            <div ng-messages="uc.userForm.username.$error">
+                                <div ng-show="uc.userForm.$submitted || uc.userForm.username.$touched">
+                                    <div ng-message="required">{{uc.userField.username.message.required}}</div>
                                 </div>
                             </div>
                         </md-input-container>
                         <md-input-container class="col-md-6">
                             <label for="password">{{uc.userField.password.title}}</label>
-                            <input type="password" class="form-control" required id="password" name="password" ng-model="uc.userModel.password"/>
+                            <input type="password" class="form-control" required id="password" name="password" ng-model="uc.userModel.password" />
                             <div ng-messages="uc.userForm.password.$error">
                                 <div ng-show="uc.userForm.$submitted || uc.userForm.password.$touched">
                                     <div ng-message="required">{{uc.userField.password.message.required}}</div>
@@ -29,13 +29,29 @@
                         </md-input-container>
                         <div class="col-md-12">
                             <p>Select roles</p>
-                            
+                            <md-checkbox ng-repeat="role in uc.roles" ng-model="uc.userModel.roles[role.name]" aria-label="role">
+                                {{role.title}}
+                            </md-checkbox>
+                        </div>
+                        <div class="col-md-12">
+                            <md-button type="submit" class="md-raised md-accent btn-w-md pull-right" ng-disabled="uc.userForm.$invalid">Save</md-button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <div class="col-md-4" data-slim-ucroll>
+            <div class="card bg-white" ng-repeat="user in uc.users">
+                <md-button aria-label="remove" type="button" class="md-fab md-warn md-fab-sm pull-right" ng-click="uc.removeUser($event, user)"><span class="glyphicon glyphicon-remove"></span></md-button>
+                <div class="card-content">
+                    <a href="#" ng-click="uc.editUser(user)" class="card-title">{{user.name}}</a>
+                    <p>Roles</p>
+                    <div class="divider divider-dashed"></div>
+                    <div class="row">
+                        <p class="col-md-4" ng-repeat="role in user.roles">{{role.name}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -49,6 +49,7 @@ namespace Seaman.EntityFramework
             sample.DirectedDonor = model.DirectedDonor;
             sample.DirectedDonorFirstName = model.DirectedDonorFirstName;
             sample.DirectedDonorLastName = model.DirectedDonorLastName;
+            sample.DirectedDonorDob = model.DirectedDonorDob;
             sample.DirectedDonorId = model.DirectedDonorId;
 
             sample.DepositorFirstName = model.DepositorFirstName;
@@ -61,47 +62,79 @@ namespace Seaman.EntityFramework
             sample.PartnerDob = model.PartnerDob;
             sample.PartnerSsn = model.PartnerSsn;
 
+            sample.DateStored = model.DateStored;
+
             sample.Autologous = model.Autologous;
             sample.TestingOnFile = model.TestingOnFile;
             sample.Refreeze = model.Refreeze;
 
-            foreach (var attachedLocation in model.Locations)
+            foreach (var locationToAdd in model.LocationsToAdd)
             {
-                if (sample.Locations.Any(it => it.Id == attachedLocation.LocationId))
+                Location location;
+                if (locationToAdd.Id == 0)
+                {
+                    location = _context.CreateAndAdd<Location>();
+                }
+                else
+                {
+                    location = _context.Locations.Get(locationToAdd.Id, "location not found");
+                    if (location == null) continue;
+                }
+                if(sample.Locations.Any(l => l.Id == location.Id))
                     continue;
-                var location = _context.Locations.Get(attachedLocation.LocationId, "location not found");
-                var tank = _context.Tanks.Get(attachedLocation.TankId, "tank not found");
-                var canister = _context.Canisters.Get(attachedLocation.CanisterId, "canister not found");
-                var cane = _context.Canes.Get(attachedLocation.CaneId, "cane not found");
-
-                location.UniqName = tank.Name + canister.Name + cane.Name + cane.Color + location.Name;
                 sample.Locations.Add(location);
+                location.Tank = locationToAdd.Tank;
+                location.Canister = locationToAdd.Canister;
+                location.Cane = locationToAdd.Cane;
+                location.Position = locationToAdd.Position;
+                location.Available = false;
+                location.UniqName = location.Tank + location.Canister + location.Cane + location.Position;
             }
+            foreach (var locationToRemove in model.LocationsToRemove)
+            {
+                var location = _context.Locations.Get(locationToRemove.Id, "location not found");
+                if (sample.Locations.Any(x => x.Id == location.Id))
+                {
+                    sample.Locations.Remove(location);
+                }
+            }
+
             _context.SaveChanges();
             return Mapper.Map<SampleModel>(sample);
         }
 
         public override SampleModel GetSample(int id)
         {
-            throw new NotImplementedException();
+            return Mapper.Map<SampleModel>(_context.Samples.Get(id, "Sample not found"));
         }
 
         public override SampleModel GetSample(String uniqLocatonName)
         {
-            throw new NotImplementedException();
+            return
+                Mapper.Map<SampleModel>(
+                    _context.Samples.FirstOrDefault(x => x.Locations.Any(l => l.UniqName == uniqLocatonName)));
         }
 
-        public override PagedResult<SampleModel> GetSamples()
+        public override PagedResult<SampleBriefModel> GetSamples(PagedQuery query)
+        {
+            var samples = _context.Samples.AsQueryable();
+            samples = samples.OrderBy(it => it.Id);
+            var total = query.SkipTakeCount(ref samples);
+
+            return new PagedResult<SampleBriefModel>
+            {
+                Data = Mapper.Map<List<SampleBriefModel>>(samples),
+                Query = query,
+                Total = total
+            };
+        }
+
+        public override PagedResult<SampleBriefModel> GetSamplesByTank(int tankId)
         {
             throw new NotImplementedException();
         }
 
-        public override PagedResult<SampleModel> GetSamplesByTank(int tankId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override PagedResult<SampleModel> GetSamplesByDoctor(int doctorId)
+        public override PagedResult<SampleBriefModel> GetSamplesByDoctor(int doctorId)
         {
             throw new NotImplementedException();
         }
@@ -138,11 +171,19 @@ namespace Seaman.EntityFramework
             return Mapper.Map<List<CaneModel>>(_context.Canes);
         }
 
-        public override CaneModel SaveCane(CaneModel cane)
+        public override List<CaneModel> GetCanes(int canisterId)
         {
+            return Mapper.Map<List<CaneModel>>(_context.Canes.Where(x => x.Canister.Id == canisterId));
+        }
+
+        public override CaneModel SaveCane(CaneModel cane, int canisterId)
+        {
+            var canister = _context.Canisters.Get(canisterId, "Canister not found");
+            if (canister == null) return null;
             var exist = cane.Id == 0 ? _context.CreateAndAdd<Cane>() : _context.Canes.Get(cane.Id, "Cane not found");
             exist.Name = cane.Name;
             exist.Color = cane.Color;
+            canister.Canes.Add(exist);
             _context.SaveChanges();
             return Mapper.Map<CaneModel>(exist);
         }
@@ -159,14 +200,22 @@ namespace Seaman.EntityFramework
             return Mapper.Map<List<CanisterModel>>(_context.Canisters);
         }
 
-        public override CanisterModel SaveCanister(CanisterModel canister)
+        public override List<CanisterModel> GetCanisters(int tankdId)
         {
+            return Mapper.Map<List<CanisterModel>>(_context.Canisters.Where(x => x.Tank.Id == tankdId));
+        }
+
+        public override CanisterModel SaveCanister(CanisterModel canister, int tankId)
+        {
+            var tank = _context.Tanks.Get(tankId, "Tank not found");
+            if (tank == null) return null;
             var exist = canister.Id == 0 ? _context.CreateAndAdd<Canister>() : _context.Canisters.Get(canister.Id, "Canister not found");
             exist.Name = canister.Name;
+            //tank.Canisters.Add(exist);
             _context.SaveChanges();
             return Mapper.Map<CanisterModel>(exist);
         }
-
+       
         public override void DeleteCanister(int id)
         {
             var canister = _context.Canisters.Get(id, "Cane not found");
@@ -212,6 +261,12 @@ namespace Seaman.EntityFramework
             var comment = _context.Comments.Get(id, "Comment not found");
             _context.Comments.Remove(comment);
             _context.SaveChanges();
+        }
+
+        public override LocationModel GetLocation(string uniqName)
+        {
+            var location = _context.Locations.FirstOrDefault(x => x.UniqName == uniqName);
+            return Mapper.Map<LocationModel>(location);
         }
 
         public override List<LocationModel> GetLocations()
@@ -279,10 +334,18 @@ namespace Seaman.EntityFramework
             return Mapper.Map<List<PositionModel>>(_context.Positions);
         }
 
-        public override PositionModel SavePosition(PositionModel position)
+        public override List<PositionModel> GetPositions(int caneId)
         {
+            return Mapper.Map<List<PositionModel>>(_context.Positions.Where(x => x.Cane.Id == caneId));
+        }
+
+        public override PositionModel SavePosition(PositionModel position, int caneId)
+        {
+            var cane = _context.Canes.Get(caneId, "Cane not found");
+            if (cane == null) return null;
             var exist = position.Id == 0 ? _context.CreateAndAdd<Position>() : _context.Positions.Get(position.Id, "Position not found");
             exist.Name = position.Name;
+            cane.Positions.Add(exist);
             _context.SaveChanges();
             return Mapper.Map<PositionModel>(exist);
         }

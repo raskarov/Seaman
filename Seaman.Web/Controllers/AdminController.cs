@@ -124,11 +124,11 @@ namespace Seaman.Web.Controllers
 
         [HttpPost]
         [Route("canister")]
-        public CanisterModel PostCanister(CanisterModel model)
+        public CanisterModel PostCanister(CanisterModel model, Int32 tankId)
         {
             if (!ModelState.IsValid)
                 throw new SeamanInvalidModelException();
-            return SampleManager.SaveCanister(model);
+            return SampleManager.SaveCanister(model, tankId);
         }
 
         [HttpDelete]
@@ -147,11 +147,11 @@ namespace Seaman.Web.Controllers
 
         [HttpPost]
         [Route("cane")]
-        public CaneModel PostCane(CaneModel model)
+        public CaneModel PostCane(CaneModel model, Int32 canisterId)
         {
             if (!ModelState.IsValid)
                 throw new SeamanInvalidModelException();
-            return SampleManager.SaveCane(model);
+            return SampleManager.SaveCane(model, canisterId);
         }
 
         [HttpDelete]
@@ -170,11 +170,11 @@ namespace Seaman.Web.Controllers
 
         [HttpPost]
         [Route("position")]
-        public PositionModel PostPosition(PositionModel model)
+        public PositionModel PostPosition(PositionModel model, Int32 caneId)
         {
             if (!ModelState.IsValid)
                 throw new SeamanInvalidModelException();
-            return SampleManager.SavePosition(model);
+            return SampleManager.SavePosition(model, caneId);
         }
 
         [HttpDelete]

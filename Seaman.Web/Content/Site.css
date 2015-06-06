@@ -1,1 +1,8 @@
-﻿
+﻿.app > .header-container.header-fixed {
+    top: 0;
+}
+
+
+.error.location-error {
+    color: rgb(244,67,54);
+}

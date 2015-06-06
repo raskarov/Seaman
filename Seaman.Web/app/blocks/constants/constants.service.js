@@ -15,6 +15,20 @@
             embryologist: 'embryologist',
             reportGenerator: 'reportGenerator'
         })
+        .constant("ROLE_TITLE", {
+            admin: {
+                name: "admin",
+                title: 'Administrator'
+            },
+            embryologist: {
+                name: 'embryologist',
+                title: 'Embryologist'
+            },
+            reportGenerator: {
+                name: 'reportGenerator',
+                title: 'Report Generator'
+            }
+        })
         .constant("COMMON", {
             packageState: ".package",
             documentState: ".document",

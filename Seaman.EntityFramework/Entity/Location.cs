@@ -9,10 +9,9 @@ namespace Seaman.EntityFramework.Entity
 {
     public class Location : LocationBase
     {
-        public virtual Tank Tank { get; set; }
-        public virtual Canister Canister { get; set; }
-        public virtual Cane Cane { get; set; }
+        //public virtual Tank Tank { get; set; }
+        //public virtual Canister Canister { get; set; }
+        //public virtual Cane Cane { get; set; }
         public virtual Sample Sample { get; set; }
-        public virtual Position Position { get; set; }
     }
 }

@@ -1,13 +1,14 @@
 ﻿<div class="page">
     <div class="row ui-section">
-        <div class="col-lg-8 clearfix">
+        <div class="col-lg-12 clearfix">
             <h2 class="section-header">{{sc.title}}</h2>
         </div>
-        <div class="col-md-12">
+        <div class="col-lg-6 col-md-8 col-lg-offset-3 col-md-offset-2">
             <div class="row">
-                <form role="form" name="sc.sampleForm" novalidate>
+                <form role="form" name="sc.sampleForm" ng-submit="sc.isFormValid() && sc.saveSample()" novalidate>
+                    <input type="submit" ng-show="false" />
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="card bg-white">
                                 <div class="card-content">
                                     <span class="card-title">Depositor information</span>
@@ -29,7 +30,7 @@
                                             </div>
                                         </div>
                                     </md-input-container>
-                                    <md-input-container class="col-md-6">
+                                    <md-input-container>
                                         <label for="depositorDob">{{sc.sampleField.depositorDob.title}}</label>
                                         <input type="text" class="form-control" required id="depositorDob" name="depositorDob"
                                                ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
@@ -43,21 +44,17 @@
                                             </div>
                                         </div>
                                     </md-input-container>
-                                    <md-input-container class="col-md-6">
+                                    <md-input-container>
                                         <label for="depositorSsn">{{sc.sampleField.depositorSsn.title}}</label>
-                                        <input type="text" class="form-control" required id="depositorSsn" name="depositorSsn" ng-model="sc.sampleModel.depositorSsn" mask="999-99-9999">
+                                        <input type="text" class="form-control" required id="depositorSsn" name="depositorSsn"
+                                               ng-model="sc.sampleModel.depositorSsn" mask="999-99-9999" clearn="true">
                                         <div ng-messages="sc.sampleForm.depositorSsn.$error">
                                             <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorSsn.$touched">
                                                 <div ng-message="required">{{sc.sampleField.depositorSsn.message.required}}</div>
                                             </div>
                                         </div>
                                     </md-input-container>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card bg-white">
-                                <div class="card-content">
+                                    <div class="divider"></div>
                                     <span class="card-title">Spouse/partner information</span>
                                     <md-input-container>
                                         <label for="partnerLastName">{{sc.sampleField.partnerLastName.title}}</label>
@@ -77,7 +74,7 @@
                                             </div>
                                         </div>
                                     </md-input-container>
-                                    <md-input-container class="col-md-6">
+                                    <md-input-container>
                                         <label for="partnerDob">{{sc.sampleField.partnerDob.title}}</label>
                                         <input type="text" class="form-control" required id="partnerDob" name="partnerDob"
                                                ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
@@ -91,102 +88,82 @@
                                             </div>
                                         </div>
                                     </md-input-container>
-                                    <md-input-container class="col-md-6">
+                                    <md-input-container>
                                         <label for="partnerSsn">{{sc.sampleField.partnerSsn.title}}</label>
-                                        <input type="text" class="form-control" required id="partnerSsn" name="partnerSsn" ng-model="sc.sampleModel.partnerSsn" mask="999-99-9999">
+                                        <input type="text" class="form-control" required id="partnerSsn" name="partnerSsn"
+                                               ng-model="sc.sampleModel.partnerSsn" mask="999-99-9999" clearn="true">
                                         <div ng-messages="sc.sampleForm.partnerSsn.$error">
                                             <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerSsn.$touched">
                                                 <div ng-message="required">{{sc.sampleField.partnerSsn.message.required}}</div>
                                             </div>
                                         </div>
                                     </md-input-container>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card bg-white">
-                                <div class="card-content">
-                                    <span class="card-title">Additional Info</span>
-                                    <div class="row">
-                                        <md-input-container class="col-md-3">
-                                            <p>{{sc.sampleField.methodOfCollection.title}}</p>
-                                            <md-select ng-model="sc.sampleModel.collectionMethodId" required name="methodOfCollection" id="methodOfCollection" placeholder="Choose Method">
-                                                <md-option ng-repeat="method in sc.collectionMethods" value="{{method.id}}">{{method.name}}</md-option>
-                                            </md-select>
-                                            <div ng-messages="sc.sampleForm.methodOfCollection.$error">
-                                                <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.methodOfCollection.$touched">
-                                                    <div ng-message="required">{{sc.sampleField.methodOfCollection.message.required}}</div>
-                                                </div>
+                                    <div class="divider"></div>
+                                    <span class="card-title">Additional Information</span>
+                                    <md-input-container>
+                                        <p>{{sc.sampleField.methodOfCollection.title}}</p>
+                                        <md-select ng-model="sc.sampleModel.collectionMethodId" required name="methodOfCollection" id="methodOfCollection" placeholder="Choose Method">
+                                            <md-option ng-repeat="method in sc.collectionMethods" value="{{method.id}}">{{method.name}}</md-option>
+                                        </md-select>
+                                        <div ng-messages="sc.sampleForm.methodOfCollection.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.methodOfCollection.$touched">
+                                                <div ng-message="required">{{sc.sampleField.methodOfCollection.message.required}}</div>
                                             </div>
-                                        </md-input-container>
-                                        <md-input-container class="col-md-3">
-                                            <p>{{sc.sampleField.physician.title}}</p>
-                                            <md-select ng-model="sc.sampleModel.physicianId" required name="physician" id="physician" placeholder="Choose Physician">
-                                                <md-option ng-repeat="physician in sc.physicians" value="{{physician.id}}">{{physician.name}}</md-option>
-                                            </md-select>
-                                            <div ng-messages="sc.sampleForm.physician.$error">
-                                                <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.physician.$touched">
-                                                    <div ng-message="required">{{sc.sampleField.physician.message.required}}</div>
-                                                </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <p>{{sc.sampleField.physician.title}}</p>
+                                        <md-select ng-model="sc.sampleModel.physicianId" required name="physician" id="physician" placeholder="Choose Physician">
+                                            <md-option ng-repeat="physician in sc.physicians" value="{{physician.id}}">{{physician.name}}</md-option>
+                                        </md-select>
+                                        <div ng-messages="sc.sampleForm.physician.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.physician.$touched">
+                                                <div ng-message="required">{{sc.sampleField.physician.message.required}}</div>
                                             </div>
-                                        </md-input-container>
-                                        <md-input-container class="col-md-6">
-                                            <p>{{sc.sampleField.comment.title}}</p>
-                                            <md-select ng-model="sc.sampleModel.commentId" required name="comment" id="comment" placeholder="Choose Comment">
-                                                <md-option ng-repeat="comment in sc.comments" value="{{comment.id}}">{{comment.name}}</md-option>
-                                            </md-select>
-                                            <div ng-messages="sc.sampleForm.comment.$error">
-                                                <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.comment.$touched">
-                                                    <div ng-message="required">{{sc.sampleField.comment.message.required}}</div>
-                                                </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <p>{{sc.sampleField.comment.title}}</p>
+                                        <md-select ng-model="sc.sampleModel.commentId" required name="comment" id="comment" placeholder="Choose Comment">
+                                            <md-option ng-repeat="comment in sc.comments" value="{{comment.id}}">{{comment.name}}</md-option>
+                                        </md-select>
+                                        <div ng-messages="sc.sampleForm.comment.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.comment.$touched">
+                                                <div ng-message="required">{{sc.sampleField.comment.message.required}}</div>
                                             </div>
-                                        </md-input-container>
-                                    </div>
-                                    <div class="row">
-                                        <md-input-container class="col-md-4">
-                                            <label for="dateStored">{{sc.sampleField.dateStored.title}}</label>
-                                            <input type="text" class="form-control"
-                                                   id="dateStored" name="dateStored" ng-model="sc.sampleModel.dateStored"
-                                                   ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
-                                                   data-mask="19/39/9999"
-                                                   data-clearn="true" />
-                                            <div ng-messages="sc.sampleForm.dateStored.$error">
-                                                <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.dateStored.$touched">
-                                                    <div ng-message="required">{{sc.sampleField.dateStored.message.required}}</div>
-                                                    <div ng-message="pattern">{{sc.sampleField.dateStored.message.date}}</div>
-                                                </div>
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container>
+                                        <label for="dateStored">{{sc.sampleField.dateStored.title}}</label>
+                                        <input type="text" class="form-control"
+                                               id="dateStored" name="dateStored" ng-model="sc.sampleModel.dateStored"
+                                               ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
+                                               data-mask="19/39/9999"
+                                               data-clearn="true" />
+                                        <div ng-messages="sc.sampleForm.dateStored.$error">
+                                            <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.dateStored.$touched">
+                                                <div ng-message="required">{{sc.sampleField.dateStored.message.required}}</div>
+                                                <div ng-message="pattern">{{sc.sampleField.dateStored.message.date}}</div>
                                             </div>
-                                        </md-input-container>
-                                        <md-input-container class="col-md-2">
-                                            <md-switch ng-model="sc.sampleModel.autologous" aria-label="Autologous" class="md-primary">Autologous</md-switch>
-                                        </md-input-container>
-                                        <md-input-container class="col-md-2">
-                                            <md-switch ng-model="sc.sampleModel.testingOnFile" aria-label="TestingOnFile" class="md-primary">CD testing on file</md-switch>
-                                        </md-input-container>
-                                        <md-input-container class="col-md-2">
-                                            <md-switch ng-model="sc.sampleModel.refreeze" aria-label="Refreeze class=" md-primary"">Refreeze</md-switch>
-                                        </md-input-container>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card bg-white">
-                                <div class="card-content">
+                                        </div>
+                                    </md-input-container>
+                                    <md-input-container class="col-md-4">
+                                        <md-switch ng-model="sc.sampleModel.autologous" aria-label="Autologous" class="md-primary">Autologous</md-switch>
+                                    </md-input-container>
+                                    <md-input-container class="col-md-4">
+                                        <md-switch ng-model="sc.sampleModel.testingOnFile" aria-label="TestingOnFile" class="md-primary">CD testing on file</md-switch>
+                                    </md-input-container>
+                                    <md-input-container class="col-md-4">
+                                        <md-switch ng-model="sc.sampleModel.refreeze" aria-label="Refreeze" class="md-primary">Refreeze</md-switch>
+                                    </md-input-container>
+                                    <div class="divider"></div>
                                     <span class="card-title">Third Party</span>
-                                    <dd>
-                                        <md-radio-group ng-model="thirdPartyRadio">
-                                            <md-radio-button value="cryobankPurchased">Cryobank Purchased</md-radio-button>
-                                            <md-radio-button value="directedDonor">Directed Donor</md-radio-button>
-                                            <md-radio-button value="anonymousDonor">Anonymous Donor</md-radio-button>
-                                        </md-radio-group>
-                                    </dd>
+                                    <md-radio-group ng-model="thirdPartyRadio" class="col-md-12">
+                                        <md-radio-button class="col-lg-3 col-md-12 col-lg-offset-1" value="cryobankPurchased">Cryobank Purchased</md-radio-button>
+                                        <md-radio-button class="col-lg-3 col-md-12" value="directedDonor">Directed Donor</md-radio-button>
+                                        <md-radio-button class="col-lg-3 col-md-12" value="anonymousDonor">Anonymous Donor</md-radio-button>
+                                    </md-radio-group>
+
                                     <div ng-show="sc.sampleModel.cryobankPurchased">
                                         <md-input-container>
                                             <label for="cryobankName">{{sc.sampleField.cryobankName.title}}</label>
@@ -210,7 +187,7 @@
                                         </md-input-container>
                                     </div>
                                     <div ng-show="sc.sampleModel.directedDonor">
-                                        <md-input-container class="col-md-6">
+                                        <md-input-container>
                                             <label for="directedDonorId">{{sc.sampleField.directedDonorId.title}}</label>
                                             <input type="text" class="form-control" ng-required="sc.sampleModel.directedDonor"
                                                    id="directedDonorId" name="directedDonorId" ng-model="sc.sampleModel.directedDonorId" />
@@ -220,7 +197,7 @@
                                                 </div>
                                             </div>
                                         </md-input-container>
-                                        <md-input-container class="col-md-6">
+                                        <md-input-container>
                                             <label for="directedDonorDob">{{sc.sampleField.directedDonorDob.title}}</label>
                                             <input type="text" class="form-control" ng-required="sc.sampleModel.directedDonor"
                                                    id="directedDonorDob" name="directedDonorDob" ng-model="sc.sampleModel.directedDonorDob"
@@ -267,53 +244,55 @@
                                             </div>
                                         </md-input-container>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card bg-white">
-                                <div class="card-content">
-                                    <span class="card-title">Location</span>
+
+                                    <div class="divider"></div>
+                                    <span class="card-title">Locations</span>
                                     <div class="row">
-                                        <md-input-container class="col-md-2">
-                                            <md-select ng-model="sc.location.tankId" placeholder="Tank">
-                                                <md-option ng-repeat="tank in sc.tanks" value="{{tank.id}}">{{tank.name}}</md-option>
-                                            </md-select>
-                                        </md-input-container>
-                                        <md-input-container class="col-md-2">
-                                            <md-select ng-model="sc.location.canisterId" placeholder="Canister">
-                                                <md-option ng-repeat="canister in sc.canisters" value="{{canister.id}}">{{canister.name}}</md-option>
-                                            </md-select>
-                                        </md-input-container>
-                                        <md-input-container class="col-md-4">
-                                            <div class="row">
-                                                <div class="col-md-5">
-                                                    <md-select ng-model="sc.cane.name" placeholder="Letter" ng-change="sc.processCane()">
-                                                        <md-option ng-repeat="(key, value) in sc.canes | groupBy:'name'" value="{{key}}">{{key}}</md-option>
-                                                    </md-select>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <md-select ng-model="sc.cane.color" placeholder="Color" ng-change="sc.processCane()">
-                                                        <md-option ng-repeat="color in sc.colors" value="{{color}}">{{color}}</md-option>
-                                                    </md-select>
-                                                </div>
+                                        <div class="row well well-sm" ng-repeat="(key, value) in sc.locations">
+                                            <md-input-container class="col-md-6 col-lg-2">
+                                                <md-select ng-model="sc.locations[key].tank" placeholder="Tank" ng-change="sc.onTankChange(key)">
+                                                    <md-option ng-repeat="tank in sc.tanks" value="{{tank.name}}">{{tank.name}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="col-md-6 col-lg-2">
+                                                <md-select ng-model="sc.locations[key].canister" placeholder="Canister" ng-change="sc.onStorageChange(key)">
+                                                    <md-option ng-repeat="canister in sc.canisters[key]" value="{{canister}}">{{canister}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="col-md-6 col-lg-2">
+                                                <md-select ng-model="sc.canes[key].name" placeholder="Letter" ng-change="sc.processCane(key); sc.onStorageChange(key)">
+                                                    <md-option ng-repeat="letter in sc.letters[key]" value="{{letter}}">{{letter}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="col-md-6 col-lg-2">
+                                                <md-select ng-model="sc.canes[key].color" placeholder="Color" ng-change="sc.processCane(key); sc.onStorageChange(key)">
+                                                    <md-option ng-repeat="color in sc.colors" value="{{color}}">{{color}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <md-input-container class="col-md-6 col-lg-2">
+                                                <md-select ng-model="sc.locations[key].position" placeholder="Position" ng-change="sc.onStorageChange(key)">
+                                                    <md-option ng-repeat="position in sc.positions[key]" value="{{position}}">{{position}}</md-option>
+                                                </md-select>
+                                            </md-input-container>
+                                            <div class="error location-error col-md-12" ng-show="!sc.locations[key].available && sc.locations[key].id">Selected location has already used</div>
+                                            <div class="col-md-12">
+                                                <md-button type="button" aria-label="headphones" class="md-raised md-warn btn-w-md" ng-show="key > 0" ng-click="sc.removeLocation($event, key)">
+                                                    Remove Location
+                                                </md-button>
                                             </div>
-                                        </md-input-container>
-                                        <md-input-container class="col-md-2">
-                                            <md-select ng-model="sc.location.positionId" placeholder="Position">
-                                                <md-option ng-repeat="position in sc.positions" value="{{position.id}}">{{position.name}}</md-option>
-                                            </md-select>
-                                        </md-input-container>
-                                        <div class="col-md-2">
-                                            <md-button type="button" aria-label="headphones" class="md-fab md-primary md-fab-sm"><span class="glyphicon glyphicon-plus"></span></md-button>
                                         </div>
+                                        <md-button type="button" aria-label="headphones" class="md-raised md-accent btn-w-md" ng-click="sc.addLocation($event)">
+                                            Add Location
+                                        </md-button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <md-button type="button" class="md-raised md-accent btn-w-md pull-right" ng-disabled="!sc.isFormValid()" ng-click="sc.saveSample()">Save</md-button>
                 </form>
             </div>
+
         </div>
     </div>
 </div>

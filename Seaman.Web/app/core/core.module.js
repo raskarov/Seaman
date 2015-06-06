@@ -10,6 +10,11 @@
         'ui.router',
         'ngMaterial',
         'ngMask',
-        'angular.filter'
+        'angular.filter',
+        //ui grid
+        'ui.grid',
+        'ui.grid.pagination',
+        'ui.grid.selection',
+        'ui.grid.exporter'
     ]);
 })();

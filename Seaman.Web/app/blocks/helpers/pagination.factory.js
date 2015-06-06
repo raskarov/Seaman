@@ -22,7 +22,7 @@
         function nextPage() {
             var that = this;
             var deferred = $q.defer();
-            if (that.loading || !that.request || that.total == that.items.length) {
+            if (that.loading || !that.request || that.total === that.items.length) {
                 deferred.resolve();
             } else {
                 that.loading = true;

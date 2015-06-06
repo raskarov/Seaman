@@ -29,4 +29,21 @@ namespace Seaman.Core
         public String Phone { get; set; }
         public String Email { get; set; }
     }
+
+    public class BriefUserModel
+    {
+        public Int32 Id { get; set; }
+        public String Name { get; set; }
+        public String Password { get; set; }
+        public IEnumerable<RoleModel> Roles { get; set; }
+    }
+
+    public class SaveUserModel
+    {
+        public Int32 Id { get; set; }
+        public String Name { get; set; }
+        public String Password { get; set; }
+        public IEnumerable<RoleModel> RolesToAdd { get; set; }
+        public IEnumerable<RoleModel> RolesToRemove { get; set; }
+    }
 }

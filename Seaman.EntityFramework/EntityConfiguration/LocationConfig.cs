@@ -13,6 +13,8 @@ namespace Seaman.EntityFramework.EntityConfiguration
         public LocationConfig()
         {
             Property(it => it.UniqName).HasMaxLength(50);
+            Property(it => it.Tank).HasMaxLength(10);
+            Property(it => it.Cane).HasMaxLength(20);
         }
     }
 }

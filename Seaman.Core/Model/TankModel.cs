@@ -12,6 +12,8 @@ namespace Seaman.Core.Model
 
     public class TankBase: NamedBase
     {
-      
+        public Int32 CanistersCount { get; set; }
+        public Int32 CanesCount { get; set; }
+        public Int32 PositionsCount { get; set; }
     }
 }

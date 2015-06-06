@@ -9,6 +9,7 @@ namespace Seaman.EntityFramework.Entity
 {
     public class Position: PositionBase
     {
+        public virtual Cane Cane { get; set; }
         public virtual ICollection<Location> Locations
         {
             get { return _locations; }

@@ -329,8 +329,12 @@
     <Content Include="app\sample\sample.html" />
     <Content Include="app\sample\sample.module.js" />
     <Content Include="app\sample\sample.routes.js" />
+    <Content Include="app\sample\sample.service.js" />
     <Content Include="app\ui\ui.directive.js" />
     <Content Include="app\ui\ui.module.js" />
+    <Content Include="app\widgets\loader\loader.config.js" />
+    <Content Include="app\widgets\loader\loader.directive.js" />
+    <Content Include="app\widgets\loader\loader.module.js" />
     <Content Include="app\widgets\notification-messages\notification-messages.html" />
     <Content Include="app\widgets\notification-messages\notificationMessages.directive.js" />
     <Content Include="app\widgets\notification-messages\notificationMessages.module.js" />
@@ -348,6 +352,8 @@
     <Content Include="Content\main.css" />
     <Content Include="Content\material-design-iconic-font.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
+    <Content Include="Content\ui-grid\ui-grid-unstable.css" />
+    <Content Include="Content\ui-grid\ui-grid.css" />
     <Content Include="Content\ui.css" />
     <Content Include="Content\ui\images\flags-s1545c92c32.png" />
     <Content Include="favicon.ico" />
@@ -381,6 +387,8 @@
     <Content Include="Scripts\angular-ui\angular-filter.js" />
     <Content Include="Scripts\angular-ui\angular-ui-tree.js" />
     <Content Include="Scripts\angular-ui\ngMask.js" />
+    <Content Include="Content\ui-grid\ui-grid.svg" />
+    <Content Include="Scripts\angular-ui\ui-grid\ui-grid-unstable.js" />
     <Content Include="Scripts\angular-ui\ui-utils.js" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-aria.js" />
@@ -423,6 +431,9 @@
     <Content Include="fonts\Material-Design-Iconic-Font.woff" />
     <None Include="Properties\PublishProfiles\Seaman - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\Seaman - Web Deploy.pubxml" />
+    <Content Include="Content\ui-grid\ui-grid.eot" />
+    <Content Include="Content\ui-grid\ui-grid.ttf" />
+    <Content Include="Content\ui-grid\ui-grid.woff" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-2.1.4-vsdoc.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -432,7 +443,12 @@
     <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\lodash.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-range.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\npm.js" />
+    <Content Include="Scripts\pdfmake\pdfmake.js" />
+    <Content Include="Scripts\pdfmake\vfs_fonts.js" />
+    <Content Include="Scripts\spin.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -484,7 +500,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>31729</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:31729/</IISUrl>
+          <IISUrl>http://localhost:31730/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

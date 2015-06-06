@@ -18,7 +18,6 @@
         var getUser = accountPrefix + "/getUser";
         var getProfile = accountPrefix + '/getProfile';
         var user = accountPrefix + "/user";
-        
 
         //Admin
         var adminPrefix = prefix + "/admin";
@@ -31,7 +30,10 @@
         var tank = adminPrefix + "/tank";
         var position = adminPrefix + "/position";
         var location = adminPrefix + "/location";
-
+        //Sample
+        var samplePrefix = prefix + "/sample";
+        var locationAvailable = samplePrefix + "/available";
+        var sample = samplePrefix;
         return {
             ////Account api
             roles: roles,
@@ -51,7 +53,10 @@
             canister: canister,
             tank: tank,
             position: position,
-            location: location
+            location: location,
+            //Sample
+            locationAvailable: locationAvailable,
+            sample: sample
         };
     };
 })();

@@ -93,23 +93,38 @@ namespace Seaman.Web.Controllers
 
         [HttpGet]
         [Route("user")]
-        public List<UserModel> GetUsers()
+        public List<BriefUserModel> GetUsers()
         {
-            return _userManager.GetUsers().ToList();
+            var userId = this.GetUserId();
+            return _userManager.GetUsers().Where(x => x.Id != userId).Select(GetUserModel).ToList();
         }
 
         [HttpPost]
         [Route("user")]
-        public IHttpActionResult AddUser(UserModel model)
+        public IHttpActionResult AddUser(SaveUserModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var auth = this.GetAuthentication();
+            var user = _userManager.FindByName(model.Name) ?? new UserModel()
+            {
+                Id = model.Id,
+                UserName = model.Name
+            };
 
-            var user = _userManager.Add(model);
+            user = user.Id > 0 ? _userManager.Update(user) : _userManager.Add(user);
             _userManager.SetUserPassword(user.Id, model.Password, "plain");
-            return Ok();
+            foreach (var role in model.RolesToAdd)
+            {
+                _userManager.AddRoleToUser(user.Id, role.Id);
+            }
+
+            foreach (var role in model.RolesToRemove)
+            {
+                _userManager.RemoveRoleFromUser(user.Id, role.Id);
+            }
+            user.Password = model.Password;
+            return Ok(GetUserModel(user));
         }
 
         [HttpDelete]
@@ -119,6 +134,13 @@ namespace Seaman.Web.Controllers
             _userManager.Remove(id);
             return Ok();
         }
+
+        [HttpGet]
+        [Route("roles")]
+        public List<RoleModel> GetRoles()
+        {
+            return _userManager.GetRoles().ToList();
+        } 
 
         //// POST api/Account/SetPassword
         //[Route("SetPassword")]
@@ -192,6 +214,17 @@ namespace Seaman.Web.Controllers
                             var name = Enum.GetName(typeof (Roles), it.Id);
                             return name != null ? name.ToLowerInvariant() : null;
                         })
+            };
+        }
+
+        private BriefUserModel GetUserModel(UserModel result)
+        {
+            return new BriefUserModel
+            {
+                Id = result.Id,
+                Name = result.UserName,
+                Password = result.Password,
+                Roles = _userManager.GetUserRoles(result.Id)
             };
         }       
         

@@ -13,7 +13,10 @@ namespace Seaman.Web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/lodash.js",
-                        "~/Scripts/jquery.slimscroll.js"));
+                        "~/Scripts/jquery.slimscroll.js",
+                        "~/Scripts/moment-with-locales.js",
+                        "~/Scripts/moment-range.js",
+                        "~/Scripts/spin.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -30,14 +33,18 @@ namespace Seaman.Web
                       "~/Content/ui-bootstrap-csp.css",
                       "~/Content/ui.css",                      
                       "~/Content/main.css",
+                      "~/Content/ui-grid/ui-grid-unstable.css",
                       "~/Content/Site.css"));
+
+            bundles.Add(new ScriptBundle("~/pdfmake")
+                .IncludeDirectory("~/Scripts/pdfmake/", "*.js"));
 
             bundles.Add(new ScriptBundle("~/angular.core")
                 .Include("~/Scripts/angular/angular.js")
                 .IncludeDirectory("~/Scripts/angular/", "*.js"));
 
             bundles.Add(new ScriptBundle("~/angular.ui")
-                .IncludeDirectory("~/Scripts/angular-ui", "*.js"));
+                .IncludeDirectory("~/Scripts/angular-ui", "*.js", true));
 
             bundles.Add(new ScriptBundle("~/angular.app")
                 .IncludeDirectory("~/app", "*.module.js", true)

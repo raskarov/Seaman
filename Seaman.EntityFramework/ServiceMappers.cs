@@ -1,3 +1,5 @@
+using System;
+using System.Linq;
 using AutoMapper;
 using Seaman.Core;
 using Seaman.Core.Model;
@@ -35,6 +37,16 @@ namespace Seaman.EntityFramework
 
             Mapper.CreateMap<Sample, SampleModel>();
             Mapper.CreateMap<SampleModel, Sample>();
+
+            Mapper.CreateMap<Sample, SampleBriefModel>()
+                .ForMember(it => it.Locations,
+                    ctx => ctx.MapFrom(s => String.Join(", ", s.Locations.Select(l => l.UniqName))))
+                .ForMember(it => it.CollectionMethod, ctx => ctx.MapFrom(s => s.CollectionMethod.Name))
+                .ForMember(it => it.Comment, ctx => ctx.MapFrom(s => s.Comment.Name))
+                .ForMember(it => it.Physician, ctx => ctx.MapFrom(s => s.Physician.Name))
+                .ForMember(it => it.DepositorFullName,
+                    ctx => ctx.ResolveUsing(s => s.DepositorLastName + " " + s.DepositorFirstName));
+                
 
             Mapper.CreateMap<Tank, TankModel>();
             Mapper.CreateMap<TankModel, Tank>();

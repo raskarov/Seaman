@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Seaman.Core;
 
 namespace Seaman.Web.Models
 {
@@ -91,6 +92,4 @@ namespace Seaman.Web.Models
         public String Name { get; set; }
         public IEnumerable<String> Roles{ get; set; }
     }
-
-
 }

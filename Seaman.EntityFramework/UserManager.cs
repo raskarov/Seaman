@@ -69,6 +69,7 @@ namespace Seaman.EntityFramework
             user.UserName = user.UserName.ToLowerInvariant();
             var entity = _context.Users.Find(user.Id);
             Mapper.Map(user, entity);
+            entity.IsDeleted = false;
             Save();
             return Mapper.Map<TUserModel>(entity);
         }
@@ -210,7 +211,7 @@ namespace Seaman.EntityFramework
 
         public override IEnumerable<TUserModel> GetUsers()
         {
-            return Mapper.Map<List<TUserModel>>(_context.Users);
+            return Mapper.Map<List<TUserModel>>(_context.Users.Where(x => !x.IsDeleted));
         }
 
         #endregion

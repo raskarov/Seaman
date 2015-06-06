@@ -9,12 +9,13 @@ namespace Seaman.EntityFramework.Entity
 {
     public class Canister : CanisterBase
     {
-        public virtual ICollection<Location> Locations
+        public virtual Tank Tank { get; set; }
+        public virtual ICollection<Cane> Canes
         {
-            get { return _locations; }
-            set { _locations = value; }
+            get { return _canes; }
+            set { _canes = value; }
         }
 
-        private ICollection<Location> _locations = new HashSet<Location>();
+        private ICollection<Cane> _canes = new HashSet<Cane>();
     }
 }

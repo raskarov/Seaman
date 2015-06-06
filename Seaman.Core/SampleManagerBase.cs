@@ -12,18 +12,20 @@ namespace Seaman.Core
         SampleModel SaveSample(SaveSampleModel model, Int32? byUserId);
         SampleModel GetSample(Int32 id);
         SampleModel GetSample(String uniqLocatonName);
-        PagedResult<SampleModel> GetSamples();
-        PagedResult<SampleModel> GetSamplesByTank(Int32 tankId);
-        PagedResult<SampleModel> GetSamplesByDoctor(Int32 doctorId);
+        PagedResult<SampleBriefModel> GetSamples(PagedQuery query);
+        PagedResult<SampleBriefModel> GetSamplesByTank(Int32 tankId);
+        PagedResult<SampleBriefModel> GetSamplesByDoctor(Int32 doctorId);
         void DeleteSample(Int32 id);
         void DeleteSamples(List<Int32> ids);
 
         List<CaneModel> GetCanes();
-        CaneModel SaveCane(CaneModel cane);
+        List<CaneModel> GetCanes(Int32 canisterId);
+        CaneModel SaveCane(CaneModel cane, Int32 canisterId);
         void DeleteCane(Int32 id);
 
         List<CanisterModel> GetCanisters();
-        CanisterModel SaveCanister(CanisterModel canister);
+        List<CanisterModel> GetCanisters(Int32 tankdId);
+        CanisterModel SaveCanister(CanisterModel canister, Int32 tankId);
         void DeleteCanister(Int32 id);
 
         List<CollectionMethodModel> GetCollectionMethods();
@@ -34,7 +36,7 @@ namespace Seaman.Core
         CommentModel SaveComment(CommentModel comment);
         void DeleteComment(Int32 id);
 
-
+        LocationModel GetLocation(String uniqName);
         List<LocationModel> GetLocations();
         LocationModel SaveLocation(LocationModel location);
         void DeleteLocation(Int32 id);
@@ -48,7 +50,8 @@ namespace Seaman.Core
         void DeleteTank(Int32 id);
 
         List<PositionModel> GetPositions();
-        PositionModel SavePosition(PositionModel tank);
+        List<PositionModel> GetPositions(Int32 caneId);
+        PositionModel SavePosition(PositionModel position, Int32 caneId);
         void DeletePosition(Int32 id);
     }
     public abstract class SampleManagerBase : ISampleManager
@@ -56,16 +59,18 @@ namespace Seaman.Core
         public abstract SampleModel SaveSample(SaveSampleModel model, Int32? byUserId);
         public abstract SampleModel GetSample(int id);
         public abstract SampleModel GetSample(string uniqLocatonName);
-        public abstract PagedResult<SampleModel> GetSamples();
-        public abstract PagedResult<SampleModel> GetSamplesByTank(int tankId);
-        public abstract PagedResult<SampleModel> GetSamplesByDoctor(int doctorId);
+        public abstract PagedResult<SampleBriefModel> GetSamples(PagedQuery query);
+        public abstract PagedResult<SampleBriefModel> GetSamplesByTank(int tankId);
+        public abstract PagedResult<SampleBriefModel> GetSamplesByDoctor(int doctorId);
         public abstract void DeleteSample(int id);
         public abstract void DeleteSamples(List<int> ids);
         public abstract List<CaneModel> GetCanes();
-        public abstract CaneModel SaveCane(CaneModel cane);
+        public abstract List<CaneModel> GetCanes(int canisterId);
+        public abstract CaneModel SaveCane(CaneModel cane, int canisterId);
         public abstract void DeleteCane(int id);
         public abstract List<CanisterModel> GetCanisters();
-        public abstract CanisterModel SaveCanister(CanisterModel canister);
+        public abstract List<CanisterModel> GetCanisters(int tankdId);
+        public abstract CanisterModel SaveCanister(CanisterModel canister, int tankId);
         public abstract void DeleteCanister(int id);
         public abstract List<CollectionMethodModel> GetCollectionMethods();
         public abstract CollectionMethodModel SaveCollectionMethod(CollectionMethodModel collectionMethod);
@@ -73,6 +78,7 @@ namespace Seaman.Core
         public abstract List<CommentModel> GetComments();
         public abstract CommentModel SaveComment(CommentModel comment);
         public abstract void DeleteComment(int id);
+        public abstract LocationModel GetLocation(string uniqName);
         public abstract List<LocationModel> GetLocations();
         public abstract LocationModel SaveLocation(LocationModel location);
         public abstract void DeleteLocation(int id);
@@ -83,7 +89,8 @@ namespace Seaman.Core
         public abstract TankModel SaveTank(TankModel tank);
         public abstract void DeleteTank(int id);
         public abstract List<PositionModel> GetPositions();
-        public abstract PositionModel SavePosition(PositionModel tank);
+        public abstract List<PositionModel> GetPositions(int caneId);
+        public abstract PositionModel SavePosition(PositionModel position, int caneId);
         public abstract void DeletePosition(int id);
     }
 
@@ -114,24 +121,31 @@ namespace Seaman.Core
         public String DirectedDonorId { get; set; }
         public String DirectedDonorLastName { get; set; }
         public String DirectedDonorFirstName { get; set; }
-        public DateTime DirectedDonorDob { get; set; }
+        public DateTime? DirectedDonorDob { get; set; }
 
         public Boolean AnonymousDonor { get; set; }
         public String AnonymousDonorId { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime DateStored { get; set; }
 
         public Int32? PhysicianId { get; set; }
         public Int32? CollectionMethodId { get; set; }
         public Int32? CommentId { get; set; }
 
-        public List<AttachedLocationModel> Locations
+        public List<LocationModel> LocationsToAdd
         {
-            get { return _locations; }
-            set { _locations = value; }
+            get { return _locationsToAdd; }
+            set { _locationsToAdd = value; }
         }
 
-        private List<AttachedLocationModel> _locations = new List<AttachedLocationModel>();
+        public List<LocationModel> LocationsToRemove
+        {
+            get { return _locationsToRemove; }
+            set { _locationsToRemove = value; }
+        }
+
+        private List<LocationModel> _locationsToAdd = new List<LocationModel>();
+        private List<LocationModel> _locationsToRemove = new List<LocationModel>();
     }
 
     public class AttachedLocationModel
@@ -140,6 +154,17 @@ namespace Seaman.Core
         public Int32 CanisterId { get; set; }
         public Int32 CaneId { get; set; }
         public Int32 LocationId { get; set; }
+    }
+
+    public class SampleBriefModel
+    {
+        public Int32 Id { get; set; }
+        public String DepositorFullName { get; set; }
+        public String Locations { get; set; }
+        public String Comment { get; set; }
+        public String Physician { get; set; }
+        public String CollectionMethod { get; set; }
+        public DateTime DateStored { get; set; }
     }
 
     public class SampleModel : SampleBase
@@ -187,10 +212,12 @@ namespace Seaman.Core
         public String DirectedDonorId { get; set; }
         public String DirectedDonorLastName { get; set; }
         public String DirectedDonorFirstName { get; set; }
-        public DateTime DirectedDonorDob { get; set; }
+        public DateTime? DirectedDonorDob { get; set; }
 
         public Boolean AnonymousDonor { get; set; }
         public String AnonymousDonorId { get; set; }
+
+        public DateTime DateStored { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public Int32? CreatedByUserId { get; set; }

@@ -6,6 +6,7 @@
 
     function userService($http, apiList, authService, helper, session, $q) {
         var users = [];
+        var roles = [];
         var service = {
             get: getUser,
             login: loginUser,
@@ -16,6 +17,7 @@
             isAuthenticated: isAuthenticated,
             isAuthorized: isAuthorized,
             getProfile: getProfile,
+            getRoles: getRoles,
             getUsers: getUsers,
             saveUser: saveUser,
             removeUser: removeUser
@@ -37,6 +39,26 @@
                 return user;
             });
         };
+
+        function getRoles() {
+            var deferred = $q.defer();
+            if (roles.length) {
+                deferred.resolve(roles);
+            } else {
+                $http.get(apiList.roles).then(recieved);
+            }
+            return deferred.promise;
+
+            function recieved(data) {
+                data = _.map(data.data, function (item) {
+                    item.title = item.name;
+                    item.name = helper.toCamelCase(item.name);
+                    return item;
+                });
+                roles = data;
+                deferred.resolve(data);
+            }
+        }
 
         function loginUser(userModel) {
             return $http.post(apiList.login, userModel).then(function (res) {
