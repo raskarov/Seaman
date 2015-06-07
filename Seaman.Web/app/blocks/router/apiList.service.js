@@ -30,10 +30,12 @@
         var tank = adminPrefix + "/tank";
         var position = adminPrefix + "/position";
         var location = adminPrefix + "/location";
+        var reason = adminPrefix + "/reason";
         //Sample
         var samplePrefix = prefix + "/sample";
         var locationAvailable = samplePrefix + "/available";
         var sample = samplePrefix;
+        var report = samplePrefix + "/report";
         return {
             ////Account api
             roles: roles,
@@ -54,9 +56,11 @@
             tank: tank,
             position: position,
             location: location,
+            reason: reason,
             //Sample
             locationAvailable: locationAvailable,
-            sample: sample
+            sample: sample,
+            report: report
         };
     };
 })();

@@ -15,7 +15,6 @@ namespace Seaman.EntityFramework.Entity
         public virtual User CreatedByUser { get; set; }
         public virtual User ModifiedByUser { get; set; }
 
-
         public virtual ICollection<Location> Locations
         {
             get { return _locations; }

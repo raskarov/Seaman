@@ -1,0 +1,27 @@
+﻿<md-dialog aria-label="Mango (Fruit)">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Extract Samples</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <md-input-container class="col-md-12">
+                <md-select ng-model="reason" placeholder="Reasons">
+                    <md-option ng-repeat="reason in reasons track by $index" value="{{reason.name}}">{{reason.name}}</md-option>
+                </md-select>
+            </md-input-container>
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <md-button ng-click="extract()" class="md-primary">
+                Extract
+            </md-button>
+            <md-button ng-click="cancel()" class="md-primary">
+                Cancel
+            </md-button>
+        </div>
+    </form>
+    <div class="row" app-print ng-show="false">
+        <div ng-repeat="sample in samples" sample-print></div>
+    </div>
+</md-dialog>

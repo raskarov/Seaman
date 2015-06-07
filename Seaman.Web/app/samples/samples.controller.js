@@ -2,77 +2,39 @@
     angular.module("seaman.samples")
         .controller("SamplesListController", samplesListController);
 
-    samplesListController.$inject = ['$scope', 'uiGridConstants', 'sampleService', '$q'];
+    samplesListController.$inject = ['$scope', 'uiGridConstants', 'sampleService', '$q', '$state', '$mdDialog', "adminService"];
 
-    function samplesListController($scope, uiGridConstants, sampleService, $q) {
+    function samplesListController($scope, uiGridConstants, sampleService, $q, $state, $mdDialog, adminService) {
         var vm = this;
         vm.title = "Samples";
-     
+
+        vm.isRowSelected = isRowSelected;
+        vm.editSample = editSample;
+        vm.newSample = newSample;
+        vm.extract = extractSamples;
+        vm.isRowsSelected = isRowsSelected;
         var paginationOptions = {
             sort: null
         };
 
         $scope.gridOptions = {
-            paginationPageSizes: [25, 50, 75],
-            paginationPageSize: 25,
+            paginationPageSizes: [50, 100, 200],
+            paginationPageSize: 100,
             useExternalPagination: true,
             useExternalSorting: true,
             enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
-            enableGridMenu: true,
             enableFiltering: true,
             enableSorting: false,
             exporterMenuCsv: false,
-            gridMenuCustomItems: [
-            {
-                title: 'Extract',
-                action: function ($event) {
-                    extractSamples(_.filter(this.grid.rows, "isSelected"));
-                },
-                shown: function($event) {
-                    return this.grid.selection.selectedCount > 0;
-                },
-                order: 210
-            }
-            ],
             columnDefs: [
-              { name: 'depositorFullName'},
+              { name: 'depositorFullName' },
+              { name: "depositorDob", type: 'date', cellFilter: 'date:"MM/dd/yyyy"' },
               { name: 'locations' },
               { name: 'comment' },
               { name: 'physician' },
               { name: 'collectionMethod' },
               { name: 'dateStored', type: 'date', cellFilter: 'date:"MM/dd/yyyy"' }
             ],
-            exporterPdfDefaultStyle: { fontSize: 9 },
-            //exporterPdfTableStyle: { margin: [30, 30, 30, 30] },
-            exporterPdfTableHeaderStyle: { fontSize: 10, bold: true, italics: true, color: 'red' },
-            exporterPdfHeader: { text: "Report", style: 'headerStyle' },
-            exporterPdfFooter: function (currentPage, pageCount) {
-                return { text: currentPage.toString() + ' of ' + pageCount.toString(), style: 'footerStyle' };
-            },
-            exporterPdfCustomFormatter: function (docDefinition) {
-                docDefinition.styles.headerStyle = { fontSize: 22, bold: true };
-                docDefinition.styles.footerStyle = { fontSize: 10, bold: true };
-                return docDefinition;
-            },
-            exporterPdfOrientation: 'portrait',
-            exporterPdfPageSize: 'LETTER',
-            exporterPdfMaxGridWidth: 500,
-            exporterCsvLinkElement: angular.element(document.querySelectorAll(".custom-csv-link-location")),
-            exporterFieldCallback: function (grid, row, col, input) {
-                if (col.name === 'dateStored') {
-                    return moment(input).format("MM/DD/YYYY");
-                } else {
-                    return input;
-                }
-            },
-            exporterAllDataFn: function () {
-                return getPage(1, $scope.gridOptions.totalItems, paginationOptions.sort)
-                .then(function () {
-                    $scope.gridOptions.useExternalPagination = false;
-                    $scope.gridOptions.useExternalSorting = false;
-                    getPage = null;
-                });
-            },
             onRegisterApi: function (gridApi) {
                 $scope.gridApi = gridApi;
                 $scope.gridApi.core.on.sortChanged($scope, function (grid, sortColumns) {
@@ -94,7 +56,7 @@
         };
 
         var getPage = function (curPage, pageSize, sort) {
-            return sampleService.getSamples()
+            return sampleService.getSamples(true)
             .then(function (data) {
                 var rows = data.data;
                 var firstRow = (curPage - 1) * pageSize;
@@ -103,18 +65,76 @@
             });
         };
 
-        getPage(1, $scope.gridOptions.paginationPageSize);
+        getPage(1, $scope.gridOptions.paginationPageSize, null, true);
 
-        function extractSamples(samples) {
-            if (!angular.isArray(samples)) return false;
-            var promises = []
-            _.forEach(samples, function(item) {
-                promises.push(sampleService.removeSample(item.entity.id));
-            });
-
-            $q.all(promises).then(function() {
+        function extractSamples(ev) {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: '/app/samples/extract.dialog.html',
+                parent: angular.element(document.body),
+                targetEvent: ev
+            })
+            .then(function (answer) {
+                $scope.gridApi.selection.clearSelectedRows();
                 getPage(1, $scope.gridOptions.paginationPageSize);
+            }, function () {
+
             });
+        }
+
+        function isRowSelected() {
+            return $scope.gridApi.grid.selection.selectedCount === 1;
+        }
+
+        function isRowsSelected() {
+            return $scope.gridApi.grid.selection.selectedCount > 0;
+        }
+
+        function editSample() {
+            var selectedRow = getSelectedRows()[0];
+            $state.go("sample.edit", { id: selectedRow.entity.id });
+        }
+
+        function newSample() {
+            $state.go("sample");
+        }
+
+        function getSelectedRows() {
+            return $scope.gridApi.selection.getSelectedRows();
+        }
+
+        function DialogController($scope, $mdDialog, $timeout) {
+            var samples = getSelectedRows();
+            var ids = _.map(samples, "id");
+            var promises = [];
+            $scope.reasons = [];
+            $scope.reason = {};
+            adminService.getReasons().then(function (data) {
+                $scope.reasons = data;
+            });
+
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+            $scope.extract = function () {
+                sampleService.getSamplesReport(ids).then(function (data) {
+                    data = _.map(data, function (item) {
+                        item.reason = $scope.reason;
+                        return item;
+                    });
+                    $scope.samples = data;
+                    $timeout(function () {
+                        $scope.$root.print();
+                        _.forEach(samples, function (item) {
+                            promises.push(sampleService.removeSample(item.id));
+                        });
+
+                        $q.all(promises).then(function () {
+                            $mdDialog.hide($scope.reason);
+                        });
+                    });
+                });
+            };
         }
     };
 })();

@@ -165,6 +165,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
@@ -195,9 +199,6 @@
     <Reference Include="System.Net.Http">
     </Reference>
     <Reference Include="System.Net.Http.WebRequest">
-    </Reference>
-    <Reference Include="System.Web.Optimization">
-      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -270,6 +271,10 @@
     <Content Include="app\admin\comment\comment.html" />
     <Content Include="app\admin\comment\comment.module.js" />
     <Content Include="app\admin\comment\comment.routes.js" />
+    <Content Include="app\admin\extractReason\extractReason.controller.js" />
+    <Content Include="app\admin\extractReason\extractReason.html" />
+    <Content Include="app\admin\extractReason\extractReason.module.js" />
+    <Content Include="app\admin\extractReason\extractReason.routes.js" />
     <Content Include="app\admin\physician\physician.controller.js" />
     <Content Include="app\admin\physician\physician.html" />
     <Content Include="app\admin\physician\physician.module.js" />
@@ -321,6 +326,10 @@
     <Content Include="app\login\login.routes.js" />
     <Content Include="app\profile\profile.module.js" />
     <Content Include="app\profile\user.service.js" />
+    <Content Include="app\samples\extract.dialog.html" />
+    <Content Include="app\widgets\print\print.directive.js" />
+    <Content Include="app\widgets\print\print.html" />
+    <Content Include="app\widgets\print\print.module.js" />
     <Content Include="app\samples\samples.controller.js" />
     <Content Include="app\samples\samples.html" />
     <Content Include="app\samples\samples.module.js" />
@@ -332,14 +341,13 @@
     <Content Include="app\sample\sample.service.js" />
     <Content Include="app\ui\ui.directive.js" />
     <Content Include="app\ui\ui.module.js" />
-    <Content Include="app\widgets\loader\loader.config.js" />
-    <Content Include="app\widgets\loader\loader.directive.js" />
-    <Content Include="app\widgets\loader\loader.module.js" />
     <Content Include="app\widgets\notification-messages\notification-messages.html" />
     <Content Include="app\widgets\notification-messages\notificationMessages.directive.js" />
     <Content Include="app\widgets\notification-messages\notificationMessages.module.js" />
     <Content Include="app\widgets\passwordVerify\passwordVerify.directive.js" />
     <Content Include="app\widgets\passwordVerify\passwordVerify.module.js" />
+    <Content Include="app\widgets\print\sample.html" />
+    <Content Include="app\widgets\print\report.html" />
     <Content Include="app\widgets\widgets.config.js" />
     <Content Include="app\widgets\widgets.module.js" />
     <Content Include="app\core\application.controller.js" />
@@ -349,6 +357,7 @@
     <Content Include="Content\angular-material\angular-material.min.css" />
     <Content Include="Content\angular-ui-tree.min.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\loading-bar.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\material-design-iconic-font.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
@@ -386,6 +395,7 @@
     <Content Include="images\g1.jpg" />
     <Content Include="Scripts\angular-ui\angular-filter.js" />
     <Content Include="Scripts\angular-ui\angular-ui-tree.js" />
+    <Content Include="Scripts\angular-ui\loading-bar.js" />
     <Content Include="Scripts\angular-ui\ngMask.js" />
     <Content Include="Content\ui-grid\ui-grid.svg" />
     <Content Include="Scripts\angular-ui\ui-grid\ui-grid-unstable.js" />

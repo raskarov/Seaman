@@ -5,19 +5,61 @@
         </div>
         <div class="col-md-12">
             <div class="row">
-                <div class="card bg-white">
-                    <div class="card-content">
-                        <span class="card-title">Tanks</span>
-                        <div>
-                            <span ng-repeat="tank in sc.tanks">{{tank.name}}</span>
-                        </div>
-                        <md-button type="button" class="md-raised md-accent btn-w-md" ng-click="sc.addTank()">Add Tank</md-button>
-                        <md-button type="button" class="md-raised md-accent btn-w-md" ng-click="sc.remove('tank')" ng-show="sc.tanks.length">Remove Tank</md-button>
+                <section class="panel panel-default col-lg-6 col-lg-offset-3">
+                    <div class="panel-body">
+                        <form class="form-inline" role="form" name="sc.tankForm" ng-submit="sc.addTank()" novalidate>
+                            <md-input-container class="col-md-3">
+                                <label>Next letter</label>
+                                <input type="text" ng-disabled="true" class="form-control" name="name" ng-model="sc.tankModel.name">
+                            </md-input-container>
+                            <md-input-container class="col-md-3">
+                                <label>Canisters Count</label>
+                                <input type="text" required mask="6" class="form-control" name="canistersCount" ng-model="sc.tankModel.canistersCount">
+                            </md-input-container>
+                            <md-input-container class="col-md-3">
+                                <label>Canes Count</label>
+                                <input type="text" required mask="999" class="form-control" name="canesCount" ng-model="sc.tankModel.canesCount">
+                            </md-input-container>
+                            <md-input-container class="col-md-3">
+                                <label>Positions Count</label>
+                                <input type="text" required mask="6" class="form-control" name="positionsCount" ng-model="sc.tankModel.positionsCount">
+                            </md-input-container>
+                            <md-button type="submit" class="md-raised md-accent btn-w-md" ng-disabled="sc.physicianForm.$invalid">Save Tank</md-button>
+                        </form>
+
+                    </div>
+                </section>
+            </div>
+            <div class="row">
+                <div class="panel panel-default icon-material col-md-8 col-md-offset-2">
+                    <div class="panel-body">
+                        <table class="table no-margin table-hover">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Canisters Count</th>
+                                <th>Canes Count</th>
+                                <th>Positions Count</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="tank in sc.tanks" ng-click="sc.editTank(tank)">
+                                <td>{{tank.name}}</td>
+                                <td>{{tank.canistersCount}}</td>
+                                <td>{{tank.canesCount}}</td>
+                                <td>{{tank.positionsCount}}</td>
+
+                            </tr>
+
+                            </tbody>
+                        </table>
+                        <md-button type="button" class="md-raised md-accent" ng-click="sc.remove('tank')" ng-show="sc.tanks.length">Remove Last Tank</md-button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-12">
+        <!--<div class="col-md-12">
             <div class="row">
                 <div class="card bg-white">
                     <div class="card-content">
@@ -59,6 +101,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
     </div>
 </div>

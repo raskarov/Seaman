@@ -70,6 +70,29 @@ namespace Seaman.Web.Controllers
         }
 
         [HttpGet]
+        [Route("reason")]
+        public List<ExtractReasonModel> GetReasons()
+        {
+            return SampleManager.GetExtractReasons();
+        }
+
+        [HttpPost]
+        [Route("reason")]
+        public ExtractReasonModel PostReason(ExtractReasonModel model)
+        {
+            if (!ModelState.IsValid)
+                throw new SeamanInvalidModelException();
+            return SampleManager.SaveExtractReason(model);
+        }
+
+        [HttpDelete]
+        [Route("reason/{id:int}")]
+        public void DeleteReason(Int32 id)
+        {
+            SampleManager.DeleteExtractReason(id);
+        }
+
+        [HttpGet]
         [Route("physician")]
         public List<PhysicianModel> GetPhysician()
         {

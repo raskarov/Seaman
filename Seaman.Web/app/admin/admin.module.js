@@ -4,6 +4,7 @@
         "admin.comment",
         "admin.physician",
         "admin.storage",
-        "admin.user"
+        "admin.user",
+        "admin.extractReason"
     ]);
 })();

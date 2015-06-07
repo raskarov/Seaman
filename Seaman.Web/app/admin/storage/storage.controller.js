@@ -8,16 +8,17 @@
         var vm = this;
         vm.title = "Storage";
         vm.tanks = [];
-        vm.canisters = [];
-        vm.canes = [];
-        vm.positions = [];
+        //vm.canisters = [];
+        //vm.canes = [];
+        //vm.positions = [];
         vm.colors = _.toArray(colors);
         vm.letters = consts.alphabet.split("");
-
+        vm.tankModel = {};
         vm.getTanks = getTanks;
-        vm.getCanisters = getCanisters;
-        vm.getCanes = getCanes;
-        vm.getPositions = getPositions;
+        vm.editTank = editTank;
+        //vm.getCanisters = getCanisters;
+        //vm.getCanes = getCanes;
+        //vm.getPositions = getPositions;
 
         vm.addTank = addTank;
         vm.addCanister = addCanister;
@@ -31,47 +32,52 @@
         function activate() {
             getTanks();
 
-            getCanisters();
+            //getCanisters();
 
-            getCanes();
+            //getCanes();
 
-            getPositions();
+            //getPositions();
         };
 
         function getTanks() {
             adminService.getTanks().then(function (data) {
                 vm.tanks = data;
+                var length = vm.tanks.length;
+                if (length >= vm.letters.length) return false;
+                vm.tankModel.name = vm.letters[length].toUpperCase();
             });
         };
 
-        function getCanisters() {
-            adminService.getCanisters().then(function (data) {
-                vm.canisters = data;
-            });
-        }
+        //function getCanisters() {
+        //    adminService.getCanisters().then(function (data) {
+        //        vm.canisters = data;
+        //    });
+        //}
 
-        function getCanes() {
-            adminService.getCanes().then(function (data) {
-                vm.canes = data;
-            });
-        }
+        //function getCanes() {
+        //    adminService.getCanes().then(function (data) {
+        //        vm.canes = data;
+        //    });
+        //}
 
-        function getPositions() {
-            adminService.getPositions().then(function (data) {
-                vm.positions = data;
-            });
-        };
+        //function getPositions() {
+        //    adminService.getPositions().then(function (data) {
+        //        vm.positions = data;
+        //    });
+        //};
 
         function addTank() {
             var length = vm.tanks.length;
             if (length >= vm.letters.length) return false;
-            var model = {
-                name: vm.letters[length].toUpperCase()
-            };
-            
-            adminService.saveTank(model).then(function() {
+            adminService.saveTank(vm.tankModel).then(function () {
+                vm.tankModel = {};
+                vm.tankForm.$setPristine();
                 getTanks();
             });
+        }
+
+        function editTank(tank) {
+            vm.tankModel = tank;
         }
 
         function addCanister() {

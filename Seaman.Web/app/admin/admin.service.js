@@ -12,6 +12,7 @@
         var canisters = [];
         var canes = [];
         var positions = [];
+        var reasons = [];
 
         var service = {
             getCollectionMethods: getCollectionMethods,
@@ -34,7 +35,10 @@
             removeCane: removeCane,
             getPositions: getPositions,
             savePosition: savePosition,
-            removePosition: removePosition
+            removePosition: removePosition,
+            getReasons: getReasons,
+            saveReason: saveReason,
+            removeReason: removeReason
         };
 
         return service;
@@ -344,6 +348,48 @@
 
             function deleted(data) {
                 _.remove(positions, { "id": id });
+            }
+        }
+        
+        function getReasons(reload) {
+            var deferred = $q.defer();
+            if (reasons.length && !reload) {
+                deferred.resolve(reasons);
+            } else {
+                $http.get(apiList.reason).then(recieved);
+            }
+            return deferred.promise;
+
+            function recieved(data) {
+                data = helper.processData(data.data);
+                reasons = data;
+                deferred.resolve(data);
+            };
+        }
+        function saveReason(model) {
+            var deferred = $q.defer();
+            if (!model.id) {
+                model.id = 0;
+            }
+            model = helper.toPascalCase(model);
+            $http.post(apiList.reason, model).then(added);
+            return deferred.promise;
+            function added(data) {
+                data = helper.processData(data.data);
+                var index = _.findIndex(reasons, { "id": data.id });
+                if (index === -1) {
+                    reasons.push(data);
+                } else {
+                    reasons[index] = data;
+                }
+                deferred.resolve(data);
+            }
+        }
+        function removeReason(id) {
+            return $http.delete(apiList.reason + "/" + id).then(deleted);
+
+            function deleted(data) {
+                _.remove(reasons, { "id": id });
             }
         }
     };

@@ -58,7 +58,7 @@
                                     <span class="card-title">Spouse/partner information</span>
                                     <md-input-container>
                                         <label for="partnerLastName">{{sc.sampleField.partnerLastName.title}}</label>
-                                        <input type="text" class="form-control" required id="partnerLastName" name="partnerLastName" ng-model="sc.sampleModel.partnerLastName" />
+                                        <input type="text" class="form-control" id="partnerLastName" name="partnerLastName" ng-model="sc.sampleModel.partnerLastName" />
                                         <div ng-messages="sc.sampleForm.partnerLastName.$error">
                                             <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerLastName.$touched">
                                                 <div ng-message="required">{{sc.sampleField.partnerLastName.message.required}}</div>
@@ -67,7 +67,7 @@
                                     </md-input-container>
                                     <md-input-container>
                                         <label for="partnerFirstName">{{sc.sampleField.partnerFirstName.title}}</label>
-                                        <input type="text" class="form-control" required id="partnerFirstName" name="partnerFirstName" ng-model="sc.sampleModel.partnerFirstName">
+                                        <input type="text" class="form-control" id="partnerFirstName" name="partnerFirstName" ng-model="sc.sampleModel.partnerFirstName">
                                         <div ng-messages="sc.sampleForm.partnerFirstName.$error">
                                             <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerFirstName.$touched">
                                                 <div ng-message="required">{{sc.sampleField.partnerFirstName.message.required}}</div>
@@ -76,7 +76,7 @@
                                     </md-input-container>
                                     <md-input-container>
                                         <label for="partnerDob">{{sc.sampleField.partnerDob.title}}</label>
-                                        <input type="text" class="form-control" required id="partnerDob" name="partnerDob"
+                                        <input type="text" class="form-control" id="partnerDob" name="partnerDob"
                                                ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
                                                mask="19/39/9999"
                                                clearn="true"
@@ -90,7 +90,7 @@
                                     </md-input-container>
                                     <md-input-container>
                                         <label for="partnerSsn">{{sc.sampleField.partnerSsn.title}}</label>
-                                        <input type="text" class="form-control" required id="partnerSsn" name="partnerSsn"
+                                        <input type="text" class="form-control" id="partnerSsn" name="partnerSsn"
                                                ng-model="sc.sampleModel.partnerSsn" mask="999-99-9999" clearn="true">
                                         <div ng-messages="sc.sampleForm.partnerSsn.$error">
                                             <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerSsn.$touched">
@@ -159,7 +159,7 @@
                                     <div class="divider"></div>
                                     <span class="card-title">Third Party</span>
                                     <md-radio-group ng-model="thirdPartyRadio" class="col-md-12">
-                                        <md-radio-button class="col-lg-3 col-md-12 col-lg-offset-1" value="cryobankPurchased">Cryobank Purchased</md-radio-button>
+                                        <md-radio-button class="col-lg-3 col-md-12 col-lg-offset-1" value="cryobankPurchased" >Cryobank Purchased</md-radio-button>
                                         <md-radio-button class="col-lg-3 col-md-12" value="directedDonor">Directed Donor</md-radio-button>
                                         <md-radio-button class="col-lg-3 col-md-12" value="anonymousDonor">Anonymous Donor</md-radio-button>
                                     </md-radio-group>
@@ -274,7 +274,7 @@
                                                     <md-option ng-repeat="position in sc.positions[key]" value="{{position}}">{{position}}</md-option>
                                                 </md-select>
                                             </md-input-container>
-                                            <div class="error location-error col-md-12" ng-show="!sc.locations[key].available && sc.locations[key].id">Selected location has already used</div>
+                                            <div class="error location-error col-md-12" ng-show="!sc.locations[key].available && sc.locations[key].filled">Selected location has already used</div>
                                             <div class="col-md-12">
                                                 <md-button type="button" aria-label="headphones" class="md-raised md-warn btn-w-md" ng-show="key > 0" ng-click="sc.removeLocation($event, key)">
                                                     Remove Location
@@ -289,10 +289,13 @@
                             </div>
                         </div>
                     </div>
-                    <md-button type="button" class="md-raised md-accent btn-w-md pull-right" ng-disabled="!sc.isFormValid()" ng-click="sc.saveSample()">Save</md-button>
+                    <md-button type="button" class="md-raised md-primary btn-w-md pull-right" ng-disabled="!sc.isFormValid()" ng-click="sc.saveSample()">Save</md-button>
                 </form>
             </div>
 
         </div>
     </div>
+</div>
+<div class="row" app-print ng-show="false">
+    <div sample-print></div>
 </div>

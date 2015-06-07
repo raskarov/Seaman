@@ -36,8 +36,9 @@
         function remove(e, id) {
             e.preventDefault();
             e.stopPropagation();
+            
             adminService.removeCollectionMethod(id).then(methodRemoved);
-
+            return false;
             function methodRemoved() {
                 clearForm();
                 activate();

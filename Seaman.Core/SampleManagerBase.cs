@@ -12,6 +12,8 @@ namespace Seaman.Core
         SampleModel SaveSample(SaveSampleModel model, Int32? byUserId);
         SampleModel GetSample(Int32 id);
         SampleModel GetSample(String uniqLocatonName);
+        SampleReportModel GetReportSample(Int32 id);
+        List<SampleReportModel> GetReportSamples(ICollection<Int32> ids);
         PagedResult<SampleBriefModel> GetSamples(PagedQuery query);
         PagedResult<SampleBriefModel> GetSamplesByTank(Int32 tankId);
         PagedResult<SampleBriefModel> GetSamplesByDoctor(Int32 doctorId);
@@ -53,12 +55,18 @@ namespace Seaman.Core
         List<PositionModel> GetPositions(Int32 caneId);
         PositionModel SavePosition(PositionModel position, Int32 caneId);
         void DeletePosition(Int32 id);
+
+        List<ExtractReasonModel> GetExtractReasons();
+        ExtractReasonModel SaveExtractReason(ExtractReasonModel reason);
+        void DeleteExtractReason(Int32 id);
     }
     public abstract class SampleManagerBase : ISampleManager
     {
         public abstract SampleModel SaveSample(SaveSampleModel model, Int32? byUserId);
         public abstract SampleModel GetSample(int id);
         public abstract SampleModel GetSample(string uniqLocatonName);
+        public abstract SampleReportModel GetReportSample(int id);
+        public abstract List<SampleReportModel> GetReportSamples(ICollection<int> ids);
         public abstract PagedResult<SampleBriefModel> GetSamples(PagedQuery query);
         public abstract PagedResult<SampleBriefModel> GetSamplesByTank(int tankId);
         public abstract PagedResult<SampleBriefModel> GetSamplesByDoctor(int doctorId);
@@ -92,6 +100,49 @@ namespace Seaman.Core
         public abstract List<PositionModel> GetPositions(int caneId);
         public abstract PositionModel SavePosition(PositionModel position, int caneId);
         public abstract void DeletePosition(int id);
+        public abstract List<ExtractReasonModel> GetExtractReasons();
+        public abstract ExtractReasonModel SaveExtractReason(ExtractReasonModel reason);
+        public abstract void DeleteExtractReason(int id);
+    }
+
+    public class SampleReportModel
+    {
+        public Int32 Id { get; set; }
+
+        public String DepositorFirstName { get; set; }
+        public String DepositorLastName { get; set; }
+        public String DepositorDob { get; set; }
+        public String DepositorSsn { get; set; }
+        public String PartnerFirstName { get; set; }
+        public String PartnerLastName { get; set; }
+        public String PartnerDob { get; set; }
+        public String PartnerSsn { get; set; }
+
+        public String Autologous { get; set; }
+        public String Refreeze { get; set; }
+        public String TestingOnFile { get; set; }
+
+
+        public Boolean CryobankPurchased { get; set; }
+        public String CryobankName { get; set; }
+        public String CryobankVialId { get; set; }
+
+
+        public Boolean DirectedDonor { get; set; }
+        public String DirectedDonorId { get; set; }
+        public String DirectedDonorLastName { get; set; }
+        public String DirectedDonorFirstName { get; set; }
+        public String DirectedDonorDob { get; set; }
+
+        public Boolean AnonymousDonor { get; set; }
+        public String AnonymousDonorId { get; set; }
+
+        public String DateStored { get; set; }
+
+        public String Physician { get; set; }
+        public String CollectionMethod { get; set; }
+        public String Comment { get; set; }
+        public String Locations { get; set; }
     }
 
     public class SaveSampleModel
@@ -104,7 +155,7 @@ namespace Seaman.Core
         public String DepositorSsn { get; set; }
         public String PartnerFirstName { get; set; }
         public String PartnerLastName { get; set; }
-        public DateTime PartnerDob { get; set; }
+        public DateTime? PartnerDob { get; set; }
         public String PartnerSsn { get; set; }
 
         public Boolean Autologous { get; set; }
@@ -148,18 +199,11 @@ namespace Seaman.Core
         private List<LocationModel> _locationsToRemove = new List<LocationModel>();
     }
 
-    public class AttachedLocationModel
-    {
-        public Int32 TankId { get; set; }
-        public Int32 CanisterId { get; set; }
-        public Int32 CaneId { get; set; }
-        public Int32 LocationId { get; set; }
-    }
-
     public class SampleBriefModel
     {
         public Int32 Id { get; set; }
         public String DepositorFullName { get; set; }
+        public DateTime DepositorDob { get; set; }
         public String Locations { get; set; }
         public String Comment { get; set; }
         public String Physician { get; set; }
@@ -196,7 +240,7 @@ namespace Seaman.Core
         public String DepositorSsn { get; set; }
         public String PartnerFirstName { get; set; }
         public String PartnerLastName { get; set; }
-        public DateTime PartnerDob { get; set; }
+        public DateTime? PartnerDob { get; set; }
         public String PartnerSsn { get; set; }
         public Boolean Autologous { get; set; }
         public Boolean Refreeze { get; set; }

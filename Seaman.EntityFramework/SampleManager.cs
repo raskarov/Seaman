@@ -115,6 +115,23 @@ namespace Seaman.EntityFramework
                     _context.Samples.FirstOrDefault(x => x.Locations.Any(l => l.UniqName == uniqLocatonName)));
         }
 
+        public override SampleReportModel GetReportSample(int id)
+        {
+            return Mapper.Map<SampleReportModel>(_context.Samples.Get(id, "Sample not found"));
+        }
+
+        public override List<SampleReportModel> GetReportSamples(ICollection<int> ids)
+        {
+            if (ids.Any())
+            {
+                return Mapper.Map<List<SampleReportModel>>(_context.Samples.Where(s => ids.Any(id => id == s.Id)));
+            }
+            else
+            {
+                return Mapper.Map<List<SampleReportModel>>(_context.Samples);
+            }
+        }
+
         public override PagedResult<SampleBriefModel> GetSamples(PagedQuery query)
         {
             var samples = _context.Samples.AsQueryable();
@@ -318,6 +335,9 @@ namespace Seaman.EntityFramework
         {
             var exist = tank.Id == 0 ? _context.CreateAndAdd<Tank>() : _context.Tanks.Get(tank.Id, "Location not found");
             exist.Name = tank.Name;
+            exist.CanesCount = tank.CanesCount;
+            exist.CanistersCount = tank.CanistersCount;
+            exist.PositionsCount = tank.PositionsCount;
             _context.SaveChanges();
             return Mapper.Map<TankModel>(exist);
         }
@@ -354,6 +374,26 @@ namespace Seaman.EntityFramework
         {
             var position = _context.Positions.Get(id, "Tank not found");
             _context.Positions.Remove(position);
+            _context.SaveChanges();
+        }
+
+        public override List<ExtractReasonModel> GetExtractReasons()
+        {
+            return Mapper.Map<List<ExtractReasonModel>>(_context.ExtractReasons);
+        }
+
+        public override ExtractReasonModel SaveExtractReason(ExtractReasonModel reason)
+        {
+            var exist = reason.Id == 0 ? _context.CreateAndAdd<ExtractReason>() : _context.ExtractReasons.Get(reason.Id, "Location not found");
+            exist.Name = reason.Name;
+            _context.SaveChanges();
+            return Mapper.Map<ExtractReasonModel>(exist);
+        }
+
+        public override void DeleteExtractReason(int id)
+        {
+            var reason = _context.ExtractReasons.Get(id, "Tank not found");
+            _context.ExtractReasons.Remove(reason);
             _context.SaveChanges();
         }
     }

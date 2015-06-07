@@ -61,6 +61,20 @@ namespace Seaman.Web.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("report/{id:int}")]
+        public SampleReportModel GetReportSample(Int32 id)
+        {
+            return SampleManager.GetReportSample(id);
+        }
+
+        [HttpPost]
+        [Route("report")]
+        public List<SampleReportModel> GetReportSamples(ICollection<Int32> ids)
+        {
+            return SampleManager.GetReportSamples(ids);
+        }
+
         #endregion
         #region Privat
         private readonly Lazy<ISampleManager> _sampleManagerLazy;

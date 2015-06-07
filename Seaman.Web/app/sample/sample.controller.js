@@ -2,9 +2,9 @@
     angular.module("seaman.sample")
         .controller("SampleController", sampleController);
 
-    sampleController.$inject = ["$scope", "validation", "COLORS", "adminService", 'COMMON', 'sampleService'];
+    sampleController.$inject = ["$scope", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state"];
 
-    function sampleController($scope, validation, colors, adminService, consts, sampleService) {
+    function sampleController($scope, validation, colors, adminService, consts, sampleService, $state) {
         var vm = this;
         var letters = angular.copy(consts.alphabet);
         $scope.thirdPartyRadio = "";
@@ -19,10 +19,10 @@
             depositorFirstName: validation.newField('First Name', { required: true }),
             depositorDob: validation.newField('Dob', { required: true, date: true }),
             depositorSsn: validation.newField('Ssn', { required: true }),
-            partnerLastName: validation.newField('Last Name', { required: true }),
-            partnerFirstName: validation.newField('First Name', { required: true }),
-            partnerDob: validation.newField('Dob', { required: true, date: true }),
-            partnerSsn: validation.newField('Ssn', { required: true }),
+            partnerLastName: validation.newField('Last Name', { required: false }),
+            partnerFirstName: validation.newField('First Name', { required: false }),
+            partnerDob: validation.newField('Dob', { required: false, date: true }),
+            partnerSsn: validation.newField('Ssn', { required: false }),
             cryobankName: validation.newField('Cryobank name', { required: true }),
             cryobankVialId: validation.newField('Cryobank’s Vial ID #', { required: true }),
             directedDonorId: validation.newField('Unique donor ID #', { required: true }),
@@ -71,6 +71,26 @@
         activate();
 
         function activate() {
+            if ($state.params && $state.params.id) {
+                sampleService.getSample($state.params.id).then(function (data) {
+                    data.depositorDob = moment(data.depositorDob).format("MM/DD/YYYY");
+                    data.partnerDob = data.partnerDob ? moment(data.partnerDob).format("MM/DD/YYYY") : null;
+                    data.directedDonorDob = data.directedDonorDob ? moment(data.directedDonorDob).format("MM/DD/YYYY") : null;
+                    data.dateStored = data.dateStored ? moment(data.dateStored).format("MM/DD/YYYY") : null;
+                    vm.sampleModel = data;
+                    _.forEach(data.locations, function (item, i) {
+                        vm.locations[i] = item;
+                        onTankChange(i);
+                        vm.canes[i] = {
+                            name: item.cane.substring(0, 1),
+                            color: item.cane.substring(1, item.cane.length)
+                        };
+                    });
+                    activateThirdPartyRadio();
+                    delete vm.sampleModel.locations;
+                });
+            }
+
             adminService.getTanks(true).then(function (data) {
                 vm.tanks = data;
             });
@@ -88,12 +108,26 @@
             });
         }
 
+        function activateThirdPartyRadio() {
+            if (vm.sampleModel.cryobankPurchased) {
+                $scope.thirdPartyRadio = "cryobankPurchased";
+            } else if (vm.sampleModel.directedDonor) {
+                $scope.thirdPartyRadio = "directedDonor";
+            } else if (vm.sampleModel.anonymousDonor) {
+                $scope.thirdPartyRadio = "anonymousDonor";
+            }
+            
+        }
+
         function saveSample() {
             var sample = angular.copy(vm.sampleModel);
             sample.locationsToAdd = _.toArray(vm.locations);
             sample.locationsToRemove = _.toArray(vm.locationsToRemove);
             sampleService.saveSample(sample).then(function(sample) {
                 clearForm();
+                $scope.$root.printSample(sample.id, function() {
+                    $state.go("samples");
+                });
             });
         }
 
@@ -102,10 +136,10 @@
             if (!location || !location.tank || !location.canister || !location.cane || !location.position) return false;
             location.filled = true;
             sampleService.checkLocation(location).then(function (res) {
-                location.available = res.data == null || res.data.available;
                 if (res.data) {
                     angular.extend(location, res.data);
                 }
+                location.available = res.data == null || res.data.available || vm.sampleModel.id && !res.data.available && res.data.sampleId === vm.sampleModel.id;
             });
         }
 
@@ -119,14 +153,14 @@
             if (!tank) return false;
             var i;
             vm.canisters[name] = [];
-            for (i = 0; i < tank.canistersCount; i++) {
+            for (i = 1; i <= tank.canistersCount; i++) {
                 vm.canisters[name].push(i);
             }
 
-            vm.letters[name] = letters.substring(0, tank.canesCount / vm.colors.length).split("");
+            vm.letters[name] = letters.substring(0, tank.canesCount / vm.colors.length).toUpperCase().split("");
 
             vm.positions[name] = [];
-            for (i = 0; i < tank.positionsCount; i++) {
+            for (i = 1; i <= tank.positionsCount; i++) {
                 vm.positions[name].push(i);
             }
         }
@@ -152,8 +186,8 @@
         }
 
         function hasUsedLocations() {
-            return !_.every(vm.locations, function(item) {
-                return item.filled && item.available;
+            return _.some(vm.locations, function(item) {
+                return item.filled && !item.available;
             });
         }
 
@@ -169,7 +203,6 @@
             vm.positions = {};
             vm.letters = {};
             vm.sampleForm.$setPristine();
-            vm.sampleModel.$setUntouched();
         }
     }
 })();

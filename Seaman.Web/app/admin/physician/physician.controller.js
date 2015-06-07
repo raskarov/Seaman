@@ -37,7 +37,7 @@
             e.preventDefault();
             e.stopPropagation();
             adminService.removePhysician(id).then(removed);
-
+            return false;
             function removed() {
                 clearForm();
                 activate();

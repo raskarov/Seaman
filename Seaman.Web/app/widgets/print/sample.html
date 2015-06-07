@@ -1,0 +1,145 @@
+﻿<div class="invoice-inner">
+    <div class="row">
+        <div class="col-xs-6">
+            <p class="size-h1">{{printTitle}}</p>
+        </div>
+    </div>
+    <hr>
+    <div class="divider divider-lg"></div>
+    <div class="col-xs-8">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="bg-dark">
+                    <th class="text-center" colspan="2">Depositor information</th>
+                    <th class="text-center" colspan="2">Spouse/partner information</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">First Name</td>
+                    <td class="text-center">{{sample.depositorLastName}}</td>
+                    <td class="text-center">First Name</td>
+                    <td class="text-center">{{sample.partnerLastName}}</td>
+                </tr>
+                <tr>
+                    <td class="text-center">Last Name</td>
+                    <td class="text-center">{{sample.depositorFirstName}}</td>
+                    <td class="text-center">Last Name</td>
+                    <td class="text-center">{{sample.partnerFirstName}}</td>
+                </tr>
+                <tr>
+                    <td class="text-center">Dob</td>
+                    <td class="text-center">{{sample.depositorDob}}</td>
+                    <td class="text-center">Dob</td>
+                    <td class="text-center">{{sample.partnerDob}}</td>
+                </tr>
+                <tr>
+                    <td class="text-center">SS#</td>
+                    <td class="text-center">{{sample.depositorSsn}}</td>
+                    <td class="text-center">SS#</td>
+                    <td class="text-center">{{sample.partnerSsn}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-4">
+        <table class="table table-bordered table-striped" ng-if="sample.cryobankPurchased">
+            <thead>
+                <tr class="bg-dark">
+                    <th class="text-center" colspan="2">Cryobank Purchased</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">Cryobank name</td>
+                    <td class="text-center">{{sample.cryobankName}}</td>
+                </tr>
+                <tr>
+                    <td class="text-center">Cryobank’s Vial ID #</td>
+                    <td class="text-center">{{sample.cryobankVialId}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped" ng-if="sample.directedDonor">
+            <thead>
+                <tr class="bg-dark">
+                    <th class="text-center" colspan="2">Directed Donor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">Last Name</td>
+                    <td class="text-center">{{sample.directedDonorLastName}}</td>
+                </tr>
+                <tr>
+                    <td class="text-center">First Name</td>
+                    <td class="text-center">{{sample.directedDonorFirstName}}</td>
+                </tr>
+                <tr>
+                    <td class="text-center">Unique donor ID #</td>
+                    <td class="text-center">{{sample.directedDonorId}}</td>
+                </tr>
+                <tr>
+                    <td class="text-center">Dob</td>
+                    <td class="text-center">{{sample.directedDonorDob}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-striped" ng-if="sample.anonymousDonor">
+            <thead>
+                <tr class="bg-dark">
+                    <th class="text-center" colspan="2">Anonymous Donor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">Unique donor ID #</td>
+                </tr>
+                <tr>
+                    <td class="text-center">{{sample.anonymousDonorId}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr class="bg-dark">
+                    <th class="text-center">Locations</th>
+                    <th class="text-center">Method of collection</th>
+                    <th class="text-center">Physician of record</th>
+                    <th class="text-center">Comment / Warning</th>
+                    <th class="text-center">Date stored</th>
+                    <th class="text-center">Autologous</th>
+                    <th class="text-center">CD testing on file</th>
+                    <th class="text-center">Refreeze</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="text-center">{{sample.locations}}</td>
+                    <td class="text-center">{{sample.collectionMethod}}</td>
+                    <td class="text-center">{{sample.physician}}</td>
+                    <td class="text-center">{{sample.comment}}</td>
+                    <td class="text-center">{{sample.dateStored}}</td>
+                    <td class="text-center">{{sample.autologous}}</td>
+                    <td class="text-center">{{sample.testingOnFile}}</td>
+                    <td class="text-center">{{sample.refreeze}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="col-xs-8 text-left">
+        <ul class="list-unstyled" ng-if="sample.reason.length">
+            <li>Reason: {{sample.reason}}</li>
+        </ul>
+    </div>
+    <div class="col-xs-4 text-right">
+        <ul class="list-unstyled">
+            <li>Date: <ins>&emsp;&emsp;&emsp;&emsp;/&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;/{{year}}</ins></li>
+            <li>Signarute: <ins>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</ins></li>
+        </ul>
+    </div>
+
+</div>

@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Linq;
 using AutoMapper;
 using Seaman.Core;
@@ -29,7 +30,8 @@ namespace Seaman.EntityFramework
             Mapper.CreateMap<Comment, CommentModel>();
             Mapper.CreateMap<CommentModel, Comment>();
 
-            Mapper.CreateMap<Location, LocationModel>();
+            Mapper.CreateMap<Location, LocationModel>()
+                .ForMember(l => l.SampleId, ctx => ctx.MapFrom(s => s.Sample.Id));
             Mapper.CreateMap<LocationModel, Location>();
 
             Mapper.CreateMap<Physician, PhysicianModel>();
@@ -46,13 +48,44 @@ namespace Seaman.EntityFramework
                 .ForMember(it => it.Physician, ctx => ctx.MapFrom(s => s.Physician.Name))
                 .ForMember(it => it.DepositorFullName,
                     ctx => ctx.ResolveUsing(s => s.DepositorLastName + " " + s.DepositorFirstName));
-                
+
+
+            Mapper.CreateMap<Sample, SampleReportModel>()
+                .ForMember(it => it.DepositorDob,
+                    ctx => ctx.MapFrom(s => s.DepositorDob.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)))
+                .ForMember(it => it.PartnerDob,
+                    ctx =>
+                        ctx.MapFrom(
+                            s =>
+                                s.PartnerDob.HasValue
+                                    ? s.PartnerDob.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)
+                                    : String.Empty))
+                .ForMember(it => it.DirectedDonorDob,
+                    ctx =>
+                        ctx.MapFrom(
+                            s =>
+                                s.DirectedDonorDob.HasValue
+                                    ? s.DirectedDonorDob.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)
+                                    : String.Empty))
+                .ForMember(it => it.DateStored,
+                    ctx => ctx.MapFrom(s => s.DateStored.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)))
+                .ForMember(it => it.CollectionMethod, ctx => ctx.MapFrom(s => s.CollectionMethod.Name))
+                .ForMember(it => it.Physician, ctx => ctx.MapFrom(s => s.Physician.Name))
+                .ForMember(it => it.Comment, ctx => ctx.MapFrom(s => s.Comment.Name))
+                .ForMember(it => it.Autologous, ctx => ctx.MapFrom(s => s.Autologous ? "Yes" : "No"))
+                .ForMember(it => it.TestingOnFile, ctx => ctx.MapFrom(s => s.TestingOnFile ? "Yes" : "No"))
+                .ForMember(it => it.Refreeze, ctx => ctx.MapFrom(s => s.Refreeze ? "Yes" : "No"))
+                .ForMember(it => it.Locations,
+                    ctx => ctx.MapFrom(s => String.Join(", ", s.Locations.Select(l => l.UniqName))));
 
             Mapper.CreateMap<Tank, TankModel>();
             Mapper.CreateMap<TankModel, Tank>();
 
             Mapper.CreateMap<Position, PositionModel>();
             Mapper.CreateMap<PositionModel, Position>();
+
+            Mapper.CreateMap<ExtractReasonModel, ExtractReason>();
+            Mapper.CreateMap<ExtractReason, ExtractReasonModel>();
         }
 
         public static void Check()

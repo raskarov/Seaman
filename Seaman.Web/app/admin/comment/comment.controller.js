@@ -37,7 +37,7 @@
             e.preventDefault();
             e.stopPropagation();
             adminService.removeComment(id).then(commentRemoved);
-
+            return false;
             function commentRemoved() {
                 clearForm();
                 activate();

@@ -35,13 +35,13 @@
             alphabet: "abcdefghijklmnopqrstuvwxyz"
         })
         .constant("COLORS", {
-            white: "white",
-            blue: "blue",
-            green: "green",
-            black: "black",
-            red: "red",
-            yellow: "yellow",
-            purple: "purple",
-            orange: "orange"
+            white: "White",
+            blue: "Blue",
+            green: "Green",
+            black: "Black",
+            red: "Red",
+            yellow: "Yellow",
+            purple: "Purple",
+            orange: "Orange"
         });
 })();

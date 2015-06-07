@@ -5,14 +5,15 @@
     sampleService.$inject = ['$http', "apiList", 'helper', '$q'];
 
     function sampleService($http, apiList, helper, $q) {
-        var samples = [];
         var pagedSamples = {};
         var service = {
             checkLocation: checkLocation,
             saveSample: saveSample,
             getSamples: getSamples,
             getSample: getSample,
-            removeSample: removeSample
+            removeSample: removeSample,
+            getSampleReport: getSampleReport,
+            getSamplesReport: getSamplesReport
         };
         return service;
 
@@ -33,12 +34,6 @@
             return deferred.promise;
             function success(data) {
                 data = helper.processData(data.data);
-                var index = _.findIndex(samples, { "id": data.id });
-                if (index === -1) {
-                    samples.push(data);
-                } else {
-                    samples[index] = data;
-                }
                 deferred.resolve(data);
             }
         }
@@ -61,29 +56,18 @@
 
         function getSample(id) {
             var deferred = $q.defer();
-            var sample = _.find(samples, { 'id': id });
-            if (sample) {
-                deferred.resolve(sample);
-            } else {
-                $http.get(apiList.sample + "/" + id).success(success);
-            }
+            $http.get(apiList.sample + "/" + id).success(success);
 
             return deferred.promise;
 
             function success(data) {
-                if (data && data.data) {
-                    data = helper.processData(data.data);
-                    deferred.resolve(data);
-                }
+                data = helper.processData(data);
+                deferred.resolve(data);
             };
         }
 
         function removeSample(id) {
-            return $http.delete(apiList.sample + "/" + id).then(deleted);
-
-            function deleted(data) {
-                _.remove(samples, { "id": id });
-            }
+            return $http.delete(apiList.sample + "/" + id);
         }
 
         function getPagingUrl(url, skip, take, sort) {
@@ -92,5 +76,29 @@
             }
             return url;
         };
+
+        function getSampleReport(id) {
+            var deferred = $q.defer();
+
+            $http.get(apiList.report + "/" + id).then(recieved);
+            return deferred.promise;
+            function recieved(data) {
+                data = helper.processData(data.data);
+
+                deferred.resolve(data);
+            }
+        }
+
+        function getSamplesReport(ids) {
+            var deferred = $q.defer();
+
+            $http.post(apiList.report, ids).then(recieved);
+            return deferred.promise;
+
+            function recieved(data) {
+                data = helper.processData(data.data);
+                deferred.resolve(data);
+            }
+        }
     }
 })();

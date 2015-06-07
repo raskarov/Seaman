@@ -9,6 +9,7 @@ namespace Seaman.Web
         {
             BundleTable.EnableOptimizations = false;
             
+            
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
@@ -34,19 +35,20 @@ namespace Seaman.Web
                       "~/Content/ui.css",                      
                       "~/Content/main.css",
                       "~/Content/ui-grid/ui-grid-unstable.css",
+                      "~/Content/loading-bar.css",
                       "~/Content/Site.css"));
 
-            bundles.Add(new ScriptBundle("~/pdfmake")
+            bundles.Add(new ScriptBundle("~/bundles/pdfmake")
                 .IncludeDirectory("~/Scripts/pdfmake/", "*.js"));
 
-            bundles.Add(new ScriptBundle("~/angular.core")
+            bundles.Add(new ScriptBundle("~/bundles/angular.core")
                 .Include("~/Scripts/angular/angular.js")
                 .IncludeDirectory("~/Scripts/angular/", "*.js"));
 
-            bundles.Add(new ScriptBundle("~/angular.ui")
+            bundles.Add(new ScriptBundle("~/bundles/angular.ui")
                 .IncludeDirectory("~/Scripts/angular-ui", "*.js", true));
 
-            bundles.Add(new ScriptBundle("~/angular.app")
+            bundles.Add(new ScriptBundle("~/bundles/angular.app")
                 .IncludeDirectory("~/app", "*.module.js", true)
                 .IncludeDirectory("~/app", "*.js", true));
         }

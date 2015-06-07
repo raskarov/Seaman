@@ -8,7 +8,7 @@ namespace Seaman.Core.Model
 {
     public class LocationModel : LocationBase
     {
-        
+        public Int32 SampleId { get; set; }
     }
 
     public class LocationBase : NamedBase

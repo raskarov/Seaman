@@ -24,7 +24,7 @@
             if (vm.loginForm.$invalid) return false;
             return userService.login(vm.userModel)
                 .then(function (user) {
-                    vm.userModel = {};
+                    
                 });
         };
 
@@ -32,7 +32,7 @@
             if (vm.resetForm.$invalid) return false;
             return userService.reset(vm.resetModel)
                 .then(function (res) {
-                    vm.resetModel = {};
+                    
                 });
         };
 

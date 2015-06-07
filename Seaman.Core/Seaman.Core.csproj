@@ -43,6 +43,7 @@
     <Compile Include="Model\CanisterModel.cs" />
     <Compile Include="Model\CommentModel.cs" />
     <Compile Include="Model\CollectionMethodModel.cs" />
+    <Compile Include="Model\ExtractReasonModel.cs" />
     <Compile Include="Model\NamedBase.cs" />
     <Compile Include="Model\PhysicianModel.cs" />
     <Compile Include="Model\LocationModel.cs" />

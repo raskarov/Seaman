@@ -11,10 +11,12 @@
         'ngMaterial',
         'ngMask',
         'angular.filter',
+        'angular-loading-bar',
         //ui grid
         'ui.grid',
         'ui.grid.pagination',
         'ui.grid.selection',
-        'ui.grid.exporter'
+        'ui.grid.exporter',
+        'ui.grid.autoResize'
     ]);
 })();

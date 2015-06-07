@@ -9,7 +9,6 @@
 
         function getStates() {
             var alias = "/app/samples/";
-            var state = "samples";
             return [
             {
                 state: "samples",
@@ -25,18 +24,7 @@
                         authorizedRoles: [roles.admin, roles.embryologist]
                     }
                 }
-            },
-                {
-                    state: state + ".edit",
-                    config: {
-                        url: '/{id}',
-                        parent: state,
-                        templateUrl: "/app/sample/sample.html",
-                        controller: "SampleController",
-                        controllerAs: 'sc'
-                    }
-                }
-            ];
+            }];
         };
     };
 })();

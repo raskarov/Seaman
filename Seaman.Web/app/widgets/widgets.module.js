@@ -2,7 +2,7 @@
     angular.module("seaman.widgets", [
         "seaman.notificationMessages",
         "seaman.passwordVerify",
-        "seaman.loader",
+        "seaman.print",
         "ui.bootstrap"
     ]);
 })();

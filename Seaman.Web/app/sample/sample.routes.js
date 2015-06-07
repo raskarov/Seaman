@@ -9,10 +9,10 @@
 
         function getStates() {
             var alias = "/app/sample/";
-
+            var state = "sample";
             return [
             {
-                state: "sample",
+                state: state,
                 requireAuth: true,
                 config: {
                     url: "/sample",
@@ -25,7 +25,22 @@
                         authorizedRoles: [roles.admin, roles.embryologist]
                     }
                 }
-            }];
+            },
+            {
+                state: state + ".edit",
+                config: {
+                    url: '/{id}',
+                    parent: state
+                }
+            },
+            {
+                state: state + ".extract",
+                config: {
+                    url: '/{id}?{extract}',
+                    parent: state
+                }
+            }
+            ];
         };
     };
 })();

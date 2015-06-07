@@ -1,7 +1,7 @@
 ﻿<div class="page">
     <div class="row ui-section">
         <div class="col-lg-8 clearfix">
-            <h2 class="section-header">{{pc.title}}</h2>
+            <h2 class="section-header">{{erc.title}}</h2>
         </div>
         <div class="col-md-12">
             <div class="row">
@@ -9,12 +9,12 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-lg-6 col-lg-offset-3">
-                                <form class="form-inline" role="form" name="pc.physicianForm" ng-submit="pc.add()" novalidate>
+                                <form class="form-inline" role="form" name="erc.reasonForm" ng-submit="erc.add()" novalidate>
                                     <md-input-container>
-                                        <label>{{pc.formTitle}}</label>
-                                        <input type="text" required class="form-control" name="name" ng-model="pc.physician.name">
+                                        <label>{{erc.formTitle}}</label>
+                                        <input type="text" required class="form-control" name="name" ng-model="erc.reason.name">
                                     </md-input-container>
-                                    <md-button type="submit" class="md-raised md-accent btn-w-md" ng-disabled="pc.physicianForm.$invalid">Save</md-button>
+                                    <md-button type="submit" class="md-raised md-accent btn-w-md" ng-disabled="erc.reasonForm.$invalid">Save</md-button>
                                 </form>
                             </div>
                         </div>
@@ -25,11 +25,11 @@
                 <div class="panel panel-default icon-material col-md-8 col-md-offset-2">
                     <div class="panel-body">
                         <div class="list-group no-margin">
-                            <h3 ng-if="!pc.physicians.length">No Comments added</h3>
-                            <a href="#" class="list-group-item" ng-repeat="physician in pc.physicians" ng-click="pc.select(physician)">
+                            <h3 ng-if="!erc.reasons.length">No reasons added</h3>
+                            <a href="#" class="list-group-item" ng-repeat="reason in erc.reasons" ng-click="erc.select(reason)">
                                 <p>
-                                    {{physician.name}}
-                                    <md-button type="button" class="md-raised btn-w-md md-primary pull-right" ng-click="pc.remove($event, physician.id)">Delete</md-button>
+                                    {{reason.name}}
+                                    <md-button type="button" class="md-raised btn-w-md md-primary pull-right" ng-click="erc.remove($event, reason.id)">Delete</md-button>
                                 </p>
                             </a>
                         </div>
