@@ -119,7 +119,9 @@
             
         }
 
-        function saveSample() {
+        function saveSample(e) {
+            e.preventDefault();
+            e.stopPropagation();
             var sample = angular.copy(vm.sampleModel);
             sample.locationsToAdd = _.toArray(vm.locations);
             sample.locationsToRemove = _.toArray(vm.locationsToRemove);

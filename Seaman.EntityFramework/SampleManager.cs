@@ -126,10 +126,7 @@ namespace Seaman.EntityFramework
             {
                 return Mapper.Map<List<SampleReportModel>>(_context.Samples.Where(s => ids.Any(id => id == s.Id)));
             }
-            else
-            {
-                return Mapper.Map<List<SampleReportModel>>(_context.Samples);
-            }
+            return Mapper.Map<List<SampleReportModel>>(_context.Samples);
         }
 
         public override PagedResult<SampleBriefModel> GetSamples(PagedQuery query)

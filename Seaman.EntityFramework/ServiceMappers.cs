@@ -76,7 +76,9 @@ namespace Seaman.EntityFramework
                 .ForMember(it => it.TestingOnFile, ctx => ctx.MapFrom(s => s.TestingOnFile ? "Yes" : "No"))
                 .ForMember(it => it.Refreeze, ctx => ctx.MapFrom(s => s.Refreeze ? "Yes" : "No"))
                 .ForMember(it => it.Locations,
-                    ctx => ctx.MapFrom(s => String.Join(", ", s.Locations.Select(l => l.UniqName))));
+                    ctx => ctx.MapFrom(s => String.Join(", ", s.Locations.Select(l => l.UniqName))))
+                .ForMember(it => it.DepositorFullName,
+                    ctx => ctx.ResolveUsing(s => s.DepositorLastName + " " + s.DepositorFirstName));
 
             Mapper.CreateMap<Tank, TankModel>();
             Mapper.CreateMap<TankModel, Tank>();

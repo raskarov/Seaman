@@ -36,6 +36,7 @@ namespace Seaman.Web
                       "~/Content/main.css",
                       "~/Content/ui-grid/ui-grid-unstable.css",
                       "~/Content/loading-bar.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/Site.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/pdfmake")

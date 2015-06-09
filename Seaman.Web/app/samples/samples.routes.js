@@ -21,7 +21,7 @@
                     controller: "SamplesListController",
                     controllerAs: 'slc',
                     data: {
-                        authorizedRoles: [roles.admin, roles.embryologist]
+                        authorizedRoles: _.toArray(roles)
                     }
                 }
             }];

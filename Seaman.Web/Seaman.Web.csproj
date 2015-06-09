@@ -353,10 +353,12 @@
     <Content Include="app\core\application.controller.js" />
     <Content Include="app\core\core.module.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Content\angular-material\angular-material.css" />
     <Content Include="Content\angular-material\angular-material.min.css" />
     <Content Include="Content\angular-ui-tree.min.css" />
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\font-awesome.css" />
     <Content Include="Content\loading-bar.css" />
     <Content Include="Content\main.css" />
     <Content Include="Content\material-design-iconic-font.css" />
@@ -439,6 +441,11 @@
     <Content Include="fonts\Material-Design-Iconic-Font.eot" />
     <Content Include="fonts\Material-Design-Iconic-Font.ttf" />
     <Content Include="fonts\Material-Design-Iconic-Font.woff" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\Seaman - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\Seaman - Web Deploy.pubxml" />
     <Content Include="Content\ui-grid\ui-grid.eot" />

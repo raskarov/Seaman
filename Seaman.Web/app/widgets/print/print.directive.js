@@ -24,7 +24,7 @@
                     originalContents = document.body.innerHTML;
                     popupWin = $window.open();
                     popupWin.document.open();
-                    popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="/Content/main.css" /></head><body onload="window.print()">' + printContents + '</html>');
+                    popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="/Content/main.css" /></head><body>' + printContents + '</html>');
                     popupWin.document.close();
                 }
             }
@@ -48,10 +48,10 @@
             function printSample(id, after) {
                 loadSample(id).then(function() {
                     $timeout(function () {
-                        scope.$root.print();
                         if (angular.isFunction(after)) {
                             after();
                         }
+                        scope.$root.print();
                     });
                 });
             }

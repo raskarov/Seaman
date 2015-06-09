@@ -17,6 +17,8 @@
         'ui.grid.pagination',
         'ui.grid.selection',
         'ui.grid.exporter',
-        'ui.grid.autoResize'
+        'ui.grid.autoResize',
+        'ui.grid.cellNav',
+        'ui.grid.pinning'
     ]);
 })();

@@ -92,7 +92,7 @@
                 if (angular.isString(roles)) {
                     roles = [roles];
                 }
-                return _.where(routes, {'skipInMenu': false });
+                return _.where(routes, {'skipInMenu': false, 'roles': roles });
             }
             return [];
         };

@@ -7,7 +7,7 @@
     function sidebarController($rootScope, $location, routes, session, roles) {
         var vm = this;
         vm.menuItems = [];
-        vm.isAdmin = isAdmin;
+        //vm.isAdmin = isAdmin;
         
         $rootScope.$on('$stateChangeSuccess', function (e, next, current) {
             vm.menuItems = routes.getMenuByRole(session.roles);

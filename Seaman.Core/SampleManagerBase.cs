@@ -108,7 +108,7 @@ namespace Seaman.Core
     public class SampleReportModel
     {
         public Int32 Id { get; set; }
-
+        public String DepositorFullName { get; set; }
         public String DepositorFirstName { get; set; }
         public String DepositorLastName { get; set; }
         public String DepositorDob { get; set; }

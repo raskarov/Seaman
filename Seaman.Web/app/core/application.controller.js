@@ -4,14 +4,13 @@
 
     applicationController.$inject = ["$rootScope", "$scope", "$location", "USER_ROLES", "AUTH_EVENTS", "userService", "routes", "session", "$state"];
 
-    function applicationController($rootScope, $scope, $location, USER_ROLES, AUTH_EVENTS, userService, routes, session, $state) {
+    function applicationController($rootScope, $scope, $location, roles, AUTH_EVENTS, userService, routes, session, $state) {
         var vm = this;
         var stateToReload;
         window.$state = $state;
         vm.isLoading = true;
         $scope.brand = "SEAMAN";
         $rootScope.isLoginPage = isLoginPage();
-        $rootScope.userRoles = USER_ROLES;
         $rootScope.isAuthorized = userService.isAuthorized;
         $rootScope.setCurrentUser = function (user) {
             $rootScope.currentUser = user;
@@ -21,6 +20,22 @@
         $rootScope.$on(AUTH_EVENTS.userReceived, userReceived);
         $rootScope.$on(AUTH_EVENTS.notAuthenticated, notAuthenticated);
         $scope.$on('$stateChangeStart', onStateChangeStart);
+
+        $scope.isAdmin = isAdmin;
+        $scope.isEmbryologist = isEmbryologist;
+        $scope.isReportGenerator = isReportGenerator;
+
+        function isAdmin() {
+            return _.includes(session.roles, roles.admin);
+        }
+
+        function isEmbryologist() {
+            return _.includes(session.roles, roles.embryologist);
+        }
+
+        function isReportGenerator() {
+            return _.includes(session.roles, roles.reportGenerator);
+        }
 
         function isLoginPage(url) {
             url = url || $location.url();

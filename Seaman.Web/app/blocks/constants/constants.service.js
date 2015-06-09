@@ -13,7 +13,7 @@
         .constant('USER_ROLES', {
             admin: 'admin',
             embryologist: 'embryologist',
-            reportGenerator: 'reportGenerator'
+            reportGenerator: 'reportgenerator'
         })
         .constant("ROLE_TITLE", {
             admin: {

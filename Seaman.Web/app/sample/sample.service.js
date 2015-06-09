@@ -6,6 +6,7 @@
 
     function sampleService($http, apiList, helper, $q) {
         var pagedSamples = {};
+        var reportSamples = [];
         var service = {
             checkLocation: checkLocation,
             saveSample: saveSample,
@@ -13,7 +14,8 @@
             getSample: getSample,
             removeSample: removeSample,
             getSampleReport: getSampleReport,
-            getSamplesReport: getSamplesReport
+            getSamplesReport: getSamplesReport,
+            getAllReportSamples: getAllReportSamples
         };
         return service;
 
@@ -97,6 +99,22 @@
 
             function recieved(data) {
                 data = helper.processData(data.data);
+                deferred.resolve(data);
+            }
+        }
+
+        function getAllReportSamples(force) {
+            var deferred = $q.defer();
+            if (reportSamples.length && !force) {
+                deferred.resolve(reportSamples);
+            } else {
+                $http.get(apiList.report).then(recieved);
+            }
+            return deferred.promise;
+
+            function recieved(data) {
+                data = helper.processData(data.data);
+                reportSamples = data;
                 deferred.resolve(data);
             }
         }
