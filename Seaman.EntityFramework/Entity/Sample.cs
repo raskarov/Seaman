@@ -10,7 +10,6 @@ namespace Seaman.EntityFramework.Entity
     public class Sample : SampleBase
     {
         public virtual Physician Physician { get; set; }
-        public virtual CollectionMethod CollectionMethod { get; set; }
         public virtual Comment Comment { get; set; }
         public virtual User CreatedByUser { get; set; }
         public virtual User ModifiedByUser { get; set; }

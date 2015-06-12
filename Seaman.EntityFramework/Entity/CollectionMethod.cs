@@ -9,12 +9,12 @@ namespace Seaman.EntityFramework.Entity
 {
     public class CollectionMethod : CollectionMethodBase
     {
-        public virtual ICollection<Sample> Samples
+        public virtual ICollection<Location> Samples
         {
             get { return _samples; }
             set { _samples = value; }
         }
 
-        private ICollection<Sample> _samples = new HashSet<Sample>();
+        private ICollection<Location> _samples = new HashSet<Location>();
     }
 }

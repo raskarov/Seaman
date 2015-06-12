@@ -1605,7 +1605,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
         // Internal API to maintain the correct ng-invalid-[key] class
         ngModel.$$parserName = 'date';
         ngModel.$validators.date = validator;
-        ngModel.$parsers.unshift(parseDate);
+        //ngModel.$parsers.unshift(parseDate);
         ngModel.$formatters.push(function (value) {
           scope.date = value;
           return ngModel.$isEmpty(value) ? value : dateFilter(value, dateFormat);
@@ -1625,6 +1625,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
         }
         var date = scope.date ? dateFilter(scope.date, dateFormat) : '';
         element.val(date);
+        //ngModel.$setModelValue(date);
         ngModel.$setViewValue(date);
 
         if ( closeOnDateSelection ) {
@@ -1665,9 +1666,13 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
 
       scope.$watch('isOpen', function(value) {
         if (value) {
-          scope.$broadcast('datepicker.focus');
-          scope.position = appendToBody ? $position.offset(element) : $position.position(element);
-          scope.position.top = scope.position.top + element.prop('offsetHeight');
+            scope.$broadcast('datepicker.focus');
+            scope.position = appendToBody ? $position.offset(element) : $position.position(element);
+            scope.position.top = scope.position.top + element.prop('offsetHeight');
+            var innerWidthOver = scope.position.left + 275 - window.innerWidth;
+            var innerHeightOver = scope.position.top + 300 - window.innerHeight - angular.element(window).scrollTop();
+            scope.position.left = innerWidthOver > 0 ? scope.position.left - innerWidthOver : scope.position.left;
+            scope.position.top = innerHeightOver > 0 ? scope.position.top - innerHeightOver : scope.position.top;
 
           $document.bind('click', documentClickBind);
         } else {

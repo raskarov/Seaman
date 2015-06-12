@@ -326,6 +326,7 @@
     <Content Include="app\login\login.routes.js" />
     <Content Include="app\profile\profile.module.js" />
     <Content Include="app\profile\user.service.js" />
+    <Content Include="app\samples\expandableRowTemplate.html" />
     <Content Include="app\samples\extract.dialog.html" />
     <Content Include="app\widgets\print\print.directive.js" />
     <Content Include="app\widgets\print\print.html" />

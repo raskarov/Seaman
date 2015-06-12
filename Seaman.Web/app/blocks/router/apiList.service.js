@@ -36,6 +36,7 @@
         var locationAvailable = samplePrefix + "/available";
         var sample = samplePrefix;
         var report = samplePrefix + "/report";
+        var locations = samplePrefix + "/locations";
         return {
             ////Account api
             roles: roles,
@@ -60,7 +61,8 @@
             //Sample
             locationAvailable: locationAvailable,
             sample: sample,
-            report: report
+            report: report,
+            locations: locations
         };
     };
 })();

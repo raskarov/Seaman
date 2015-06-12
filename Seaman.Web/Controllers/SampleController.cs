@@ -80,7 +80,22 @@ namespace Seaman.Web.Controllers
         public List<SampleReportModel> GetAllReportSamples()
         {
             return SampleManager.GetReportSamples(new List<Int32>());
-        } 
+        }
+
+        [HttpGet]
+        [Route("locations/{id:int}")]
+        public List<LocationBriefModel> GetLocations(Int32 id)
+        {
+            return SampleManager.GetLocations(id);
+        }
+
+        [HttpDelete]
+        [Route("locations/{id:int}")]
+        public IHttpActionResult RemoveLocation(Int32 id)
+        {
+            SampleManager.DeleteLocation(id);
+            return Ok();
+        }
 
         #endregion
         #region Privat

@@ -2,15 +2,16 @@
     angular.module("seaman.sample")
         .controller("SampleController", sampleController);
 
-    sampleController.$inject = ["$scope", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state"];
+    sampleController.$inject = ["$scope", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state", "$timeout"];
 
-    function sampleController($scope, validation, colors, adminService, consts, sampleService, $state) {
+    function sampleController($scope, validation, colors, adminService, consts, sampleService, $state, $timeout) {
         var vm = this;
         var letters = angular.copy(consts.alphabet);
-        $scope.thirdPartyRadio = "";
         vm.title = "Sample";
         vm.sampleModel = { dateStored: moment().format("MM/DD/YYYY") };
-        vm.locations = { 0: {} };
+        vm.locations = { 0: {
+            dateStored: moment().format("MM/DD/YYYY")
+        } };
         vm.locationsToRemove = [];
         vm.processCane = processCane;
         vm.colors = _.toArray(colors);
@@ -41,14 +42,6 @@
             comment: validation.newField('Comment / Warning', { requiredSelect: true })
         };
 
-
-        $scope.$watch("thirdPartyRadio", function (value) {
-            vm.sampleModel.cryobankPurchased = false;
-            vm.sampleModel.directedDonor = false;
-            vm.sampleModel.anonymousDonor = false;
-            vm.sampleModel[value] = true;
-        });
-
         vm.tanks = [];
         vm.canisters = {};
         vm.canes = {};
@@ -64,6 +57,15 @@
         vm.physicians = [];
         vm.comments = [];
 
+        vm.depositorDatepickerOpened = false;
+        vm.openDepositorDatepicker = openDepositorDatepicker;
+        vm.partnerDatepickerOpened = false;
+        vm.openPartnerDatepicker = openPartnerDatepicker;
+        vm.dateStoredDatepickerOpened = false;
+        vm.openDateStoredDatepicker = openDateStoredDatepicker;
+        vm.directedDonorDatepickerOpened = false;
+        vm.openDirectedDonorDatepicker = openDirectedDonorDatepicker;
+
         vm.onStorageChange = onStorageChange;
         vm.onTankChange = onTankChange;
         vm.isFormValid = isFormValid;
@@ -76,17 +78,17 @@
                     data.depositorDob = moment(data.depositorDob).format("MM/DD/YYYY");
                     data.partnerDob = data.partnerDob ? moment(data.partnerDob).format("MM/DD/YYYY") : null;
                     data.directedDonorDob = data.directedDonorDob ? moment(data.directedDonorDob).format("MM/DD/YYYY") : null;
-                    data.dateStored = data.dateStored ? moment(data.dateStored).format("MM/DD/YYYY") : null;
                     vm.sampleModel = data;
                     _.forEach(data.locations, function (item, i) {
+                        item.dateStored = item.dateStored ? moment(item.dateStored).format("MM/DD/YYYY") : null;
                         vm.locations[i] = item;
                         onTankChange(i);
                         vm.canes[i] = {
                             name: item.cane.substring(0, 1),
                             color: item.cane.substring(1, item.cane.length)
                         };
+
                     });
-                    activateThirdPartyRadio();
                     delete vm.sampleModel.locations;
                 });
             }
@@ -108,15 +110,28 @@
             });
         }
 
-        function activateThirdPartyRadio() {
-            if (vm.sampleModel.cryobankPurchased) {
-                $scope.thirdPartyRadio = "cryobankPurchased";
-            } else if (vm.sampleModel.directedDonor) {
-                $scope.thirdPartyRadio = "directedDonor";
-            } else if (vm.sampleModel.anonymousDonor) {
-                $scope.thirdPartyRadio = "anonymousDonor";
-            }
-            
+        function openDepositorDatepicker(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            vm.depositorDatepickerOpened = true;
+        }
+
+        function openPartnerDatepicker(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            vm.partnerDatepickerOpened = true;
+        }
+
+        function openDateStoredDatepicker(e, key) {
+            e.preventDefault();
+            e.stopPropagation();
+            vm['dateStoredDatepickerOpened' + key] = true;
+        }
+
+        function openDirectedDonorDatepicker(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            vm.directedDonorDatepickerOpened = true;
         }
 
         function saveSample(e) {
@@ -127,8 +142,13 @@
             sample.locationsToRemove = _.toArray(vm.locationsToRemove);
             sampleService.saveSample(sample).then(function(sample) {
                 clearForm();
-                $scope.$root.printSample(sample.id, function() {
-                    $state.go("samples");
+                sampleService.getSampleReport(sample.id).then(function(data) {
+                    $scope.sample = data;
+                    $timeout(function() {
+                        $scope.$root.print();
+                        $scope.sample = {};
+                        $state.go("samples");
+                    });
                 });
             });
         }
@@ -138,9 +158,6 @@
             if (!location || !location.tank || !location.canister || !location.cane || !location.position) return false;
             location.filled = true;
             sampleService.checkLocation(location).then(function (res) {
-                if (res.data) {
-                    angular.extend(location, res.data);
-                }
                 location.available = res.data == null || res.data.available || vm.sampleModel.id && !res.data.available && res.data.sampleId === vm.sampleModel.id;
             });
         }
@@ -176,7 +193,9 @@
             e.preventDefault();
             e.stopPropagation();
             var locationLength = _.toArray(vm.locations).length;
-            vm.locations[locationLength] = {};
+            vm.locations[locationLength] = {
+                dateStored: moment().format("MM/DD/YYYY")
+            };
         }
 
         function removeLocation(e, name) {

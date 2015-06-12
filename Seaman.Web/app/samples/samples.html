@@ -12,7 +12,7 @@
                     </md-button>
                     <md-button type="button" class="md-raised md-primary btn-w-md" ng-disabled="!slc.isRowSelected()" ng-click="slc.editSample()">Edit Sample</md-button>
                     <md-button type="button" class="md-raised md-primary btn-w-md" ng-click="slc.newSample()">Add Sample</md-button>
-                    <md-button type="button" class="md-raised md-primary btn-w-md" ng-disabled="!slc.isRowsSelected()" ng-click="slc.extract()">Extract</md-button>
+                    <md-button type="button" class="md-raised md-primary btn-w-md" ng-disabled="!slc.isSubRowsSelected" ng-click="slc.extract()">Extract</md-button>
                 </div>
             </div>
             <div class="row well-lg" ng-if="isReportGenerator()">
@@ -25,10 +25,10 @@
             </div>
             </div>
         <div class="col-md-12 clearfix">
-            <div ui-grid="gridOptions" ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-cellnav ui-grid-pinning></div>
+            <div ui-grid="gridOptions" ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-cellnav ui-grid-pinning ui-grid-expandable></div>
         </div>
     </div>
 </div>
 <div class="row" app-print ng-show="false">
-    <div sample-print></div>
+    <div sample-print="sample"></div>
 </div>

@@ -6,3 +6,7 @@
 .error.location-error {
     color: rgb(244,67,54);
 }
+
+.no-margin-top {
+    margin-top: 1px !important;
+}

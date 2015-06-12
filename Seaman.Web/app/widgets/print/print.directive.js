@@ -35,13 +35,15 @@
         return {
             restrict: "AE",
             replace: true,
-            scope: false,
+            scope: {
+                sample: "=samplePrint"
+            },
             templateUrl: "/app/widgets/print/sample.html",
             link: link
         };
 
         function link(scope, element, attrs) {
-            scope.printTitle = "Receipt";
+            scope.printTitle = scope.sample && scope.sample.printTitle || "Receipt";
             scope.year = new Date().getFullYear();
 
             $rootScope.printSample = printSample;
@@ -52,7 +54,7 @@
                             after();
                         }
                         scope.$root.print();
-                    });
+                    }, 200);
                 });
             }
 

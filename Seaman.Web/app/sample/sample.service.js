@@ -15,7 +15,9 @@
             removeSample: removeSample,
             getSampleReport: getSampleReport,
             getSamplesReport: getSamplesReport,
-            getAllReportSamples: getAllReportSamples
+            getAllReportSamples: getAllReportSamples,
+            getSampleLocations: getSampleLocations,
+            removeLocation: removeLocation
         };
         return service;
 
@@ -117,6 +119,21 @@
                 reportSamples = data;
                 deferred.resolve(data);
             }
+        }
+
+        function getSampleLocations(sampleId) {
+            var deferred = $q.defer();
+            $http.get(apiList.locations + "/" + sampleId).then(recieved);
+            return deferred.promise;
+
+            function recieved(data) {
+                data = helper.processData(data.data);
+                deferred.resolve(data);
+            }
+        }
+
+        function removeLocation(id) {
+            return $http.delete(apiList.locations + "/" + id);
         }
     }
 })();

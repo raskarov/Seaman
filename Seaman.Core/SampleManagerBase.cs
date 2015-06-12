@@ -40,6 +40,7 @@ namespace Seaman.Core
 
         LocationModel GetLocation(String uniqName);
         List<LocationModel> GetLocations();
+        List<LocationBriefModel> GetLocations(Int32 sampleId);
         LocationModel SaveLocation(LocationModel location);
         void DeleteLocation(Int32 id);
 
@@ -88,6 +89,7 @@ namespace Seaman.Core
         public abstract void DeleteComment(int id);
         public abstract LocationModel GetLocation(string uniqName);
         public abstract List<LocationModel> GetLocations();
+        public abstract List<LocationBriefModel> GetLocations(int sampleId);
         public abstract LocationModel SaveLocation(LocationModel location);
         public abstract void DeleteLocation(int id);
         public abstract List<PhysicianModel> GetPhysicians();
@@ -137,12 +139,15 @@ namespace Seaman.Core
         public Boolean AnonymousDonor { get; set; }
         public String AnonymousDonorId { get; set; }
 
-        public String DateStored { get; set; }
-
         public String Physician { get; set; }
-        public String CollectionMethod { get; set; }
         public String Comment { get; set; }
-        public String Locations { get; set; }
+        public List<LocationBriefModel> Locations
+        {
+            get { return _locations; }
+            set { _locations = value; }
+        }
+
+        private List<LocationBriefModel> _locations = new List<LocationBriefModel>();
     }
 
     public class SaveSampleModel
@@ -176,11 +181,9 @@ namespace Seaman.Core
 
         public Boolean AnonymousDonor { get; set; }
         public String AnonymousDonorId { get; set; }
-
-        public DateTime DateStored { get; set; }
+        
 
         public Int32? PhysicianId { get; set; }
-        public Int32? CollectionMethodId { get; set; }
         public Int32? CommentId { get; set; }
 
         public List<LocationModel> LocationsToAdd
@@ -204,11 +207,8 @@ namespace Seaman.Core
         public Int32 Id { get; set; }
         public String DepositorFullName { get; set; }
         public DateTime DepositorDob { get; set; }
-        public String Locations { get; set; }
         public String Comment { get; set; }
         public String Physician { get; set; }
-        public String CollectionMethod { get; set; }
-        public DateTime DateStored { get; set; }
     }
 
     public class SampleModel : SampleBase
@@ -218,7 +218,6 @@ namespace Seaman.Core
             get { return _locations; }
             set { _locations = value; }
         }
-
 
         private List<LocationModel> _locations = new List<LocationModel>();
     }
@@ -261,14 +260,14 @@ namespace Seaman.Core
         public Boolean AnonymousDonor { get; set; }
         public String AnonymousDonorId { get; set; }
 
-        public DateTime DateStored { get; set; }
+        
 
         public DateTime CreatedDate { get; set; }
         public Int32? CreatedByUserId { get; set; }
         public DateTime ModifiedDate { get; set; }
         public Int32? ModifiedByUserId { get; set; }
         public Int32? PhysicianId { get; set; }
-        public Int32? CollectionMethodId { get; set; }
+        
         public Int32? CommentId { get; set; }
     }
 }

@@ -36,7 +36,6 @@ namespace Seaman.EntityFramework
 
             sample.ModifiedByUserId = byUserId;
             sample.PhysicianId = model.PhysicianId;
-            sample.CollectionMethodId = model.CollectionMethodId;
             sample.CommentId = model.CommentId;
 
             sample.AnonymousDonor = model.AnonymousDonor;
@@ -62,8 +61,6 @@ namespace Seaman.EntityFramework
             sample.PartnerDob = model.PartnerDob;
             sample.PartnerSsn = model.PartnerSsn;
 
-            sample.DateStored = model.DateStored;
-
             sample.Autologous = model.Autologous;
             sample.TestingOnFile = model.TestingOnFile;
             sample.Refreeze = model.Refreeze;
@@ -74,11 +71,16 @@ namespace Seaman.EntityFramework
                 if (locationToAdd.Id == 0)
                 {
                     location = _context.CreateAndAdd<Location>();
+                    _context.SaveChanges();
                 }
                 else
                 {
                     location = _context.Locations.Get(locationToAdd.Id, "location not found");
-                    if (location == null) continue;
+                }
+                if (location.Extracted)
+                {
+                    location = _context.CreateAndAdd<Location>();
+                    _context.SaveChanges();
                 }
                 if(sample.Locations.Any(l => l.Id == location.Id))
                     continue;
@@ -87,16 +89,17 @@ namespace Seaman.EntityFramework
                 location.Canister = locationToAdd.Canister;
                 location.Cane = locationToAdd.Cane;
                 location.Position = locationToAdd.Position;
+                location.DateStored = locationToAdd.DateStored;
+                location.CollectionMethodId = locationToAdd.CollectionMethodId;
                 location.Available = false;
                 location.UniqName = location.Tank + location.Canister + location.Cane + location.Position;
+                
             }
             foreach (var locationToRemove in model.LocationsToRemove)
             {
                 var location = _context.Locations.Get(locationToRemove.Id, "location not found");
-                if (sample.Locations.Any(x => x.Id == location.Id))
-                {
-                    sample.Locations.Remove(location);
-                }
+                location.Extracted = true;
+                location.Available = true;
             }
 
             _context.SaveChanges();
@@ -122,11 +125,7 @@ namespace Seaman.EntityFramework
 
         public override List<SampleReportModel> GetReportSamples(ICollection<int> ids)
         {
-            if (ids.Any())
-            {
-                return Mapper.Map<List<SampleReportModel>>(_context.Samples.Where(s => ids.Any(id => id == s.Id)));
-            }
-            return Mapper.Map<List<SampleReportModel>>(_context.Samples);
+            return Mapper.Map<List<SampleReportModel>>(ids.Any() ? _context.Samples.Where(s => ids.Any(id => id == s.Id)) : _context.Samples);
         }
 
         public override PagedResult<SampleBriefModel> GetSamples(PagedQuery query)
@@ -253,6 +252,10 @@ namespace Seaman.EntityFramework
         public override void DeleteCollectionMethod(int id)
         {
             var collectionMethod = _context.CollectionMethods.Get(id, "Collection method not found");
+            foreach (var sample in collectionMethod.Samples)
+            {
+                sample.CollectionMethod = null;
+            }
             _context.CollectionMethods.Remove(collectionMethod);
             _context.SaveChanges();
         }
@@ -273,6 +276,10 @@ namespace Seaman.EntityFramework
         public override void DeleteComment(int id)
         {
             var comment = _context.Comments.Get(id, "Comment not found");
+            foreach (var sample in comment.Samples)
+            {
+                sample.Comment = null;
+            }
             _context.Comments.Remove(comment);
             _context.SaveChanges();
         }
@@ -288,6 +295,11 @@ namespace Seaman.EntityFramework
             return Mapper.Map<List<LocationModel>>(_context.Locations);
         }
 
+        public override List<LocationBriefModel> GetLocations(int sampleId)
+        {
+            return Mapper.Map<List<LocationBriefModel>>(_context.Locations.Where(l => l.Sample.Id == sampleId));
+        }
+
         public override LocationModel SaveLocation(LocationModel location)
         {
             var exist = location.Id == 0 ? _context.CreateAndAdd<Location>() : _context.Locations.Get(location.Id, "Location not found");
@@ -299,7 +311,9 @@ namespace Seaman.EntityFramework
         public override void DeleteLocation(int id)
         {
             var location = _context.Locations.Get(id, "Location not found");
-            _context.Locations.Remove(location);
+            location.Extracted = true;
+            location.Available = true;
+            location.CollectionMethodId = null;
             _context.SaveChanges();
         }
 
@@ -319,6 +333,10 @@ namespace Seaman.EntityFramework
         public override void DeletePhysician(int id)
         {
             var physician = _context.Physicians.Get(id, "Physician not found");
+            foreach (var sample in physician.Samples)
+            {
+                sample.Physician = null;
+            }
             _context.Physicians.Remove(physician);
             _context.SaveChanges();
         }

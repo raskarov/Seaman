@@ -19,6 +19,6 @@
         'ui.grid.exporter',
         'ui.grid.autoResize',
         'ui.grid.cellNav',
-        'ui.grid.pinning'
+        'ui.grid.expandable'
     ]);
 })();

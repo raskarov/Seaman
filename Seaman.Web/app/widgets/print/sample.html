@@ -104,27 +104,39 @@
     <div class="col-xs-12">
         <table class="table table-bordered table-striped">
             <thead>
+            <tr class="bg-dark">
+                <th class="text-center">Physician of record</th>
+                <th class="text-center">Comment / Warning</th>
+                <th class="text-center">Autologous</th>
+                <th class="text-center">CD testing on file</th>
+                <th class="text-center">Refreeze</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="text-center">{{sample.physician}}</td>
+                <td class="text-center">{{sample.comment}}</td>
+                <td class="text-center">{{sample.autologous}}</td>
+                <td class="text-center">{{sample.testingOnFile}}</td>
+                <td class="text-center">{{sample.refreeze}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-xs-12">
+        <table class="table table-bordered table-striped">
+            <thead>
                 <tr class="bg-dark">
-                    <th class="text-center">Locations</th>
-                    <th class="text-center">Method of collection</th>
-                    <th class="text-center">Physician of record</th>
-                    <th class="text-center">Comment / Warning</th>
+                    <th class="text-center">Uniq Name</th>
+                    <th class="text-center">Collection Method</th>
                     <th class="text-center">Date stored</th>
-                    <th class="text-center">Autologous</th>
-                    <th class="text-center">CD testing on file</th>
-                    <th class="text-center">Refreeze</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="text-center">{{sample.locations}}</td>
-                    <td class="text-center">{{sample.collectionMethod}}</td>
-                    <td class="text-center">{{sample.physician}}</td>
-                    <td class="text-center">{{sample.comment}}</td>
-                    <td class="text-center">{{sample.dateStored}}</td>
-                    <td class="text-center">{{sample.autologous}}</td>
-                    <td class="text-center">{{sample.testingOnFile}}</td>
-                    <td class="text-center">{{sample.refreeze}}</td>
+                <tr ng-repeat="location in sample.locations">
+                    <td class="text-center">{{location.uniqName}}</td>
+                    <td class="text-center">{{location.collectionMethod}}</td>
+                    <td class="text-center">{{location.dateStored}}</td>
                 </tr>
             </tbody>
         </table>
