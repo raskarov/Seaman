@@ -68,7 +68,7 @@ namespace Seaman.EntityFramework
         {
             user.UserName = user.UserName.ToLowerInvariant();
             var entity = _context.Users.Find(user.Id);
-            Mapper.Map(user, entity);
+            entity = Mapper.Map(user, entity);
             entity.IsDeleted = false;
             Save();
             return Mapper.Map<TUserModel>(entity);

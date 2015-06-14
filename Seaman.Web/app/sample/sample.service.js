@@ -14,10 +14,11 @@
             getSample: getSample,
             removeSample: removeSample,
             getSampleReport: getSampleReport,
-            getSamplesReport: getSamplesReport,
             getAllReportSamples: getAllReportSamples,
             getSampleLocations: getSampleLocations,
-            removeLocation: removeLocation
+            removeLocation: removeLocation,
+            generateReport: generateReport,
+            generateRandomReport: generateRandomReport
         };
         return service;
 
@@ -93,18 +94,6 @@
             }
         }
 
-        function getSamplesReport(ids) {
-            var deferred = $q.defer();
-
-            $http.post(apiList.report, ids).then(recieved);
-            return deferred.promise;
-
-            function recieved(data) {
-                data = helper.processData(data.data);
-                deferred.resolve(data);
-            }
-        }
-
         function getAllReportSamples(force) {
             var deferred = $q.defer();
             if (reportSamples.length && !force) {
@@ -134,6 +123,29 @@
 
         function removeLocation(id) {
             return $http.delete(apiList.locations + "/" + id);
+        }
+
+        function generateReport(model) {
+            var deferred = $q.defer();
+            model = helper.toPascalCase(model);
+
+            $http.post(apiList.report, model).then(recieved);
+            return deferred.promise;
+            function recieved(data) {
+                data = helper.processData(data.data);
+                deferred.resolve(data);
+            }
+        }
+
+        function generateRandomReport(count) {
+            var deferred = $q.defer();
+            count = count || 10;
+            $http.get(apiList.random + "/" + count).then(recieved);
+            return deferred.promise;
+            function recieved(data) {
+                data = helper.processData(data.data);
+                deferred.resolve(data);
+            }
         }
     }
 })();

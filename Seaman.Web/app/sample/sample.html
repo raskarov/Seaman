@@ -278,31 +278,31 @@
                         </div>
                         <div class="panel-body">
                             <div class="row well well-sm" ng-repeat="(key, value) in sc.locations">
-                                <md-input-container class="col-md-1">
-                                    <md-select ng-model="sc.locations[key].tank" placeholder="Tank" ng-change="sc.onTankChange(key)">
-                                        <md-option ng-repeat="tank in sc.tanks" value="{{tank.name}}">{{tank.name}}</md-option>
-                                    </md-select>
-                                </md-input-container>
-                                <md-input-container class="col-md-1">
-                                    <md-select ng-model="sc.locations[key].canister" placeholder="Canister" ng-change="sc.onStorageChange(key)">
-                                        <md-option ng-repeat="canister in sc.canisters[key]" value="{{canister}}">{{canister}}</md-option>
-                                    </md-select>
-                                </md-input-container>
-                                <md-input-container class="col-md-1">
-                                    <md-select ng-model="sc.canes[key].name" placeholder="Cane" ng-change="sc.processCane(key); sc.onStorageChange(key)">
-                                        <md-option ng-repeat="letter in sc.letters[key]" value="{{letter}}">{{letter}}</md-option>
-                                    </md-select>
-                                </md-input-container>
-                                <md-input-container class="col-md-1">
-                                    <md-select ng-model="sc.canes[key].color" placeholder="Color" ng-change="sc.processCane(key); sc.onStorageChange(key)">
-                                        <md-option ng-repeat="color in sc.colors" value="{{color}}">{{color}}</md-option>
-                                    </md-select>
-                                </md-input-container>
-                                <md-input-container class="col-md-1">
-                                    <md-select ng-model="sc.locations[key].position" placeholder="Position" ng-change="sc.onStorageChange(key)">
-                                        <md-option ng-repeat="position in sc.positions[key]" value="{{position}}">{{position}}</md-option>
-                                    </md-select>
-                                </md-input-container>
+
+                                <md-select ng-model="sc.locations[key].tank" placeholder="Tank" ng-change="sc.onTankChange(key)" class="col-md-1">
+                                    <md-option ng-repeat="tank in sc.tanks" value="{{tank.name}}">{{tank.name}}</md-option>
+                                </md-select>
+
+
+                                <md-select ng-model="sc.locations[key].canister" placeholder="Canister" ng-change="sc.onStorageChange(key)" class="col-md-1">
+                                    <md-option ng-repeat="canister in sc.canisters[key]" value="{{canister}}">{{canister}}</md-option>
+                                </md-select>
+
+
+                                <md-select ng-model="sc.canes[key].name" placeholder="Cane" ng-change="sc.processCane(key); sc.onStorageChange(key)" class="col-md-1">
+                                    <md-option ng-repeat="letter in sc.letters[key]" value="{{letter}}">{{letter}}</md-option>
+                                </md-select>
+
+
+                                <md-select ng-model="sc.canes[key].color" placeholder="Color" ng-change="sc.processCane(key); sc.onStorageChange(key)" class="col-md-1">
+                                    <md-option ng-repeat="color in sc.colors" value="{{color}}">{{color}}</md-option>
+                                </md-select>
+
+
+                                <md-select ng-model="sc.locations[key].position" placeholder="Position" ng-change="sc.onStorageChange(key)" class="col-md-1">
+                                    <md-option ng-repeat="position in sc.positions[key]" value="{{position}}">{{position}}</md-option>
+                                </md-select>
+
                                 <md-input-container class="col-md-2">
                                     <div class="input-group ui-datepicker">
                                         <label for="{{'dateStored' + key}}">{{sc.sampleField.dateStored.title}}</label>
@@ -317,14 +317,18 @@
                                         </span>
                                     </div>
                                 </md-input-container>
-                                <md-input-container class="col-md-2">
-                                    <md-select ng-model="sc.locations[key].collectionMethodId" required name="methodOfCollection" id="methodOfCollection" placeholder="Choose Method Of Location">
-                                        <md-option ng-repeat="method in sc.collectionMethods" value="{{method.id}}">{{method.name}}</md-option>
-                                    </md-select>
-                                </md-input-container>
-                                <md-input-container class="col-md-1">
-                                    <md-button type="button" aria-label="remove" class="md-raised md-warn btn-w-md" ng-show="key > 0" ng-click="sc.removeLocation($event, key)">
+
+                                <md-select ng-model="sc.locations[key].collectionMethodId" class="col-md-2" required name="methodOfCollection" id="methodOfCollection" placeholder="Choose Method Of Location">
+                                    <md-option ng-repeat="method in sc.collectionMethods" value="{{method.id}}">{{method.name}}</md-option>
+                                </md-select>
+
+                                <md-input-container class="col-md-1" ng-show="key > 0">
+                                    <md-button type="button" aria-label="remove" ng-if="!sc.locations[key].exists" class="md-raised md-warn btn-w-md" ng-click="sc.removeLocation($event, key)">
                                         Remove
+                                    </md-button>
+                                    <md-button type="button" aria-label="remove" ng-if="sc.locations[key].exists" class="md-raised md-warn btn-w-md"
+                                               ng-click="sc.extractLocation($event, key)">
+                                        Extract
                                     </md-button>
                                 </md-input-container>
                                 <div class="error location-error col-md-12" ng-show="!sc.locations[key].available && sc.locations[key].filled">Selected location has already used</div>

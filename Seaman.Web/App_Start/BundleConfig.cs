@@ -7,7 +7,7 @@ namespace Seaman.Web
         // For more information on bundling, visit http://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            BundleTable.EnableOptimizations = false;
+            //BundleTable.EnableOptimizations = true;
             
             
 
@@ -42,14 +42,17 @@ namespace Seaman.Web
             bundles.Add(new ScriptBundle("~/bundles/pdfmake")
                 .IncludeDirectory("~/Scripts/pdfmake/", "*.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/angular.core")
+            bundles.Add(new ScriptBundle("~/bundles/angular/core")
                 .Include("~/Scripts/angular/angular.js")
-                .IncludeDirectory("~/Scripts/angular/", "*.js"));
+                .IncludeDirectory("~/Scripts/angular/", "*.js", true));
 
-            bundles.Add(new ScriptBundle("~/bundles/angular.ui")
+            bundles.Add(new ScriptBundle("~/bundles/angular/ui")
                 .IncludeDirectory("~/Scripts/angular-ui", "*.js", true));
 
-            bundles.Add(new ScriptBundle("~/bundles/angular.app")
+            bundles.Add(new ScriptBundle("~/bundles/angular/ui-grid")
+                .Include("~/Scripts/ui-grid/ui-grid-unstable.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular/app")
                 .IncludeDirectory("~/app", "*.module.js", true)
                 .IncludeDirectory("~/app", "*.js", true));
         }

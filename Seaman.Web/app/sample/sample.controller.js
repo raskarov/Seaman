@@ -2,16 +2,18 @@
     angular.module("seaman.sample")
         .controller("SampleController", sampleController);
 
-    sampleController.$inject = ["$scope", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state", "$timeout"];
+    sampleController.$inject = ["$scope", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state", "$timeout", "$mdDialog", "$q"];
 
-    function sampleController($scope, validation, colors, adminService, consts, sampleService, $state, $timeout) {
+    function sampleController($scope, validation, colors, adminService, consts, sampleService, $state, $timeout, $mdDialog, $q) {
         var vm = this;
         var letters = angular.copy(consts.alphabet);
         vm.title = "Sample";
         vm.sampleModel = { dateStored: moment().format("MM/DD/YYYY") };
-        vm.locations = { 0: {
-            dateStored: moment().format("MM/DD/YYYY")
-        } };
+        vm.locations = {
+            0: {
+                dateStored: moment().format("MM/DD/YYYY")
+            }
+        };
         vm.locationsToRemove = [];
         vm.processCane = processCane;
         vm.colors = _.toArray(colors);
@@ -66,47 +68,58 @@
         vm.directedDonorDatepickerOpened = false;
         vm.openDirectedDonorDatepicker = openDirectedDonorDatepicker;
 
-        vm.onStorageChange = onStorageChange;
+        
         vm.onTankChange = onTankChange;
         vm.isFormValid = isFormValid;
+        vm.extractLocation = extractLocation;
 
         activate();
 
         function activate() {
-            if ($state.params && $state.params.id) {
-                sampleService.getSample($state.params.id).then(function (data) {
-                    data.depositorDob = moment(data.depositorDob).format("MM/DD/YYYY");
-                    data.partnerDob = data.partnerDob ? moment(data.partnerDob).format("MM/DD/YYYY") : null;
-                    data.directedDonorDob = data.directedDonorDob ? moment(data.directedDonorDob).format("MM/DD/YYYY") : null;
-                    vm.sampleModel = data;
-                    _.forEach(data.locations, function (item, i) {
-                        item.dateStored = item.dateStored ? moment(item.dateStored).format("MM/DD/YYYY") : null;
-                        vm.locations[i] = item;
-                        onTankChange(i);
-                        vm.canes[i] = {
-                            name: item.cane.substring(0, 1),
-                            color: item.cane.substring(1, item.cane.length)
-                        };
-
-                    });
-                    delete vm.sampleModel.locations;
-                });
-            }
-
-            adminService.getTanks(true).then(function (data) {
+            var promises = [];
+            var tankPromise = adminService.getTanks(true).then(function (data) {
                 vm.tanks = data;
             });
 
-            adminService.getCollectionMethods(true).then(function (data) {
+            var methodsPromise = adminService.getCollectionMethods(true).then(function (data) {
                 vm.collectionMethods = data;
             });
 
-            adminService.getComments(true).then(function (data) {
+            var commentsPromise = adminService.getComments(true).then(function (data) {
                 vm.comments = data;
             });
 
-            adminService.getPhysician(true).then(function (data) {
+            var physicianPromise = adminService.getPhysician(true).then(function (data) {
                 vm.physicians = data;
+            });
+
+            promises = promises.concat([tankPromise, methodsPromise, commentsPromise, physicianPromise]);
+
+            $q.all(promises).then(function () {
+                if ($state.params && $state.params.id) {
+                    sampleService.getSample($state.params.id).then(function(data) {
+                        data.depositorDob = moment(data.depositorDob).format("MM/DD/YYYY");
+                        data.partnerDob = data.partnerDob ? moment(data.partnerDob).format("MM/DD/YYYY") : null;
+                        data.directedDonorDob = data.directedDonorDob ? moment(data.directedDonorDob).format("MM/DD/YYYY") : null;
+                        vm.sampleModel = data;
+                        _.forEach(data.locations, function(item, i) {
+                            item.dateStored = item.dateStored ? moment(item.dateStored).format("MM/DD/YYYY") : null;
+                            item.exists = true;
+                            vm.locations[i] = item;
+                            onTankChange(i);
+                            vm.canes[i] = {
+                                name: item.cane.substring(0, 1),
+                                color: item.cane.substring(1, item.cane.length)
+                            };
+                        });
+                        delete vm.sampleModel.locations;
+                        $timeout(function() {
+                            vm.onStorageChange = onStorageChange;
+                        });
+                    });
+                } else {
+                    vm.onStorageChange = onStorageChange;
+                }
             });
         }
 
@@ -140,11 +153,11 @@
             var sample = angular.copy(vm.sampleModel);
             sample.locationsToAdd = _.toArray(vm.locations);
             sample.locationsToRemove = _.toArray(vm.locationsToRemove);
-            sampleService.saveSample(sample).then(function(sample) {
+            sampleService.saveSample(sample).then(function (sample) {
                 clearForm();
-                sampleService.getSampleReport(sample.id).then(function(data) {
+                sampleService.getSampleReport(sample.id).then(function (data) {
                     $scope.sample = data;
-                    $timeout(function() {
+                    $timeout(function () {
                         $scope.$root.print();
                         $scope.sample = {};
                         $state.go("samples");
@@ -157,8 +170,14 @@
             var location = vm.locations[name];
             if (!location || !location.tank || !location.canister || !location.cane || !location.position) return false;
             location.filled = true;
+            location.uniqName = location.tank + location.canister + location.cane + location.position;
             sampleService.checkLocation(location).then(function (res) {
-                location.available = res.data == null || res.data.available || vm.sampleModel.id && !res.data.available && res.data.sampleId === vm.sampleModel.id;
+                location.exists = vm.sampleModel.id && location.id && vm.sampleModel.id > 0 && res.data != null && res.data.sampleId === vm.sampleModel.id;
+                var localCheck = _.filter(vm.locations, function (item) {
+                    return item.uniqName === location.uniqName;
+                }).length === 1;
+                location.available = res.data == null && localCheck || res.data != null && res.data.available && localCheck ||
+                    res.data != null && !res.data.available && vm.sampleModel.id && res.data.sampleId === vm.sampleModel.id && localCheck;
             });
         }
 
@@ -207,7 +226,7 @@
         }
 
         function hasUsedLocations() {
-            return _.some(vm.locations, function(item) {
+            return _.some(vm.locations, function (item) {
                 return item.filled && !item.available;
             });
         }
@@ -224,6 +243,57 @@
             vm.positions = {};
             vm.letters = {};
             vm.sampleForm.$setPristine();
+        }
+
+        function extractLocation(ev, name) {
+            $mdDialog.show({
+                controller: DialogController,
+                templateUrl: '/app/samples/extract.dialog.html',
+                parent: angular.element(document.body),
+                targetEvent: ev
+            })
+            .then(function (reason) {
+                var location = vm.locations[name];
+                location.collectionMethod = _.find(vm.collectionMethods, { "id": +location.collectionMethodId }).name;
+                var promises = [];
+                var locations = [location];
+                var sample = angular.copy(vm.sampleModel);
+                sample.reason = reason;
+                sample.locations = locations;
+
+                $scope.sample = sample;
+                $scope.sample.printTitle = "Extract";
+
+                $timeout(function () {
+                    $scope.$root.print();
+                    _.forEach(locations, function (item) {
+                        promises.push(sampleService.removeLocation(item.id));
+                    });
+
+                    $q.all(promises).then(function () {
+                        $scope.sample = {};
+                        delete vm.locations[name];
+                    });
+                });
+
+
+            }, function () { });
+        }
+
+
+        function DialogController($scope, $mdDialog) {
+            $scope.reasons = [];
+            $scope.reason = {};
+            adminService.getReasons().then(function (data) {
+                $scope.reasons = data;
+            });
+
+            $scope.cancel = function () {
+                $mdDialog.cancel();
+            };
+            $scope.extract = function () {
+                $mdDialog.hide($scope.reason);
+            };
         }
     }
 })();

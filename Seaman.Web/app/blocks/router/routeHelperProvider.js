@@ -1,6 +1,6 @@
 ﻿(function () {
     angular.module("blocks.router")
-    .provider('routerHelper', routerHelperProvider);
+        .provider('routerHelper', routerHelperProvider);
 
     routerHelperProvider.$inject = ['$locationProvider', '$stateProvider', '$urlRouterProvider'];
 
@@ -12,13 +12,10 @@
         RouterHelper.$inject = ['$state'];
 
         function RouterHelper($state) {
-            var routes = [];
             var service = {
                 configureStates: configureStates,
-                getStates: getStates,
-                routes: routes
+                getStates: getStates
             };
-
             $urlRouterProvider.otherwise(otherwise);
 
             return service;
@@ -27,8 +24,7 @@
 
             function otherwise($injector, $location) {
                 var session = $injector.get("session");
-                var pathParts = $location.url().split('/');
-                var stateName = pathParts[1];
+                //console.log($state.get());
                 if (session.id) {
                     var states = $state.get();
                     var state = _.find(states, function(item) {

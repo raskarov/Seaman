@@ -36,6 +36,22 @@ namespace Seaman.EntityFramework
             Mapper.CreateMap<Location, LocationBriefModel>()
                 .ForMember(it => it.CollectionMethod, ctx => ctx.MapFrom(l => l.CollectionMethod.Name))
                 .ForMember(it => it.DateStored, ctx => ctx.MapFrom(l => l.DateStored.HasValue ? l.DateStored.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture): String.Empty));
+            Mapper.CreateMap<Location, LocationReportModel>()
+                .ForMember(it => it.CollectionMethod, ctx => ctx.MapFrom(l => l.CollectionMethod.Name))
+                .ForMember(it => it.DateStored,
+                    ctx =>
+                        ctx.MapFrom(
+                            l =>
+                                l.DateStored.HasValue
+                                    ? l.DateStored.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)
+                                    : String.Empty))
+                .ForMember(it => it.DepositorFullName,
+                    ctx => ctx.MapFrom(l => l.Sample.DepositorFirstName + " " + l.Sample.DepositorLastName))
+                .ForMember(it => it.DepositorDob,
+                    ctx => ctx.MapFrom(l => l.Sample.DepositorDob.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)))
+                .ForMember(it => it.Physician, ctx => ctx.MapFrom(l => l.Sample.Physician.Name))
+                .ForMember(it => it.Extracted, ctx => ctx.MapFrom(l => l.Extracted ? "Yes" : "No"));
+
 
             Mapper.CreateMap<Physician, PhysicianModel>();
             Mapper.CreateMap<PhysicianModel, Physician>();

@@ -326,6 +326,10 @@
     <Content Include="app\login\login.routes.js" />
     <Content Include="app\profile\profile.module.js" />
     <Content Include="app\profile\user.service.js" />
+    <Content Include="app\reports\reports.controller.js" />
+    <Content Include="app\reports\reports.html" />
+    <Content Include="app\reports\reports.module.js" />
+    <Content Include="app\reports\reports.routes.js" />
     <Content Include="app\samples\expandableRowTemplate.html" />
     <Content Include="app\samples\extract.dialog.html" />
     <Content Include="app\widgets\print\print.directive.js" />
@@ -401,7 +405,7 @@
     <Content Include="Scripts\angular-ui\loading-bar.js" />
     <Content Include="Scripts\angular-ui\ngMask.js" />
     <Content Include="Content\ui-grid\ui-grid.svg" />
-    <Content Include="Scripts\angular-ui\ui-grid\ui-grid-unstable.js" />
+    <Content Include="Scripts\ui-grid\ui-grid-unstable.js" />
     <Content Include="Scripts\angular-ui\ui-utils.js" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-aria.js" />

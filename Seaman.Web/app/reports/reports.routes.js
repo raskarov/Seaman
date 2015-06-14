@@ -1,27 +1,26 @@
 ﻿(function() {
-    angular.module("seaman.samples")
+    angular.module("seaman.reports")
         .run(appRun);
 
     appRun.$inject = ["routerHelper", "USER_ROLES"];
 
     function appRun(routerHelper, roles) {
         routerHelper.configureStates(getStates());
-
         function getStates() {
-            var alias = "/app/samples/";
+            var alias = "/app/reports/";
             return [
             {
-                state: "samples",
+                state: "reports",
                 requireAuth: true,
                 config: {
-                    url: "/samples",
-                    title: "Samples",
+                    url: "/reports",
+                    title: "Reports",
                     skipInMenu: false,
-                    templateUrl: alias + "samples.html",
-                    controller: "SamplesListController",
-                    controllerAs: 'slc',
+                    templateUrl: alias + "reports.html",
+                    controller: "ReportsController",
+                    controllerAs: 'rc',
                     data: {
-                        authorizedRoles: [roles.admin, roles.embryologist]
+                        authorizedRoles: _.toArray(roles)
                     }
                 }
             }];

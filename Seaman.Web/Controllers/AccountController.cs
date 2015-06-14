@@ -106,10 +106,12 @@ namespace Seaman.Web.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = _userManager.FindByName(model.Name) ?? new UserModel()
+            var user = new UserModel()
             {
                 Id = model.Id,
-                UserName = model.Name
+                UserName = model.Name,
+                FirstName = model.FirstName,
+                LastName = model.LastName
             };
 
             user = user.Id > 0 ? _userManager.Update(user) : _userManager.Add(user);
@@ -207,6 +209,8 @@ namespace Seaman.Web.Controllers
             {
                 Id = result.UserId,
                 Name = result.UserName,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
                 Roles =
                     _userManager.GetUserRoles(result.UserId)
                         .Select(it =>
@@ -224,6 +228,8 @@ namespace Seaman.Web.Controllers
                 Id = result.Id,
                 Name = result.UserName,
                 Password = result.Password,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
                 Roles = _userManager.GetUserRoles(result.Id)
             };
         }       

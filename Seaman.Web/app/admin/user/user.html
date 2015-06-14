@@ -19,12 +19,31 @@
                         </md-input-container>
                         <md-input-container class="col-md-6">
                             <label for="password">{{uc.userField.password.title}}</label>
-                            <input type="password" class="form-control" required id="password" name="password" ng-model="uc.userModel.password" />
+                            <input type="password" class="form-control" required id="password" name="password" ng-model="uc.userModel.password"/>
                             <div ng-messages="uc.userForm.password.$error">
                                 <div ng-show="uc.userForm.$submitted || uc.userForm.password.$touched">
                                     <div ng-message="required">{{uc.userField.password.message.required}}</div>
                                 </div>
                                 <div ng-message="minlength">{{uc.userField.password.message.minlength}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="col-md-6">
+                            <label for="firstName">{{uc.userField.firstName.title}}</label>
+                            <input type="text" class="form-control" required id="firstName" name="firstName" ng-model="uc.userModel.firstName" />
+                            <div ng-messages="uc.userForm.firstName.$error">
+                                <div ng-show="uc.userForm.$submitted || uc.userForm.firstName.$touched">
+                                    <div ng-message="required">{{uc.userField.firstName.message.required}}</div>
+                                </div>
+                                <div ng-message="minlength">{{uc.userField.firstName.message.minlength}}</div>
+                            </div>
+                        </md-input-container>
+                        <md-input-container class="col-md-6">
+                            <label for="lastName">{{uc.userField.lastName.title}}</label>
+                            <input type="text" class="form-control" required id="lastName" name="lastName" ng-model="uc.userModel.lastName" />
+                            <div ng-messages="uc.userForm.lastName.$error">
+                                <div ng-show="uc.userForm.$submitted || uc.userForm.lastName.$touched">
+                                    <div ng-message="required">{{uc.userField.lastName.message.required}}</div>
+                                </div>
                             </div>
                         </md-input-container>
                         <div class="col-md-12">

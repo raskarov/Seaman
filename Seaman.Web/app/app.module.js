@@ -8,6 +8,7 @@
         "seaman.profile",
         "seaman.samples",
         "seaman.sample",
-        "seaman.admin"
+        "seaman.admin",
+        "seaman.reports"
     ]);
 })();

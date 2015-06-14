@@ -33,4 +33,17 @@ namespace Seaman.Core.Model
         public Int32? CollectionMethodId { get; set; }
         public String CollectionMethod { get; set; }
     }
+
+    public class LocationReportModel
+    {
+        public Int32 Id { get; set; }
+        public String UniqName { get; set; }
+        public String DateStored { get; set; }
+        public String CollectionMethod { get; set; }
+        public String DepositorFullName { get; set; }
+        public String DepositorDob { get; set; }
+        public String Physician { get; set; }
+
+        public String Extracted { get; set; }
+    }
 }

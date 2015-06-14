@@ -14,6 +14,11 @@
         $rootScope.isAuthorized = userService.isAuthorized;
         $rootScope.setCurrentUser = function (user) {
             $rootScope.currentUser = user;
+            if (!user) {
+                $rootScope.userDisplayName = null;
+            } else {
+                $rootScope.userDisplayName = user.fullName.trim() || user.name;
+            }
         };
 
         $rootScope.$on(AUTH_EVENTS.loginSuccess, userReceived);
@@ -48,6 +53,7 @@
             if ($scope.isLoginPage || $location.url() === "/") {
                 var route = routes.getMenuRouteByRole(user.roles);
                 if (route && route.state) {
+                    console.log($state.go);
                     $state.go(route.state);
                 }
             } else if (vm.isLoading && stateToReload) {
@@ -79,6 +85,7 @@
             if (!userService.isAuthorized(authorizedRoles)) {
                 event.preventDefault();
             }
+            return true;
         };
     };
 })();

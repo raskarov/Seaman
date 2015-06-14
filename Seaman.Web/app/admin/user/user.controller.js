@@ -12,7 +12,9 @@
         vm.roles = [];
         vm.userField = {
             username: validation.newField('User Name', { required: true }),
-            password: validation.newField('Password', { required: true, minLength: 6 })
+            password: validation.newField('Password', { required: true, minLength: 6 }),
+            firstName: validation.newField('First Name', { required: true }),
+            lastName: validation.newField('Last Name', { required: true })
         };
 
         vm.saveUser = saveUser;
@@ -33,7 +35,7 @@
         }
 
         function getRoles() {
-            userService.getRoles().then(function(data) {
+            userService.getRoles().then(function (data) {
                 vm.roles = data;
             });
         }

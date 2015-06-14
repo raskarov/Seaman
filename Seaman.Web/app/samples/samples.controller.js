@@ -19,9 +19,6 @@
         vm.isSubRowsSelected = false;
         vm.printSample = printSample;
         vm.randomReport = randomReport;
-        vm.printAllRows = printAllRows;
-        vm.printSelectedRows = printSelectedRows;
-        vm.printVisibleRows = printVisibleRows;
 
         $scope.gridOptions = {
             showGridFooter: true,
@@ -63,7 +60,7 @@
             exporterPdfTableHeaderStyle: { fontSize: 12, bold: true },
             exporterPdfHeader: { text: "Audit Report", style: 'headerStyle' },
             exporterPdfFooter: {
-                columns: [{ text: 'Date: ____/_______/2015' }, { text: 'Signature: ______________', alignment: 'right' }]
+                columns: [{ text: 'Date: ____/_______/2015', style: 'footerStyle' }, { text: 'Signature: ______________', alignment: 'right', style: 'footerStyle' }]
             },
             exporterPdfCustomFormatter: function (docDefinition) {
                 docDefinition.styles.headerStyle = { fontSize: 22, bold: true, margin: [35, 10, 0, 0] };
@@ -151,25 +148,6 @@
                     $scope.gridApi.selection.unSelectRow(item);
                 });
             }, 100);
-        }
-
-        function printAllRows() {
-            var columnState = getColumnsState();
-            $scope.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, columnState);
-        }
-
-        function printSelectedRows() {
-            var columnState = getColumnsState();
-            $scope.gridApi.exporter.pdfExport(uiGridExporterConstants.SELECTED, columnState);
-        }
-
-        function printVisibleRows() {
-            var columnState = getColumnsState();
-            $scope.gridApi.exporter.pdfExport(uiGridExporterConstants.VISIBLE, columnState);
-        }
-
-        function getColumnsState() {
-            return vm.printVisibleColumns ? uiGridExporterConstants.VISIBLE : uiGridExporterConstants.ALL;
         }
 
         function isRowSelected() {

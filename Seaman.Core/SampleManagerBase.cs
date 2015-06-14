@@ -17,6 +17,7 @@ namespace Seaman.Core
         PagedResult<SampleBriefModel> GetSamples(PagedQuery query);
         PagedResult<SampleBriefModel> GetSamplesByTank(Int32 tankId);
         PagedResult<SampleBriefModel> GetSamplesByDoctor(Int32 doctorId);
+        List<LocationReportModel> GetReport(ReportModel model);
         void DeleteSample(Int32 id);
         void DeleteSamples(List<Int32> ids);
 
@@ -71,6 +72,7 @@ namespace Seaman.Core
         public abstract PagedResult<SampleBriefModel> GetSamples(PagedQuery query);
         public abstract PagedResult<SampleBriefModel> GetSamplesByTank(int tankId);
         public abstract PagedResult<SampleBriefModel> GetSamplesByDoctor(int doctorId);
+        public abstract List<LocationReportModel> GetReport(ReportModel model);
         public abstract void DeleteSample(int id);
         public abstract void DeleteSamples(List<int> ids);
         public abstract List<CaneModel> GetCanes();
@@ -269,5 +271,21 @@ namespace Seaman.Core
         public Int32? PhysicianId { get; set; }
         
         public Int32? CommentId { get; set; }
+    }
+
+    public class ReportModel
+    {
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+        public Int32? PhysicianId { get; set; }
+        public Int32? TankId { get; set; }
+        public String Type { get; set; }
+    }
+
+    public enum ReportType
+    {
+        Existing, 
+        Extracted, 
+        All
     }
 }

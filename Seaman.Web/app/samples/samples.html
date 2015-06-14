@@ -3,9 +3,6 @@
         <div class="col-md-12 clearfix">
             <h2 class="section-header">{{slc.title}}</h2>
             <div class="row well-lg" ng-if="!isReportGenerator()">
-                <div class="pull-left">
-                    <md-button type="button" class="md-raised md-primary btn-w-md" ng-click="slc.randomReport()">Random Audit Report</md-button>
-                </div>
                 <div class="pull-right">
                     <md-button type="button" class="md-raised md-primary btn-w-md" ng-disabled="!slc.isRowSelected()" ng-click="slc.printSample()">
                         <i class="fa fa-print"></i> Print Receipt
@@ -15,15 +12,7 @@
                     <md-button type="button" class="md-raised md-primary btn-w-md" ng-disabled="!slc.isSubRowsSelected" ng-click="slc.extract()">Extract</md-button>
                 </div>
             </div>
-            <div class="row well-lg" ng-if="isReportGenerator()">
-                <md-checkbox ng-model="slc.printVisibleColumns" aria-label="Checkbox 1">
-                    Print Visible Columns
-                </md-checkbox>
-                <md-button type="button" class="md-raised md-primary btn-w-md" ng-click="slc.printVisibleRows()">Print Report</md-button>
-                <md-button type="button" class="md-raised md-primary btn-w-md" ng-disabled="!slc.isRowsSelected()" ng-click="slc.printSelectedRows()">Print Selected Samples</md-button>
-                <md-button type="button" class="md-raised md-primary btn-w-md" ng-click="slc.printAllRows()">Print All Samples</md-button>
-            </div>
-            </div>
+        </div>
         <div class="col-md-12 clearfix">
             <div ui-grid="gridOptions" ui-grid-selection ui-grid-exporter ui-grid-auto-resize ui-grid-cellnav ui-grid-pinning ui-grid-expandable></div>
         </div>

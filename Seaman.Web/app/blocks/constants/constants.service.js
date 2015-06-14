@@ -25,7 +25,7 @@
                 title: 'Embryologist'
             },
             reportGenerator: {
-                name: 'reportGenerator',
+                name: 'reportgenerator',
                 title: 'Report Generator'
             }
         })

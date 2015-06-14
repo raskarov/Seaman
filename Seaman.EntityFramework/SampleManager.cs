@@ -82,7 +82,7 @@ namespace Seaman.EntityFramework
                     location = _context.CreateAndAdd<Location>();
                     _context.SaveChanges();
                 }
-                if(sample.Locations.Any(l => l.Id == location.Id))
+                if (sample.Locations.Any(l => l.Id == location.Id))
                     continue;
                 sample.Locations.Add(location);
                 location.Tank = locationToAdd.Tank;
@@ -93,7 +93,7 @@ namespace Seaman.EntityFramework
                 location.CollectionMethodId = locationToAdd.CollectionMethodId;
                 location.Available = false;
                 location.UniqName = location.Tank + location.Canister + location.Cane + location.Position;
-                
+
             }
             foreach (var locationToRemove in model.LocationsToRemove)
             {
@@ -150,6 +150,39 @@ namespace Seaman.EntityFramework
         public override PagedResult<SampleBriefModel> GetSamplesByDoctor(int doctorId)
         {
             throw new NotImplementedException();
+        }
+
+        public override List<LocationReportModel> GetReport(ReportModel model)
+        {
+            IQueryable<Location> locations = _context.Locations;
+            if (model.Type == ReportType.Extracted.ToString())
+            {
+                locations = locations.Where(l => l.Extracted);
+            }
+            else if (model.Type == ReportType.Existing.ToString())
+            {
+                locations = locations.Where(l => !l.Extracted);
+            }
+
+            var startDate = model.StartDate ?? DateTime.MinValue;
+            var endDate = model.EndDate ?? DateTime.MaxValue;
+            if (startDate > endDate)
+            {
+                startDate = endDate;
+            }
+
+            locations = locations.Where(l => l.DateStored >= startDate && l.DateStored <= endDate);
+            if (model.TankId.HasValue)
+            {
+                var tank = _context.Tanks.Get(model.TankId.Value, "Tank not found");
+                locations = locations.Where(l => l.Tank == tank.Name);
+            }
+
+            if (model.PhysicianId.HasValue)
+            {
+                locations = locations.Where(l => l.Sample.PhysicianId == model.PhysicianId.Value);
+            }
+            return Mapper.Map<List<LocationReportModel>>(locations.OrderBy(l => l.Extracted));
         }
 
         public override void DeleteSample(int id)
@@ -228,7 +261,7 @@ namespace Seaman.EntityFramework
             _context.SaveChanges();
             return Mapper.Map<CanisterModel>(exist);
         }
-       
+
         public override void DeleteCanister(int id)
         {
             var canister = _context.Canisters.Get(id, "Cane not found");
@@ -286,7 +319,7 @@ namespace Seaman.EntityFramework
 
         public override LocationModel GetLocation(string uniqName)
         {
-            var location = _context.Locations.FirstOrDefault(x => x.UniqName == uniqName);
+            var location = _context.Locations.FirstOrDefault(x => x.UniqName == uniqName && !x.Extracted);
             return Mapper.Map<LocationModel>(location);
         }
 

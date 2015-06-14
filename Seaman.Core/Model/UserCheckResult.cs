@@ -8,6 +8,8 @@ namespace Seaman.Core
 
         public Int32 UserId { get; set; }
         public String UserName { get; set; }
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
         public Boolean IsDeleted { get; set; }
         public DateTime? LockedUntil { get; set; }
         public Boolean IsLocked

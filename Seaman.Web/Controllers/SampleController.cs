@@ -70,9 +70,35 @@ namespace Seaman.Web.Controllers
 
         [HttpPost]
         [Route("report")]
-        public List<SampleReportModel> GetReportSamples(ICollection<Int32> ids)
+        public List<LocationReportModel> GetReportSamples(ReportModel model)
         {
-            return SampleManager.GetReportSamples(ids);
+            return SampleManager.GetReport(model);
+        }
+
+        [HttpGet]
+        [Route("random/{count:int}")]
+        public List<LocationReportModel> GetRandomReport(Int32 count)
+        {
+            var samples = SampleManager.GetReport(new ReportModel()
+            {
+                Type = ReportType.Existing.ToString()
+            });
+            if (samples.Count > count)
+            {
+                var indexes = new List<Int32>();
+                var random = new Random();
+                while (indexes.Count < count)
+                {
+                    var index = random.Next(0, samples.Count);
+                    if (indexes.Count == 0 || !indexes.Contains(index))
+                    {
+                        indexes.Add(index);
+                    }
+                }
+
+                return indexes.Select(index => samples[index]).ToList();
+            }
+            return samples;
         }
 
         [HttpGet]

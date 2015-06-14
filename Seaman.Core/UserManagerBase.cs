@@ -252,6 +252,8 @@ namespace Seaman.Core
             result.UserName = userRecord.UserName;
             result.IsDeleted = userRecord.IsDeleted;
             result.LockedUntil = userRecord.LockedUntil;
+            result.FirstName = userRecord.FirstName;
+            result.LastName = userRecord.LastName;
             return result;
         }
         /// <summary>

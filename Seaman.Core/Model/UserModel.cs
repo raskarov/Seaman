@@ -8,7 +8,7 @@ namespace Seaman.Core
 {
     public class UserModel : UserProfileBase
     {
-       
+
     }
 
     public class UserBase : IEntity
@@ -35,6 +35,14 @@ namespace Seaman.Core
         public Int32 Id { get; set; }
         public String Name { get; set; }
         public String Password { get; set; }
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
+
+        public String FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
+
         public IEnumerable<RoleModel> Roles { get; set; }
     }
 
@@ -43,6 +51,9 @@ namespace Seaman.Core
         public Int32 Id { get; set; }
         public String Name { get; set; }
         public String Password { get; set; }
+
+        public String FirstName { get; set; }
+        public String LastName { get; set; }
         public IEnumerable<RoleModel> RolesToAdd { get; set; }
         public IEnumerable<RoleModel> RolesToRemove { get; set; }
     }

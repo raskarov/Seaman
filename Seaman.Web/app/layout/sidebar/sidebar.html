@@ -7,7 +7,8 @@
         <li class="nav-title">
             <span>Navigation</span>
         </li>
-        <li ui-wave><a ui-sref="samples"> <i class="imd imd-home"></i><span>Samples</span> </a></li>
+        <li ui-wave><a ui-sref="reports"> <i class="imd imd-home"></i><span>Reports</span> </a></li>
+        <li ui-wave ng-show="!isReportGenerator()"><a ui-sref="samples"> <i class="imd imd-home"></i><span>Samples</span> </a></li>
         <li ui-wave ng-show="!isReportGenerator()"><a ui-sref="sample"><i class="imd imd-edit"></i><span>Add sample</span></a></li>
         <li ui-wave ng-show="isAdmin()">
             <a href="#"><i class="imd imd-view-list"></i><span>Admin</span></a>

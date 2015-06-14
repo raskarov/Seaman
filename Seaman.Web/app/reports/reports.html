@@ -1,0 +1,84 @@
+﻿<div class="page">
+    <div class="row ui-section">
+        <div class="col-md-12 clearfix">
+            <h2 class="section-header">{{rc.title}}</h2>
+        </div>
+
+        <div class="panel panel-default col-md-12">
+            <div class="panel-heading">
+                <h5 class="panel-title">Filters</h5>
+            </div>
+            <div class="panel-body">
+                <form name="rc.reportForm" ng-submit="rc.reportForm.$valid && rc.generateReport($event)">
+                    <md-input-container class="col-md-2">
+                        <p>Start Date</p>
+                        <div class="input-group ui-datepicker">
+                            <input type="text" class="form-control" id="startDate" name="startDate"
+                                   ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
+                                   mask="19/39/9999"
+                                   datepicker-popup
+                                   is-open="rc.startDateDatepickerOpened"
+                                   clearn="true"
+                                   ng-model="rc.reportModel.startDate">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="rc.openStartDateDatepicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                        <div ng-messages="rc.reportForm.startDate.$error">
+                            <div ng-show="rc.reportForm.$submitted || rc.reportForm.startDate.$touched">
+                                <div ng-message="pattern">Enter date in format "MM/DD/YYYY"</div>
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="col-md-2">
+                        <p>End Date</p>
+                        <div class="input-group ui-datepicker">
+                            <input type="text" class="form-control" id="endDate" name="endDate"
+                                   ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
+                                   mask="19/39/9999"
+                                   datepicker-popup
+                                   is-open="rc.endDateDatepickerOpened"
+                                   clearn="true"
+                                   ng-model="rc.reportModel.endDate">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="rc.openEndDateDatepicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </div>
+                        <div ng-messages="rc.reportForm.endDate.$error">
+                            <div ng-show="rc.reportForm.$submitted || rc.reportForm.endDate.$touched">
+                                <div ng-message="pattern">Enter date in format "MM/DD/YYYY"</div>
+                            </div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container class="col-md-2">
+                        <p>Physicians</p>
+                        <md-select ng-model="rc.reportModel.physicianId" name="physicians" id="physicians" placeholder="Choose Physicians">
+                            <md-option ng-repeat="physician in rc.physicians" value="{{physician.id}}">{{physician.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="col-md-2">
+                        <p>Tank</p>
+                        <md-select ng-model="rc.reportModel.tankId" name="tank" id="tank" placeholder="Choose Tank">
+                            <md-option ng-repeat="tank in rc.tanks" value="{{tank.id}}">{{tank.name}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="col-md-2">
+                        <p>Type</p>
+                        <md-select ng-model="rc.reportModel.type" name="type" id="type" placeholder="Choose Type">
+                            <md-option ng-repeat="type in rc.types" value="{{type}}">{{type}}</md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container class="col-md-2">
+                        <md-button type="button" class="md-raised md-primary btn-w-md pull-right" ng-disabled="rc.reportForm.$invalid" ng-click="rc.generateReport($event)">Generate Report</md-button>
+                    </md-input-container>
+                </form>
+                <div class="col-md-12">
+                    <md-button type="button" class="md-raised md-primary btn-w-md" ng-click="rc.randomReport()">Random Audit Report</md-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="false">
+        <div ui-grid="rc.gridOptions" ui-grid-exporter></div>
+    </div>
+</div>
