@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection.Emit;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using Seaman.Core;
 using Seaman.Core.Model;
@@ -123,8 +127,68 @@ namespace Seaman.Web.Controllers
             return Ok();
         }
 
+        [HttpGet]
+        [Route("extracted")]
+        public List<SampleBriefModel> GetExtrcted()
+        {
+            return SampleManager.GetExtractedSamples();
+        }
+
+        [HttpPost]
+        [Route("consent")]
+        public async Task<IHttpActionResult> UploadConsentForm()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                Request.CreateResponse(HttpStatusCode.UnsupportedMediaType);
+                return null;
+            }
+            var provider = GetMultipartProvider();
+            await Request.Content.ReadAsMultipartAsync(provider);
+            var sampleIdString = provider.FormData["sampleId"].IfNotNull(it => it.ToLowerInvariant());
+            if (String.IsNullOrEmpty(sampleIdString))
+            {
+                return BadRequest();
+            }
+            var sampleId = Int32.Parse(sampleIdString);
+            var file = provider.FileData[0];
+            if (string.IsNullOrEmpty(file.Headers.ContentDisposition.FileName))
+            {
+                Request.CreateResponse(HttpStatusCode.NotAcceptable, "This request is not properly formatted");
+                return BadRequest();
+            }
+            string fileName = file.Headers.ContentDisposition.FileName;
+            if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
+            {
+                fileName = fileName.Trim('"');
+            }
+            if (fileName.Contains(@"/") || fileName.Contains(@"\"))
+            {
+                fileName = Path.GetFileName(fileName);
+            }
+            fileName = sampleIdString + "_" + fileName;
+            var uploadFolder = "/uploads";
+            var mappedUploadFolder = HttpContext.Current.Server.MapPath("~" + uploadFolder);
+            if (!Directory.Exists(mappedUploadFolder))
+            {
+                Directory.CreateDirectory(mappedUploadFolder);
+            }
+            var destFileName = uploadFolder +"/" + fileName;
+            var mappedDestFileName = HttpContext.Current.Server.MapPath("~" + destFileName);
+            if (File.Exists(mappedDestFileName))
+            {
+                File.Delete(mappedDestFileName);
+            }
+            File.Move(file.LocalFileName, mappedDestFileName);
+            SampleManager.AddConsentForm(destFileName, sampleId);
+            return Ok(new {allowExtract = true});
+        }
+
         #endregion
         #region Privat
+
+        private readonly String _storageFolder = "~/App_Data";
+        private String _tempFolder;
         private readonly Lazy<ISampleManager> _sampleManagerLazy;
 
         private ISampleManager SampleManager
@@ -133,6 +197,16 @@ namespace Seaman.Web.Controllers
             {
                 return _sampleManagerLazy.Value;
             }
+        }
+
+        private MultipartFormDataStreamProvider GetMultipartProvider()
+        {
+            _tempFolder = HttpContext.Current.Server.MapPath(_storageFolder + "/t/");
+            if (!Directory.Exists(_tempFolder))
+            {
+                Directory.CreateDirectory(_tempFolder);
+            }
+            return new MultipartFormDataStreamProvider(_tempFolder);
         }
         #endregion
     }

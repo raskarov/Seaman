@@ -21,6 +21,16 @@ namespace Seaman.EntityFramework
             _context = context;
         }
 
+        public override void AddConsentForm(string fileName, int id)
+        {
+            var sample = _context.Samples.Get(id, "Sample not found");
+            if (sample != null)
+            {
+                sample.ConsentFormUrl = fileName;
+            }
+            _context.SaveChanges();
+        }
+
         public override SampleModel SaveSample(SaveSampleModel model, Int32? byUserId)
         {
             Sample sample;
@@ -126,6 +136,11 @@ namespace Seaman.EntityFramework
         public override List<SampleReportModel> GetReportSamples(ICollection<int> ids)
         {
             return Mapper.Map<List<SampleReportModel>>(ids.Any() ? _context.Samples.Where(s => ids.Any(id => id == s.Id)) : _context.Samples);
+        }
+
+        public override List<SampleBriefModel> GetExtractedSamples()
+        {
+            return Mapper.Map<List<SampleBriefModel>>(_context.Samples.Where(s => s.Locations.Any(l => l.Extracted)));
         }
 
         public override PagedResult<SampleBriefModel> GetSamples(PagedQuery query)
@@ -346,7 +361,6 @@ namespace Seaman.EntityFramework
             var location = _context.Locations.Get(id, "Location not found");
             location.Extracted = true;
             location.Available = true;
-            location.CollectionMethodId = null;
             _context.SaveChanges();
         }
 

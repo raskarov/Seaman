@@ -16,8 +16,7 @@ namespace Seaman.Web
                         "~/Scripts/lodash.js",
                         "~/Scripts/jquery.slimscroll.js",
                         "~/Scripts/moment-with-locales.js",
-                        "~/Scripts/moment-range.js",
-                        "~/Scripts/spin.js"));
+                        "~/Scripts/moment-range.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
@@ -28,7 +27,7 @@ namespace Seaman.Web
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/angular-material.css",
+                      "~/Content/angular-material/angular-material.css",
                       "~/Content/material-design-iconic-font.css",
                       "~/Content/bootstrap.css",
                       "~/Content/ui-bootstrap-csp.css",

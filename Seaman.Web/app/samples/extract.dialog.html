@@ -1,19 +1,22 @@
-﻿<md-dialog aria-label="Mango (Fruit)">
-    <form>
+﻿<md-dialog aria-label="Extract Samples" flow-init flow-files-submitted="upload($event, $files)" flow-file-added="!!{pdf:1}[$file.getExtension()]" flow-drop>
+    <form name="extractForm">
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2>Extract Samples</h2>
             </div>
         </md-toolbar>
         <md-dialog-content>
+            <md-select ng-required="true" ng-model="reason" placeholder="Reasons" class="col-md-12">
+                <md-option ng-repeat="reason in reasons track by $index" value="{{reason.name}}">{{reason.name}}</md-option>
+            </md-select>
             <md-input-container class="col-md-12">
-                <md-select ng-model="reason" placeholder="Reasons">
-                    <md-option ng-repeat="reason in reasons track by $index" value="{{reason.name}}">{{reason.name}}</md-option>
-                </md-select>
+                <md-button class="md-primary" flow-btn>
+                    Upload Consent Form
+                </md-button>
             </md-input-container>
         </md-dialog-content>
         <div class="md-actions" layout="row">
-            <md-button ng-click="extract()" class="md-primary">
+            <md-button ng-click="extract()" ng-disabled="extractForm.$invalid || !allowExtract" class="md-primary">
                 Extract
             </md-button>
             <md-button ng-click="cancel()" class="md-primary">

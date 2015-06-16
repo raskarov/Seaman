@@ -9,11 +9,13 @@ namespace Seaman.Core
 {
     public interface ISampleManager
     {
+        void AddConsentForm(String fileName, Int32 id);
         SampleModel SaveSample(SaveSampleModel model, Int32? byUserId);
         SampleModel GetSample(Int32 id);
         SampleModel GetSample(String uniqLocatonName);
         SampleReportModel GetReportSample(Int32 id);
         List<SampleReportModel> GetReportSamples(ICollection<Int32> ids);
+        List<SampleBriefModel> GetExtractedSamples();
         PagedResult<SampleBriefModel> GetSamples(PagedQuery query);
         PagedResult<SampleBriefModel> GetSamplesByTank(Int32 tankId);
         PagedResult<SampleBriefModel> GetSamplesByDoctor(Int32 doctorId);
@@ -64,11 +66,13 @@ namespace Seaman.Core
     }
     public abstract class SampleManagerBase : ISampleManager
     {
+        public abstract void AddConsentForm(string fileName, int id);
         public abstract SampleModel SaveSample(SaveSampleModel model, Int32? byUserId);
         public abstract SampleModel GetSample(int id);
         public abstract SampleModel GetSample(string uniqLocatonName);
         public abstract SampleReportModel GetReportSample(int id);
         public abstract List<SampleReportModel> GetReportSamples(ICollection<int> ids);
+        public abstract List<SampleBriefModel> GetExtractedSamples();
         public abstract PagedResult<SampleBriefModel> GetSamples(PagedQuery query);
         public abstract PagedResult<SampleBriefModel> GetSamplesByTank(int tankId);
         public abstract PagedResult<SampleBriefModel> GetSamplesByDoctor(int doctorId);
@@ -183,7 +187,7 @@ namespace Seaman.Core
 
         public Boolean AnonymousDonor { get; set; }
         public String AnonymousDonorId { get; set; }
-        
+
 
         public Int32? PhysicianId { get; set; }
         public Int32? CommentId { get; set; }
@@ -208,9 +212,17 @@ namespace Seaman.Core
     {
         public Int32 Id { get; set; }
         public String DepositorFullName { get; set; }
-        public DateTime DepositorDob { get; set; }
+        public String DepositorDob { get; set; }
         public String Comment { get; set; }
         public String Physician { get; set; }
+        public String ConsentFormUrl { get; set; }
+        public List<LocationBriefModel> Locations
+        {
+            get { return _locations; }
+            set { _locations = value; }
+        }
+
+        private List<LocationBriefModel> _locations = new List<LocationBriefModel>();
     }
 
     public class SampleModel : SampleBase
@@ -262,14 +274,14 @@ namespace Seaman.Core
         public Boolean AnonymousDonor { get; set; }
         public String AnonymousDonorId { get; set; }
 
-        
+        public String ConsentFormUrl { get; set; }
 
         public DateTime CreatedDate { get; set; }
         public Int32? CreatedByUserId { get; set; }
         public DateTime ModifiedDate { get; set; }
         public Int32? ModifiedByUserId { get; set; }
         public Int32? PhysicianId { get; set; }
-        
+
         public Int32? CommentId { get; set; }
     }
 
@@ -284,8 +296,8 @@ namespace Seaman.Core
 
     public enum ReportType
     {
-        Existing, 
-        Extracted, 
+        Existing,
+        Extracted,
         All
     }
 }

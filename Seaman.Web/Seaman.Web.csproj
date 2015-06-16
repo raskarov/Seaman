@@ -307,6 +307,11 @@
     <Content Include="app\blocks\validation\validation.module.js" />
     <Content Include="app\blocks\validation\validation.service.js" />
     <Content Include="app\core\core.config.js" />
+    <Content Include="app\extracted\expandableRowTemplate.html" />
+    <Content Include="app\extracted\extracted.controller.js" />
+    <Content Include="app\extracted\extracted.html" />
+    <Content Include="app\extracted\extracted.module.js" />
+    <Content Include="app\extracted\extracted.routes.js" />
     <Content Include="app\layout\header\header.controller.js" />
     <Content Include="app\layout\header\header.directive.js" />
     <Content Include="app\layout\header\header.html" />
@@ -403,10 +408,10 @@
     <Content Include="Scripts\angular-ui\angular-filter.js" />
     <Content Include="Scripts\angular-ui\angular-ui-tree.js" />
     <Content Include="Scripts\angular-ui\loading-bar.js" />
+    <Content Include="Scripts\angular-ui\ng-flow-standalone.js" />
     <Content Include="Scripts\angular-ui\ngMask.js" />
     <Content Include="Content\ui-grid\ui-grid.svg" />
     <Content Include="Scripts\ui-grid\ui-grid-unstable.js" />
-    <Content Include="Scripts\angular-ui\ui-utils.js" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-aria.js" />
     <Content Include="Scripts\angular\angular-cookies.js" />
@@ -456,13 +461,8 @@
     <Content Include="Content\ui-grid\ui-grid.eot" />
     <Content Include="Content\ui-grid\ui-grid.ttf" />
     <Content Include="Content\ui-grid\ui-grid.woff" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <None Include="Scripts\jquery-2.1.4-vsdoc.js" />
     <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
-    <Content Include="Scripts\jquery-2.1.4.min.js" />
-    <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\lodash.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\moment-range.js" />
@@ -470,7 +470,6 @@
     <Content Include="Scripts\npm.js" />
     <Content Include="Scripts\pdfmake\pdfmake.js" />
     <Content Include="Scripts\pdfmake\vfs_fonts.js" />
-    <Content Include="Scripts\spin.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -485,11 +484,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Scripts\jquery-2.1.4.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\ui\images\flags\" />
+    <Folder Include="uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

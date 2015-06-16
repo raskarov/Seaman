@@ -8,6 +8,7 @@
         "seaman.blocks",
         //3rd-party modules
         'ui.router',
+        "flow",
         'ngMaterial',
         'ngMask',
         'angular.filter',

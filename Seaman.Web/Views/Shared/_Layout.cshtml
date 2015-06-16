@@ -7,14 +7,15 @@
     <title ng-bind="'Seaman - ' + $root.pageTitle">Seaman - Loading</title>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,100,500,700,300,300italic,500italic|Roboto+Condensed:400,300' rel='stylesheet' type='text/css'>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @*@Scripts.Render("~/bundles/modernizr")*@
 </head>
 <body ng-controller="ApplicationController"
       id="app"
       class="app"
       data-custom-page
       data-off-canvas-nav
-      ng-cloak>
+      ng-cloak
+      flow-prevent-drop flow-drag-enter="hover=true" flow-drag-leave="hover=false">
     <header id="header" class="header-container header-fixed bg-white" header></header>
     <div class="main-container">
         <aside sidebar

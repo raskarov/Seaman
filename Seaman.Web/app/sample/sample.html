@@ -123,9 +123,9 @@
                     </div>
                     <div class="panel panel-default col-md-6">
                         <div class="panel-body row">
-                            <md-input-container class="col-md-6">
-                                <p>{{sc.sampleField.physician.title}}</p>
-                                <md-select ng-model="sc.sampleModel.physicianId" required name="physician" id="physician" placeholder="Choose Physician">
+                            <div class="col-md-6">
+                                <p class="col-md-12">{{sc.sampleField.physician.title}}</p>
+                                <md-select ng-model="sc.sampleModel.physicianId" required name="physician" class="col-md-12" id="physician" placeholder="Choose Physician">
                                     <md-option ng-repeat="physician in sc.physicians" value="{{physician.id}}">{{physician.name}}</md-option>
                                 </md-select>
                                 <div ng-messages="sc.sampleForm.physician.$error">
@@ -133,10 +133,10 @@
                                         <div ng-message="required">{{sc.sampleField.physician.message.required}}</div>
                                     </div>
                                 </div>
-                            </md-input-container>
-                            <md-input-container class="col-md-6">
-                                <p>{{sc.sampleField.comment.title}}</p>
-                                <md-select ng-model="sc.sampleModel.commentId" required name="comment" id="comment" placeholder="Choose Comment">
+                            </div>
+                            <div class="col-md-6">
+                                <p class="col-md-12">{{sc.sampleField.comment.title}}</p>
+                                <md-select ng-model="sc.sampleModel.commentId" required name="comment" class="col-md-12" id="comment" placeholder="Choose Comment">
                                     <md-option ng-repeat="comment in sc.comments" value="{{comment.id}}">{{comment.name}}</md-option>
                                 </md-select>
                                 <div ng-messages="sc.sampleForm.comment.$error">
@@ -144,7 +144,7 @@
                                         <div ng-message="required">{{sc.sampleField.comment.message.required}}</div>
                                     </div>
                                 </div>
-                            </md-input-container>
+                            </div>
                         </div>
                         <div class="row clearfix">
                             <div class="col-md-4">
@@ -162,13 +162,13 @@
                                 <h5 class="panel-title">Third Party</h5>
                             </div>
                             <div class="col-md-4">
-                                <md-switch ng-model="sc.sampleModel.cryobankPurchased" aria-label="CryobankPurchased" class="md-primary no-margin-top">Cryobank Purchased</md-switch>
+                                <md-switch ng-model="sc.sampleModel.cryobankPurchased" aria-label="CryobankPurchased" class="md-primary">Cryobank Purchased</md-switch>
                             </div>
                             <div class="col-md-4">
-                                <md-switch ng-model="sc.sampleModel.directedDonor" aria-label="DirectedDonor" class="md-primary no-margin-top">Directed Donor</md-switch>
+                                <md-switch ng-model="sc.sampleModel.directedDonor" aria-label="DirectedDonor" class="md-primary">Directed Donor</md-switch>
                             </div>
                             <div class="col-md-4">
-                                <md-switch ng-model="sc.sampleModel.anonymousDonor" aria-label="AnonymousDonor" class="md-primary no-margin-top">Anonymous Donor</md-switch>
+                                <md-switch ng-model="sc.sampleModel.anonymousDonor" aria-label="AnonymousDonor" class="md-primary">Anonymous Donor</md-switch>
                             </div>
                         </div>
                     </div>
@@ -322,11 +322,11 @@
                                     <md-option ng-repeat="method in sc.collectionMethods" value="{{method.id}}">{{method.name}}</md-option>
                                 </md-select>
 
-                                <md-input-container class="col-md-1" ng-show="key > 0">
-                                    <md-button type="button" aria-label="remove" ng-if="!sc.locations[key].exists" class="md-raised md-warn btn-w-md" ng-click="sc.removeLocation($event, key)">
+                                <md-input-container class="col-md-2" ng-show="key > 0">
+                                    <md-button type="button" aria-label="remove" ng-if="!sc.locations[key].exists" class="md-raised md-warn" ng-click="sc.removeLocation($event, key)">
                                         Remove
                                     </md-button>
-                                    <md-button type="button" aria-label="remove" ng-if="sc.locations[key].exists" class="md-raised md-warn btn-w-md"
+                                    <md-button type="button" aria-label="remove" ng-if="sc.locations[key].exists" class="md-raised md-warn"
                                                ng-click="sc.extractLocation($event, key)">
                                         Extract
                                     </md-button>

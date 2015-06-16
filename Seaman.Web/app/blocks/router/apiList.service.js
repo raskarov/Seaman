@@ -38,6 +38,8 @@
         var report = samplePrefix + "/report";
         var random = samplePrefix + "/random";
         var locations = samplePrefix + "/locations";
+        var consentForm = samplePrefix + "/consent";
+        var extracted = samplePrefix + "/extracted";
         return {
             ////Account api
             roles: roles,
@@ -64,7 +66,9 @@
             sample: sample,
             report: report,
             random: random,
-            locations: locations
+            locations: locations,
+            consentForm: consentForm,
+            extracted: extracted
         };
     };
 })();

@@ -2,15 +2,14 @@
     angular.module("seaman.samples")
         .controller("SamplesListController", samplesListController);
 
-    samplesListController.$inject = ['$scope', '$compile', 'uiGridConstants', 'sampleService', '$q', '$state', '$mdDialog', "adminService", '$timeout', 'uiGridExporterConstants'];
+    samplesListController.$inject = ['$scope', 'uiGridConstants', 'sampleService', '$q', '$state', '$mdDialog', "adminService", '$timeout'];
 
-    function samplesListController($scope, $compile, uiGridConstants, sampleService, $q, $state, $mdDialog, adminService, $timeout, uiGridExporterConstants) {
+    function samplesListController($scope, uiGridConstants, sampleService, $q, $state, $mdDialog, adminService, $timeout) {
         var vm = this;
         vm.title = "Samples";
 
         var selectedSubrows = [];
         vm.gridApi = {};
-        vm.printVisibleColumns = true;
         vm.isRowSelected = isRowSelected;
         vm.editSample = editSample;
         vm.newSample = newSample;
@@ -18,7 +17,6 @@
         vm.isRowsSelected = false;
         vm.isSubRowsSelected = false;
         vm.printSample = printSample;
-        vm.randomReport = randomReport;
 
         $scope.gridOptions = {
             showGridFooter: true,
@@ -137,19 +135,7 @@
             item.subGridOptions = subGridOptions;
             return item;
         }
-
-
-        function randomReport() {
-            var itemsToSelect = _.sample($scope.gridOptions.data, 10);
-            _.forEach(itemsToSelect, $scope.gridApi.selection.selectRow);
-            $scope.gridApi.exporter.pdfExport(uiGridExporterConstants.SELECTED, uiGridExporterConstants.VISIBLE);
-            $timeout(function () {
-                _.forEach(itemsToSelect, function (item) {
-                    $scope.gridApi.selection.unSelectRow(item);
-                });
-            }, 100);
-        }
-
+        
         function isRowSelected() {
             return $scope.gridApi.grid.selection.selectedCount === 1;
         }
@@ -230,9 +216,19 @@
         function DialogController($scope, $mdDialog) {
             $scope.reasons = [];
             $scope.reason = {};
+            $scope.allowExtract = false;
             adminService.getReasons().then(function (data) {
                 $scope.reasons = data;
             });
+
+            $scope.upload = function(e, files) {
+                if (!files.length) return false;
+                if (!selectedSubrows.length) return false;
+                var sampleId = selectedSubrows[0].sampleId;
+                sampleService.uploadConsentForm(files, sampleId).then(function(data) {
+                    $scope.allowExtract = data.data.allowExtract;
+                });
+            }
 
             $scope.cancel = function () {
                 $mdDialog.cancel();

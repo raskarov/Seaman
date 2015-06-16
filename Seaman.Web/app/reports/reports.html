@@ -50,24 +50,24 @@
                             </div>
                         </div>
                     </md-input-container>
-                    <md-input-container class="col-md-2">
+                    <div class="col-md-2">
                         <p>Physicians</p>
                         <md-select ng-model="rc.reportModel.physicianId" name="physicians" id="physicians" placeholder="Choose Physicians">
                             <md-option ng-repeat="physician in rc.physicians" value="{{physician.id}}">{{physician.name}}</md-option>
                         </md-select>
-                    </md-input-container>
-                    <md-input-container class="col-md-2">
+                    </div>
+                    <div class="col-md-2">
                         <p>Tank</p>
                         <md-select ng-model="rc.reportModel.tankId" name="tank" id="tank" placeholder="Choose Tank">
                             <md-option ng-repeat="tank in rc.tanks" value="{{tank.id}}">{{tank.name}}</md-option>
                         </md-select>
-                    </md-input-container>
-                    <md-input-container class="col-md-2">
+                    </div>
+                    <div class="col-md-2">
                         <p>Type</p>
                         <md-select ng-model="rc.reportModel.type" name="type" id="type" placeholder="Choose Type">
                             <md-option ng-repeat="type in rc.types" value="{{type}}">{{type}}</md-option>
                         </md-select>
-                    </md-input-container>
+                    </div>
                     <md-input-container class="col-md-2">
                         <md-button type="button" class="md-raised md-primary btn-w-md pull-right" ng-disabled="rc.reportForm.$invalid" ng-click="rc.generateReport($event)">Generate Report</md-button>
                     </md-input-container>

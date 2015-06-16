@@ -7,6 +7,7 @@
     function sampleService($http, apiList, helper, $q) {
         var pagedSamples = {};
         var reportSamples = [];
+        var extractedSamples = [];
         var service = {
             checkLocation: checkLocation,
             saveSample: saveSample,
@@ -16,9 +17,11 @@
             getSampleReport: getSampleReport,
             getAllReportSamples: getAllReportSamples,
             getSampleLocations: getSampleLocations,
+            getExtractedSamples: getExtractedSamples,
             removeLocation: removeLocation,
             generateReport: generateReport,
-            generateRandomReport: generateRandomReport
+            generateRandomReport: generateRandomReport,
+            uploadConsentForm: uploadConsentForm
         };
         return service;
 
@@ -110,6 +113,22 @@
             }
         }
 
+        function getExtractedSamples(force) {
+            var deferred = $q.defer();
+            if (extractedSamples.length && !force) {
+                deferred.resolve(extractedSamples);
+            } else {
+                $http.get(apiList.extracted).then(recieved);
+            }
+            return deferred.promise;
+
+            function recieved(data) {
+                data = helper.processData(data.data);
+                extractedSamples = data;
+                deferred.resolve(data);
+            }
+        }
+
         function getSampleLocations(sampleId) {
             var deferred = $q.defer();
             $http.get(apiList.locations + "/" + sampleId).then(recieved);
@@ -147,5 +166,25 @@
                 deferred.resolve(data);
             }
         }
+
+        function uploadConsentForm(files, sampleId) {
+            if (!files.length) return false;
+            var data = new FormData();
+            var file = files[0];
+            data.append("file", file.file);
+            file.cancel();
+            if (sampleId) {
+                data.append("sampleId", sampleId);
+            }
+            var request = {
+                url: apiList.consentForm,
+                method: "POST",
+                data: data,
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            };
+
+            return $http(request);
+        };
     }
 })();

@@ -35,7 +35,7 @@ namespace Seaman.EntityFramework
             Mapper.CreateMap<LocationModel, Location>();
             Mapper.CreateMap<Location, LocationBriefModel>()
                 .ForMember(it => it.CollectionMethod, ctx => ctx.MapFrom(l => l.CollectionMethod.Name))
-                .ForMember(it => it.DateStored, ctx => ctx.MapFrom(l => l.DateStored.HasValue ? l.DateStored.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture): String.Empty));
+                .ForMember(it => it.DateStored, ctx => ctx.MapFrom(l => l.DateStored.HasValue ? l.DateStored.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture) : String.Empty));
             Mapper.CreateMap<Location, LocationReportModel>()
                 .ForMember(it => it.CollectionMethod, ctx => ctx.MapFrom(l => l.CollectionMethod.Name))
                 .ForMember(it => it.DateStored,
@@ -59,13 +59,15 @@ namespace Seaman.EntityFramework
             Mapper.CreateMap<Sample, SampleModel>()
                 .ForMember(it => it.Locations, ctx => ctx.MapFrom(s => s.Locations.Where(l => !l.Extracted)));
             Mapper.CreateMap<SampleModel, Sample>();
-                
+
 
             Mapper.CreateMap<Sample, SampleBriefModel>()
                 .ForMember(it => it.Comment, ctx => ctx.MapFrom(s => s.Comment.Name))
                 .ForMember(it => it.Physician, ctx => ctx.MapFrom(s => s.Physician.Name))
+                .ForMember(it => it.DepositorDob, ctx => ctx.MapFrom(s => s.DepositorDob.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)))
                 .ForMember(it => it.DepositorFullName,
-                    ctx => ctx.ResolveUsing(s => s.DepositorLastName + " " + s.DepositorFirstName));
+                    ctx => ctx.ResolveUsing(s => s.DepositorLastName + " " + s.DepositorFirstName))
+                .ForMember(it => it.Locations, ctx => ctx.MapFrom(s => s.Locations.Where(l => l.Extracted)));
 
 
             Mapper.CreateMap<Sample, SampleReportModel>()
@@ -91,8 +93,7 @@ namespace Seaman.EntityFramework
                 .ForMember(it => it.TestingOnFile, ctx => ctx.MapFrom(s => s.TestingOnFile ? "Yes" : "No"))
                 .ForMember(it => it.Refreeze, ctx => ctx.MapFrom(s => s.Refreeze ? "Yes" : "No"))
                 .ForMember(it => it.Locations, ctx => ctx.MapFrom(s => s.Locations.Where(l => !l.Extracted)))
-                .ForMember(it => it.DepositorFullName,
-                    ctx => ctx.ResolveUsing(s => s.DepositorLastName + " " + s.DepositorFirstName));
+                .ForMember(it => it.DepositorFullName, ctx => ctx.ResolveUsing(s => s.DepositorLastName + " " + s.DepositorFirstName));
 
             Mapper.CreateMap<Tank, TankModel>();
             Mapper.CreateMap<TankModel, Tank>();
@@ -108,6 +109,5 @@ namespace Seaman.EntityFramework
         {
             return;
         }
-
     }
 }

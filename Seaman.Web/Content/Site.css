@@ -8,5 +8,9 @@
 }
 
 .no-margin-top {
-    margin-top: 1px !important;
+    margin-top: 9px !important;
+}
+
+#content {
+    height: calc(100vh - 70px);
 }
