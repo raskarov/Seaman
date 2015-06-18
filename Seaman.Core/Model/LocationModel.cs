@@ -46,4 +46,12 @@ namespace Seaman.Core.Model
 
         public String Extracted { get; set; }
     }
+
+    public class ExtractLocationsModel
+    {
+        public List<Int32> LocationIds { get; set; }
+        public Int32 SampleId { get; set; }
+        public String ConsentFormName { get; set; }
+        
+    }
 }

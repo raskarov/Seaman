@@ -176,13 +176,12 @@
 
         function extractSamples(ev) {
             $mdDialog.show({
-                controller: DialogController,
+                controller: ["$scope", "$mdDialog", DialogController],
                 templateUrl: '/app/samples/extract.dialog.html',
                 parent: angular.element(document.body),
                 targetEvent: ev
             })
-            .then(function (reason) {
-                var promises = [];
+            .then(function (result) {
                 var locations = selectedSubrows;
                 if (!locations.length) return false;
                 var sample = _.find(vm.gridApi.grid.rows, function (item) {
@@ -190,7 +189,7 @@
                 });
                 if (!sample) return false;
                 sample = angular.copy(sample.entity);
-                sample.reason = reason;
+                sample.reason = result.reason;
                 sample.locations = locations;
 
                 $scope.sample = sample;
@@ -198,12 +197,12 @@
 
                 $timeout(function () {
                     $scope.$root.print();
-                    _.forEach(locations, function (item) {
-                        promises.push(sampleService.removeLocation(item.id));
-                    });
-
-                    $q.all(promises).then(function () {
-                        $scope.gridApi.selection.clearSelectedRows();
+                    var model = {
+                        locationIds: _.map(locations, "id"),
+                        sampleId: sample.id,
+                        consentFormName: result.uploadedFile
+                    };
+                    sampleService.extract(model).then(function() {
                         getData(1, $scope.gridOptions.paginationPageSize);
                     });
                 });
@@ -213,28 +212,41 @@
         }
 
 
-        function DialogController($scope, $mdDialog) {
-            $scope.reasons = [];
-            $scope.reason = {};
-            $scope.allowExtract = false;
+        function DialogController(scope, $mdDialog) {
+            scope.reasons = [];
+            //scope.selectedReason = null;
+            scope.model = {};
+            scope.allowExtract = false;
             adminService.getReasons().then(function (data) {
-                $scope.reasons = data;
+                scope.reasons = data;
+            });
+            scope.$on("cfpLoadingBar:started", function () {
+                scope.showProgress = true;
             });
 
-            $scope.upload = function(e, files) {
+            scope.$on("cfpLoadingBar:completed", function () {
+                scope.showProgress = false;
+            });
+           
+            scope.upload = function (e, files) {
                 if (!files.length) return false;
                 if (!selectedSubrows.length) return false;
                 var sampleId = selectedSubrows[0].sampleId;
                 sampleService.uploadConsentForm(files, sampleId).then(function(data) {
-                    $scope.allowExtract = data.data.allowExtract;
+                    scope.allowExtract = data.data.allowExtract;
+                    scope.uploadedFile = data.data.uploadedFile;
                 });
             }
 
-            $scope.cancel = function () {
+            scope.cancel = function () {
                 $mdDialog.cancel();
             };
-            $scope.extract = function () {
-                $mdDialog.hide($scope.reason);
+            scope.extract = function () {
+                var result = {
+                    reason: scope.model.reason,
+                    uploadedFile: scope.uploadedFile
+                };
+                $mdDialog.hide(result);
             };
         }
     };

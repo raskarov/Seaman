@@ -127,9 +127,25 @@ namespace Seaman.Web.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route("extract")]
+        public IHttpActionResult ExtractLocations(ExtractLocationsModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+            var fileToSave = model.SampleId.ToString() + "_" + model.ConsentFormName;
+            var destFileName = _uploadFolder + "/" + fileToSave;
+            SampleManager.AddConsentForm(destFileName, model.SampleId);
+            foreach (var id in model.LocationIds)
+            {
+                SampleManager.DeleteLocation(id);
+            }
+            return Ok();
+        }
+
         [HttpGet]
-        [Route("extracted")]
-        public List<SampleBriefModel> GetExtrcted()
+        [Route("extract")]
+        public List<SampleBriefModel> GetExtracted()
         {
             return SampleManager.GetExtractedSamples();
         }
@@ -166,27 +182,26 @@ namespace Seaman.Web.Controllers
             {
                 fileName = Path.GetFileName(fileName);
             }
-            fileName = sampleIdString + "_" + fileName;
-            var uploadFolder = "/uploads";
-            var mappedUploadFolder = HttpContext.Current.Server.MapPath("~" + uploadFolder);
+            var fileToSave = sampleIdString + "_" + fileName;
+            var mappedUploadFolder = HttpContext.Current.Server.MapPath("~" + _uploadFolder);
             if (!Directory.Exists(mappedUploadFolder))
             {
                 Directory.CreateDirectory(mappedUploadFolder);
             }
-            var destFileName = uploadFolder +"/" + fileName;
+            var destFileName = _uploadFolder + "/" + fileToSave;
             var mappedDestFileName = HttpContext.Current.Server.MapPath("~" + destFileName);
             if (File.Exists(mappedDestFileName))
             {
                 File.Delete(mappedDestFileName);
             }
             File.Move(file.LocalFileName, mappedDestFileName);
-            SampleManager.AddConsentForm(destFileName, sampleId);
-            return Ok(new {allowExtract = true});
+            return Ok(new { allowExtract = true, uploadedFile = fileName });
         }
 
         #endregion
         #region Privat
 
+        private String _uploadFolder = "/uploads";
         private readonly String _storageFolder = "~/App_Data";
         private String _tempFolder;
         private readonly Lazy<ISampleManager> _sampleManagerLazy;

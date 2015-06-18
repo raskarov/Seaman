@@ -14,3 +14,7 @@
 #content {
     height: calc(100vh - 70px);
 }
+
+md-dialog {
+    width: 400px;
+}

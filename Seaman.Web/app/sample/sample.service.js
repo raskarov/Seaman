@@ -18,6 +18,7 @@
             getAllReportSamples: getAllReportSamples,
             getSampleLocations: getSampleLocations,
             getExtractedSamples: getExtractedSamples,
+            extract: extract,
             removeLocation: removeLocation,
             generateReport: generateReport,
             generateRandomReport: generateRandomReport,
@@ -118,7 +119,7 @@
             if (extractedSamples.length && !force) {
                 deferred.resolve(extractedSamples);
             } else {
-                $http.get(apiList.extracted).then(recieved);
+                $http.get(apiList.extract).then(recieved);
             }
             return deferred.promise;
 
@@ -127,6 +128,12 @@
                 extractedSamples = data;
                 deferred.resolve(data);
             }
+        }
+
+        function extract(model) {
+            model = helper.toPascalCase(model);
+
+            return $http.post(apiList.extract, model);
         }
 
         function getSampleLocations(sampleId) {
