@@ -44,15 +44,14 @@ namespace Seaman.EntityFramework
 
         public IDbSet<User> Users { get; set; }
         public IDbSet<Role> Roles { get; set; }
-        public IDbSet<Cane> Canes { get; set; }
-        public IDbSet<Canister> Canisters { get; set; }
+        
+        
         public IDbSet<CollectionMethod> CollectionMethods { get; set; }
-        public IDbSet<Comment> Comments { get; set; }
         public IDbSet<Location> Locations { get; set; }
         public IDbSet<Physician> Physicians { get; set; }
         public IDbSet<Sample> Samples { get; set; }
         public IDbSet<Tank> Tanks { get; set; }
-        public IDbSet<Position> Positions { get; set; }
+        
 
         public IDbSet<ExtractReason> ExtractReasons { get; set; } 
 

@@ -7,13 +7,13 @@ namespace Seaman.EntityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class ChangeLocationEntity : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ChangeLocationEntity));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201506120335374_ChangeLocationEntity"; }
+            get { return "201507050524100_Initial"; }
         }
         
         string IMigrationMetadata.Source

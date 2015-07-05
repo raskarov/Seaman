@@ -39,15 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\CaneModel.cs" />
-    <Compile Include="Model\CanisterModel.cs" />
-    <Compile Include="Model\CommentModel.cs" />
     <Compile Include="Model\CollectionMethodModel.cs" />
     <Compile Include="Model\ExtractReasonModel.cs" />
     <Compile Include="Model\NamedBase.cs" />
     <Compile Include="Model\PhysicianModel.cs" />
     <Compile Include="Model\LocationModel.cs" />
-    <Compile Include="Model\PositionModel.cs" />
     <Compile Include="Model\TankModel.cs" />
     <Compile Include="SampleManagerBase.cs" />
     <Compile Include="SeamanException\SeamanAccessDeniedException.cs" />

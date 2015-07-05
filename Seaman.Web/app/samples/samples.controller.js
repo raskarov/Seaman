@@ -94,7 +94,7 @@
         getData();
 
         function getData() {
-            return sampleService.getAllReportSamples(true)
+            return sampleService.getSamples(true)
             .then(function (data) {
                 $scope.gridOptions.totalItems = data.length;
                 _.map(data, function (item) {
@@ -114,7 +114,7 @@
             });
             var subGridOptions = {
                 columnDefs: [
-                    { name: 'uniqName' },
+                    { name: 'uniqName', displayName: "Stored Location" },
                     { name: 'collectionMethod' },
                     { name: 'dateStored' }
                 ],
@@ -214,9 +214,7 @@
 
         function DialogController(scope, $mdDialog) {
             scope.reasons = [];
-            //scope.selectedReason = null;
             scope.model = {};
-            scope.allowExtract = false;
             adminService.getReasons().then(function (data) {
                 scope.reasons = data;
             });
@@ -227,16 +225,8 @@
             scope.$on("cfpLoadingBar:completed", function () {
                 scope.showProgress = false;
             });
-           
-            scope.upload = function (e, files) {
-                if (!files.length) return false;
-                if (!selectedSubrows.length) return false;
-                var sampleId = selectedSubrows[0].sampleId;
-                sampleService.uploadConsentForm(files, sampleId).then(function(data) {
-                    scope.allowExtract = data.data.allowExtract;
-                    scope.uploadedFile = data.data.uploadedFile;
-                });
-            }
+
+            scope.upload = upload;
 
             scope.cancel = function () {
                 $mdDialog.cancel();
@@ -248,6 +238,15 @@
                 };
                 $mdDialog.hide(result);
             };
+
+            function upload(e, files) {
+                if (!files.length) return false;
+                if (!selectedSubrows.length) return false;
+                var sampleId = selectedSubrows[0].sampleId;
+                sampleService.uploadConsentForm(files, sampleId).success(function(data) {
+                    scope.uploadedFile = data;
+                });
+            }
         }
     };
 })();

@@ -65,78 +65,22 @@
     <Compile Include="EntityConfiguration\RoleConfig.cs" />
     <Compile Include="EntityConfiguration\SampleConfiguration.cs" />
     <Compile Include="EntityConfiguration\UserConfig.cs" />
-    <Compile Include="Entity\Cane.cs" />
-    <Compile Include="Entity\Canister.cs" />
     <Compile Include="Entity\CollectionMethod.cs" />
-    <Compile Include="Entity\Comment.cs" />
     <Compile Include="Entity\ExtractReason.cs" />
     <Compile Include="Entity\Location.cs" />
     <Compile Include="Entity\Physician.cs" />
-    <Compile Include="Entity\Position.cs" />
     <Compile Include="Entity\Role.cs" />
     <Compile Include="Entity\Sample.cs" />
     <Compile Include="Entity\Tank.cs" />
     <Compile Include="Entity\User.cs" />
     <Compile Include="ForeignKeyNamingConvention.cs" />
-    <Compile Include="Migrations\201506010423267_Initial.cs" />
-    <Compile Include="Migrations\201506010423267_Initial.Designer.cs">
-      <DependentUpon>201506010423267_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201507050524100_Initial.cs" />
+    <Compile Include="Migrations\201507050524100_Initial.Designer.cs">
+      <DependentUpon>201507050524100_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201506031813415_ChangeLocation.cs" />
-    <Compile Include="Migrations\201506031813415_ChangeLocation.Designer.cs">
-      <DependentUpon>201506031813415_ChangeLocation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506040537502_AddPosition.cs" />
-    <Compile Include="Migrations\201506040537502_AddPosition.Designer.cs">
-      <DependentUpon>201506040537502_AddPosition.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506041729068_DobToDateTime.cs" />
-    <Compile Include="Migrations\201506041729068_DobToDateTime.Designer.cs">
-      <DependentUpon>201506041729068_DobToDateTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506051929207_ChangeStorageDependancies.cs" />
-    <Compile Include="Migrations\201506051929207_ChangeStorageDependancies.Designer.cs">
-      <DependentUpon>201506051929207_ChangeStorageDependancies.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506060531255_ChangeStorageModel.cs" />
-    <Compile Include="Migrations\201506060531255_ChangeStorageModel.Designer.cs">
-      <DependentUpon>201506060531255_ChangeStorageModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506060539480_ChangePositionName.cs" />
-    <Compile Include="Migrations\201506060539480_ChangePositionName.Designer.cs">
-      <DependentUpon>201506060539480_ChangePositionName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506060627542_FixPositionName.cs" />
-    <Compile Include="Migrations\201506060627542_FixPositionName.Designer.cs">
-      <DependentUpon>201506060627542_FixPositionName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506060831418_AddStoredDate.cs" />
-    <Compile Include="Migrations\201506060831418_AddStoredDate.Designer.cs">
-      <DependentUpon>201506060831418_AddStoredDate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506060851241_ChangeSampleModel.cs" />
-    <Compile Include="Migrations\201506060851241_ChangeSampleModel.Designer.cs">
-      <DependentUpon>201506060851241_ChangeSampleModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506071516064_SetPartnerDobNull.cs" />
-    <Compile Include="Migrations\201506071516064_SetPartnerDobNull.Designer.cs">
-      <DependentUpon>201506071516064_SetPartnerDobNull.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506071641212_AddExtractReason.cs" />
-    <Compile Include="Migrations\201506071641212_AddExtractReason.Designer.cs">
-      <DependentUpon>201506071641212_AddExtractReason.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506120335374_ChangeLocationEntity.cs" />
-    <Compile Include="Migrations\201506120335374_ChangeLocationEntity.Designer.cs">
-      <DependentUpon>201506120335374_ChangeLocationEntity.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506120436181_ChangeLocationEntity1.cs" />
-    <Compile Include="Migrations\201506120436181_ChangeLocationEntity1.Designer.cs">
-      <DependentUpon>201506120436181_ChangeLocationEntity1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506160405337_AddConsentFormUrl.cs" />
-    <Compile Include="Migrations\201506160405337_AddConsentFormUrl.Designer.cs">
-      <DependentUpon>201506160405337_AddConsentFormUrl.cs</DependentUpon>
+    <Compile Include="Migrations\201507050615539_LocationChanges.cs" />
+    <Compile Include="Migrations\201507050615539_LocationChanges.Designer.cs">
+      <DependentUpon>201507050615539_LocationChanges.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -158,50 +102,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201506010423267_Initial.resx">
-      <DependentUpon>201506010423267_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507050524100_Initial.resx">
+      <DependentUpon>201507050524100_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506031813415_ChangeLocation.resx">
-      <DependentUpon>201506031813415_ChangeLocation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506040537502_AddPosition.resx">
-      <DependentUpon>201506040537502_AddPosition.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506041729068_DobToDateTime.resx">
-      <DependentUpon>201506041729068_DobToDateTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506051929207_ChangeStorageDependancies.resx">
-      <DependentUpon>201506051929207_ChangeStorageDependancies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506060531255_ChangeStorageModel.resx">
-      <DependentUpon>201506060531255_ChangeStorageModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506060539480_ChangePositionName.resx">
-      <DependentUpon>201506060539480_ChangePositionName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506060627542_FixPositionName.resx">
-      <DependentUpon>201506060627542_FixPositionName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506060831418_AddStoredDate.resx">
-      <DependentUpon>201506060831418_AddStoredDate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506060851241_ChangeSampleModel.resx">
-      <DependentUpon>201506060851241_ChangeSampleModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506071516064_SetPartnerDobNull.resx">
-      <DependentUpon>201506071516064_SetPartnerDobNull.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506071641212_AddExtractReason.resx">
-      <DependentUpon>201506071641212_AddExtractReason.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506120335374_ChangeLocationEntity.resx">
-      <DependentUpon>201506120335374_ChangeLocationEntity.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506120436181_ChangeLocationEntity1.resx">
-      <DependentUpon>201506120436181_ChangeLocationEntity1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506160405337_AddConsentFormUrl.resx">
-      <DependentUpon>201506160405337_AddConsentFormUrl.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201507050615539_LocationChanges.resx">
+      <DependentUpon>201507050615539_LocationChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

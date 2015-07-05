@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -46,7 +47,7 @@ namespace Seaman.EntityFramework
 
             sample.ModifiedByUserId = byUserId;
             sample.PhysicianId = model.PhysicianId;
-            sample.CommentId = model.CommentId;
+            sample.Comment = model.Comment;
 
             sample.AnonymousDonor = model.AnonymousDonor;
             sample.AnonymousDonorId = model.AnonymousDonorId;
@@ -92,17 +93,19 @@ namespace Seaman.EntityFramework
                     location = _context.CreateAndAdd<Location>();
                     _context.SaveChanges();
                 }
-                if (sample.Locations.Any(l => l.Id == location.Id))
-                    continue;
+                //if (sample.Locations.Any(l => l.Id == location.Id))
+                //    continue;
                 sample.Locations.Add(location);
                 location.Tank = locationToAdd.Tank;
                 location.Canister = locationToAdd.Canister;
-                location.Cane = locationToAdd.Cane;
+                location.CaneLetter = locationToAdd.CaneLetter;
+                location.CaneColor = locationToAdd.CaneColor;
                 location.Position = locationToAdd.Position;
                 location.DateStored = locationToAdd.DateStored;
                 location.CollectionMethodId = locationToAdd.CollectionMethodId;
+                location.SpecimenNumber = locationToAdd.SpecimenNumber;
                 location.Available = false;
-                location.UniqName = location.Tank + location.Canister + location.Cane + location.Position;
+                location.UniqName = String.Format("{0}-{1}-{2}-{3}-{4}", location.Tank,  location.Canister, location.CaneLetter, location.Position, location.CaneColor);
 
             }
             foreach (var locationToRemove in model.LocationsToRemove)
@@ -130,7 +133,10 @@ namespace Seaman.EntityFramework
 
         public override SampleReportModel GetReportSample(int id)
         {
-            return Mapper.Map<SampleReportModel>(_context.Samples.Get(id, "Sample not found"));
+            var sample = _context.Samples.Get(id, "Sample not found");
+            sample.Locations = sample.Locations.Where(l => !l.Extracted).ToList();
+
+            return Mapper.Map<SampleReportModel>(sample);
         }
 
         public override List<SampleReportModel> GetReportSamples(ICollection<int> ids)
@@ -138,23 +144,25 @@ namespace Seaman.EntityFramework
             return Mapper.Map<List<SampleReportModel>>(ids.Any() ? _context.Samples.Where(s => ids.Any(id => id == s.Id)) : _context.Samples);
         }
 
-        public override List<SampleBriefModel> GetExtractedSamples()
+        public override List<SampleReportModel> GetExtractedSamples()
         {
-            return Mapper.Map<List<SampleBriefModel>>(_context.Samples.Where(s => s.Locations.Any(l => l.Extracted)));
+            var extractedSamples = _context.Samples.Where(s => s.Locations.Any(l => l.Extracted)).ToList();
+            foreach (var sample in extractedSamples)
+            {
+                sample.Locations = sample.Locations.Where(l => l.Extracted).OrderByDescending(l => l.DateExtracted).ToList();
+            }
+
+            return Mapper.Map<List<SampleReportModel>>(extractedSamples.OrderByDescending(s => s.Id));
         }
 
-        public override PagedResult<SampleBriefModel> GetSamples(PagedQuery query)
+        public override List<SampleReportModel> GetSamples()
         {
-            var samples = _context.Samples.AsQueryable();
-            samples = samples.OrderBy(it => it.Id);
-            var total = query.SkipTakeCount(ref samples);
-
-            return new PagedResult<SampleBriefModel>
+            var samples = _context.Samples.ToList();
+            foreach (var sample in samples)
             {
-                Data = Mapper.Map<List<SampleBriefModel>>(samples),
-                Query = query,
-                Total = total
-            };
+                sample.Locations = sample.Locations.Where(l => !l.Extracted).ToList();
+            }
+            return Mapper.Map<List<SampleReportModel>>(samples);
         }
 
         public override PagedResult<SampleBriefModel> GetSamplesByTank(int tankId)
@@ -227,63 +235,6 @@ namespace Seaman.EntityFramework
             _context.SaveChanges();
         }
 
-        public override List<CaneModel> GetCanes()
-        {
-            return Mapper.Map<List<CaneModel>>(_context.Canes);
-        }
-
-        public override List<CaneModel> GetCanes(int canisterId)
-        {
-            return Mapper.Map<List<CaneModel>>(_context.Canes.Where(x => x.Canister.Id == canisterId));
-        }
-
-        public override CaneModel SaveCane(CaneModel cane, int canisterId)
-        {
-            var canister = _context.Canisters.Get(canisterId, "Canister not found");
-            if (canister == null) return null;
-            var exist = cane.Id == 0 ? _context.CreateAndAdd<Cane>() : _context.Canes.Get(cane.Id, "Cane not found");
-            exist.Name = cane.Name;
-            exist.Color = cane.Color;
-            canister.Canes.Add(exist);
-            _context.SaveChanges();
-            return Mapper.Map<CaneModel>(exist);
-        }
-
-        public override void DeleteCane(int id)
-        {
-            var cane = _context.Canes.Get(id, "Cane not found");
-            _context.Canes.Remove(cane);
-            _context.SaveChanges();
-        }
-
-        public override List<CanisterModel> GetCanisters()
-        {
-            return Mapper.Map<List<CanisterModel>>(_context.Canisters);
-        }
-
-        public override List<CanisterModel> GetCanisters(int tankdId)
-        {
-            return Mapper.Map<List<CanisterModel>>(_context.Canisters.Where(x => x.Tank.Id == tankdId));
-        }
-
-        public override CanisterModel SaveCanister(CanisterModel canister, int tankId)
-        {
-            var tank = _context.Tanks.Get(tankId, "Tank not found");
-            if (tank == null) return null;
-            var exist = canister.Id == 0 ? _context.CreateAndAdd<Canister>() : _context.Canisters.Get(canister.Id, "Canister not found");
-            exist.Name = canister.Name;
-            //tank.Canisters.Add(exist);
-            _context.SaveChanges();
-            return Mapper.Map<CanisterModel>(exist);
-        }
-
-        public override void DeleteCanister(int id)
-        {
-            var canister = _context.Canisters.Get(id, "Cane not found");
-            _context.Canisters.Remove(canister);
-            _context.SaveChanges();
-        }
-
         public override List<CollectionMethodModel> GetCollectionMethods()
         {
             return Mapper.Map<List<CollectionMethodModel>>(_context.CollectionMethods);
@@ -305,30 +256,6 @@ namespace Seaman.EntityFramework
                 sample.CollectionMethod = null;
             }
             _context.CollectionMethods.Remove(collectionMethod);
-            _context.SaveChanges();
-        }
-
-        public override List<CommentModel> GetComments()
-        {
-            return Mapper.Map<List<CommentModel>>(_context.Comments);
-        }
-
-        public override CommentModel SaveComment(CommentModel comment)
-        {
-            var exist = comment.Id == 0 ? _context.CreateAndAdd<Comment>() : _context.Comments.Get(comment.Id, "Comment not found");
-            exist.Name = comment.Name;
-            _context.SaveChanges();
-            return Mapper.Map<CommentModel>(exist);
-        }
-
-        public override void DeleteComment(int id)
-        {
-            var comment = _context.Comments.Get(id, "Comment not found");
-            foreach (var sample in comment.Samples)
-            {
-                sample.Comment = null;
-            }
-            _context.Comments.Remove(comment);
             _context.SaveChanges();
         }
 
@@ -360,6 +287,7 @@ namespace Seaman.EntityFramework
         {
             var location = _context.Locations.Get(id, "Location not found");
             location.Extracted = true;
+            location.DateExtracted = DateTime.Now;
             location.Available = true;
             _context.SaveChanges();
         }
@@ -410,35 +338,7 @@ namespace Seaman.EntityFramework
             _context.Tanks.Remove(tank);
             _context.SaveChanges();
         }
-
-        public override List<PositionModel> GetPositions()
-        {
-            return Mapper.Map<List<PositionModel>>(_context.Positions);
-        }
-
-        public override List<PositionModel> GetPositions(int caneId)
-        {
-            return Mapper.Map<List<PositionModel>>(_context.Positions.Where(x => x.Cane.Id == caneId));
-        }
-
-        public override PositionModel SavePosition(PositionModel position, int caneId)
-        {
-            var cane = _context.Canes.Get(caneId, "Cane not found");
-            if (cane == null) return null;
-            var exist = position.Id == 0 ? _context.CreateAndAdd<Position>() : _context.Positions.Get(position.Id, "Position not found");
-            exist.Name = position.Name;
-            cane.Positions.Add(exist);
-            _context.SaveChanges();
-            return Mapper.Map<PositionModel>(exist);
-        }
-
-        public override void DeletePosition(int id)
-        {
-            var position = _context.Positions.Get(id, "Tank not found");
-            _context.Positions.Remove(position);
-            _context.SaveChanges();
-        }
-
+       
         public override List<ExtractReasonModel> GetExtractReasons()
         {
             return Mapper.Map<List<ExtractReasonModel>>(_context.ExtractReasons);

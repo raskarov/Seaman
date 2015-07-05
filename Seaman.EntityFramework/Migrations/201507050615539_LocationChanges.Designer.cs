@@ -7,13 +7,13 @@ namespace Seaman.EntityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class SetPartnerDobNull : IMigrationMetadata
+    public sealed partial class LocationChanges : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(SetPartnerDobNull));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(LocationChanges));
         
         string IMigrationMetadata.Id
         {
-            get { return "201506071516064_SetPartnerDobNull"; }
+            get { return "201507050615539_LocationChanges"; }
         }
         
         string IMigrationMetadata.Source

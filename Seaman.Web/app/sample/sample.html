@@ -55,7 +55,7 @@
                             </md-input-container>
                             <md-input-container class="col-md-6">
                                 <label for="depositorSsn">{{sc.sampleField.depositorSsn.title}}</label>
-                                <input type="text" class="form-control" required id="depositorSsn" name="depositorSsn"
+                                <input type="text" class="form-control" id="depositorSsn" name="depositorSsn"
                                        ng-model="sc.sampleModel.depositorSsn" mask="999-99-9999" clearn="true">
                                 <div ng-messages="sc.sampleForm.depositorSsn.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorSsn.$touched">
@@ -134,17 +134,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <p class="col-md-12">{{sc.sampleField.comment.title}}</p>
-                                <md-select ng-model="sc.sampleModel.commentId" required name="comment" class="col-md-12" id="comment" placeholder="Choose Comment">
-                                    <md-option ng-repeat="comment in sc.comments" value="{{comment.id}}">{{comment.name}}</md-option>
-                                </md-select>
+                            <md-input-container class="col-md-6 comment-padding">
+                                <label for="partnerSsn">{{sc.sampleField.comment.title}}</label>
+                                <input type="text" class="form-control col-md-12" ng-model="sc.sampleModel.comment" ng-required="sc.sampleField.comment.required" name="comment" id="comment" placeholder="Enter Comment">
                                 <div ng-messages="sc.sampleForm.comment.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.comment.$touched">
                                         <div ng-message="required">{{sc.sampleField.comment.message.required}}</div>
                                     </div>
                                 </div>
-                            </div>
+                            </md-input-container>
                         </div>
                         <div class="row clearfix">
                             <div class="col-md-4">
@@ -289,12 +287,12 @@
                                 </md-select>
 
 
-                                <md-select ng-model="sc.canes[key].name" placeholder="Cane" ng-change="sc.processCane(key); sc.onStorageChange(key)" class="col-md-1">
+                                <md-select ng-model="sc.locations[key].caneLetter" placeholder="Cane" ng-change="sc.onStorageChange(key)" class="col-md-1">
                                     <md-option ng-repeat="letter in sc.letters[key]" value="{{letter}}">{{letter}}</md-option>
                                 </md-select>
 
 
-                                <md-select ng-model="sc.canes[key].color" placeholder="Color" ng-change="sc.processCane(key); sc.onStorageChange(key)" class="col-md-1">
+                                <md-select ng-model="sc.locations[key].caneColor" placeholder="Color" ng-change="sc.onStorageChange(key)" class="col-md-1">
                                     <md-option ng-repeat="color in sc.colors" value="{{color}}">{{color}}</md-option>
                                 </md-select>
 
@@ -303,34 +301,42 @@
                                     <md-option ng-repeat="position in sc.positions[key]" value="{{position}}">{{position}}</md-option>
                                 </md-select>
 
-                                <md-input-container class="col-md-2">
-                                    <div class="input-group ui-datepicker">
-                                        <label for="{{'dateStored' + key}}">{{sc.sampleField.dateStored.title}}</label>
-                                        <input type="text" class="form-control"
-                                               id="{{'dateStored' + key}}" name="{{'dateStored' + key}}" ng-model="sc.locations[key].dateStored"
-                                               ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
-                                               data-mask="19/39/9999"
-                                               datepicker-popup
-                                               is-open="sc['dateStoredDatepickerOpened' + key]" />
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-default" ng-click="sc.openDateStoredDatepicker($event, key)"><i class="glyphicon glyphicon-calendar"></i></button>
-                                        </span>
+                                <div class="col-md-6">
+                                    <md-input-container class="col-md-3">
+                                        <div class="input-group ui-datepicker">
+                                            <label for="{{'dateStored' + key}}">{{sc.sampleField.dateStored.title}}</label>
+                                            <input type="text" class="form-control"
+                                                   id="{{'dateStored' + key}}" name="{{'dateStored' + key}}" ng-model="sc.locations[key].dateStored"
+                                                   ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
+                                                   data-mask="19/39/9999"
+                                                   datepicker-popup
+                                                   is-open="sc['dateStoredDatepickerOpened' + key]" />
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="sc.openDateStoredDatepicker($event, key)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </div>
+                                    </md-input-container>
+
+                                    <md-input-container class="col-md-3">
+                                        <label for="specimenNumber">{{sc.sampleField.specimenNumber.title}}</label>
+                                        <input type="text" class="form-control" id="specimenNumber" name="specimenNumber" ng-model="sc.locations[key].specimenNumber" />
+                                    </md-input-container>
+
+                                    <div class="col-md-4">
+                                        <md-select ng-model="sc.locations[key].collectionMethodId" class="location-method-padding" required name="methodOfCollection" id="methodOfCollection" placeholder="Choose Method Of Location">
+                                            <md-option ng-repeat="method in sc.collectionMethods" value="{{method.id}}">{{method.name}}</md-option>
+                                        </md-select>
                                     </div>
-                                </md-input-container>
 
-                                <md-select ng-model="sc.locations[key].collectionMethodId" class="col-md-2" required name="methodOfCollection" id="methodOfCollection" placeholder="Choose Method Of Location">
-                                    <md-option ng-repeat="method in sc.collectionMethods" value="{{method.id}}">{{method.name}}</md-option>
-                                </md-select>
-
-                                <md-input-container class="col-md-2" ng-show="key > 0">
-                                    <md-button type="button" aria-label="remove" ng-if="!sc.locations[key].exists" class="md-raised md-warn" ng-click="sc.removeLocation($event, key)">
-                                        Remove
-                                    </md-button>
-                                    <md-button type="button" aria-label="remove" ng-if="sc.locations[key].exists" class="md-raised md-warn"
-                                               ng-click="sc.extractLocation($event, key)">
-                                        Extract
-                                    </md-button>
-                                </md-input-container>
+                                    <md-input-container class="col-md-2" ng-show="key > 0">
+                                        <md-button type="button" aria-label="remove" ng-if="!sc.locations[key].exists" class="md-raised md-warn" ng-click="sc.removeLocation($event, key)">
+                                            Remove
+                                        </md-button>
+                                        <md-button type="button" aria-label="remove" ng-if="sc.locations[key].exists" class="md-raised md-warn" ng-click="sc.extractLocation($event, key)">
+                                            Extract
+                                        </md-button>
+                                    </md-input-container>
+                                </div>
                                 <div class="error location-error col-md-12" ng-show="!sc.locations[key].available && sc.locations[key].filled">Selected location has already used</div>
                             </div>
                             <md-button type="button" aria-label="headphones" class="md-raised md-accent btn-w-md" ng-click="sc.addLocation($event)">

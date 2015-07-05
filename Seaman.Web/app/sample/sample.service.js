@@ -47,10 +47,10 @@
             }
         }
 
-        function getSamples(force) { //skip, take, sort
+        function getSamples(force) {
             var deferred = $q.defer();
             if (pagedSamples.data && !force) {
-                deferred.resolve(pagedSamples); //var url = getPagingUrl(apiList.sample, skip, take, sort);
+                deferred.resolve(pagedSamples);
             } else {
                 $http.get(apiList.sample).then(success);
             }

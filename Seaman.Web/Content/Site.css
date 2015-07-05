@@ -8,7 +8,7 @@
 }
 
 .no-margin-top {
-    margin-top: 9px !important;
+    margin-top: 7px !important;
 }
 
 #content {
@@ -16,5 +16,14 @@
 }
 
 md-dialog {
-    width: 400px;
+    width: 600px;
+}
+
+.comment-padding {
+    padding-top: 15px;
+    padding-bottom: 14px;
+}
+
+.location-method-padding {
+    padding-top: 15px;
 }

@@ -2,9 +2,9 @@
     angular.module("seaman.sample")
         .controller("SampleController", sampleController);
 
-    sampleController.$inject = ["$scope", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state", "$timeout", "$mdDialog", "$q"];
+    sampleController.$inject = ["$scope", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state", "$timeout", "$mdDialog", "$q", "helper"];
 
-    function sampleController($scope, validation, colors, adminService, consts, sampleService, $state, $timeout, $mdDialog, $q) {
+    function sampleController($scope, validation, colors, adminService, consts, sampleService, $state, $timeout, $mdDialog, $q, helper) {
         var vm = this;
         var letters = angular.copy(consts.alphabet);
         vm.title = "Sample";
@@ -15,13 +15,12 @@
             }
         };
         vm.locationsToRemove = [];
-        vm.processCane = processCane;
         vm.colors = _.toArray(colors);
         vm.sampleField = {
             depositorLastName: validation.newField('Last Name', { required: true }),
             depositorFirstName: validation.newField('First Name', { required: true }),
             depositorDob: validation.newField('Dob', { required: true, date: true }),
-            depositorSsn: validation.newField('Ssn', { required: true }),
+            depositorSsn: validation.newField('Ssn', { required: false }),
             partnerLastName: validation.newField('Last Name', { required: false }),
             partnerFirstName: validation.newField('First Name', { required: false }),
             partnerDob: validation.newField('Dob', { required: false, date: true }),
@@ -41,7 +40,8 @@
             caneColor: validation.newField('Cane color', { requiredSelect: true }),
             position: validation.newField('Position', { requiredSelect: true }),
             physician: validation.newField('Physician of record i.e.', { requiredSelect: true }),
-            comment: validation.newField('Comment / Warning', { requiredSelect: true })
+            comment: validation.newField('Comment / Warning', { required: true }),
+            specimenNumber: validation.newField("Specimen Number")
         };
 
         vm.tanks = [];
@@ -57,7 +57,6 @@
 
         vm.collectionMethods = [];
         vm.physicians = [];
-        vm.comments = [];
 
         vm.depositorDatepickerOpened = false;
         vm.openDepositorDatepicker = openDepositorDatepicker;
@@ -85,15 +84,11 @@
                 vm.collectionMethods = data;
             });
 
-            var commentsPromise = adminService.getComments(true).then(function (data) {
-                vm.comments = data;
-            });
-
             var physicianPromise = adminService.getPhysician(true).then(function (data) {
                 vm.physicians = data;
             });
 
-            promises = promises.concat([tankPromise, methodsPromise, commentsPromise, physicianPromise]);
+            promises = promises.concat([tankPromise, methodsPromise, physicianPromise]);
 
             $q.all(promises).then(function () {
                 if ($state.params && $state.params.id) {
@@ -108,8 +103,8 @@
                             vm.locations[i] = item;
                             onTankChange(i);
                             vm.canes[i] = {
-                                name: item.cane.substring(0, 1),
-                                color: item.cane.substring(1, item.cane.length)
+                                name: item.caneLetter,
+                                color: item.caneColor
                             };
                         });
                         delete vm.sampleModel.locations;
@@ -168,9 +163,9 @@
 
         function onStorageChange(name) {
             var location = vm.locations[name];
-            if (!location || !location.tank || !location.canister || !location.cane || !location.position) return false;
+            if (!location || !location.tank || !location.canister || !location.caneLetter || !location.caneColor || !location.position) return false;
             location.filled = true;
-            location.uniqName = location.tank + location.canister + location.cane + location.position;
+            location.uniqName = helper.format("{0}-{1}-{2}-{3}-{4}", location.tank, location.canister, location.caneLetter, location.position, location.caneColor);
             sampleService.checkLocation(location).then(function (res) {
                 location.exists = vm.sampleModel.id && location.id && vm.sampleModel.id > 0 && res.data != null && res.data.sampleId === vm.sampleModel.id;
                 var localCheck = _.filter(vm.locations, function (item) {
@@ -181,12 +176,6 @@
             });
         }
 
-        function processCane(name) {
-            var cane = vm.canes[name];
-            if (!cane || !cane.name || !cane.color) return false;
-            vm.locations[name].cane = cane.name.capitalize() + cane.color.capitalize();
-        }
-
         function generateStorageByTank(tank, name) {
             if (!tank) return false;
             var i;
@@ -195,7 +184,14 @@
                 vm.canisters[name].push(i);
             }
 
-            vm.letters[name] = letters.substring(0, tank.canesCount / vm.colors.length).toUpperCase().split("");
+            var lettersArray = letters.toUpperCase().split("");
+            var doubleLetters = _.map(angular.copy(lettersArray), function (item) {
+                return item + item;
+            });
+
+            vm.letters[name] = lettersArray.concat(doubleLetters);
+
+            //vm.letters[name] = letters.substring(0, tank.canesCount / vm.colors.length).toUpperCase().split("");
 
             vm.positions[name] = [];
             for (i = 1; i <= tank.positionsCount; i++) {

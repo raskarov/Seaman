@@ -29,7 +29,7 @@ namespace Seaman.Web.Controllers
         [Route("available")]
         public IHttpActionResult CheckLocation(LocationModel model)
         {
-            var uniqName = model.Tank + model.Canister.ToString() + model.Cane + model.Position.ToString();
+            var uniqName = String.Format("{0}-{1}-{2}-{3}-{4}", model.Tank, model.Canister, model.CaneLetter, model.Position, model.CaneColor);
             var location = SampleManager.GetLocation(uniqName);
             return Ok(location);
         }
@@ -51,10 +51,9 @@ namespace Seaman.Web.Controllers
 
         [HttpGet]
         [Route("")]
-        public PagedResult<SampleBriefModel> GetSamples()
+        public List<SampleReportModel> GetSamples()
         {
-            var query = new PagedQuery(Request.RequestUri.ParseQueryString());
-            return SampleManager.GetSamples(query);
+            return SampleManager.GetSamples();
         }
 
         [HttpDelete]
@@ -133,9 +132,12 @@ namespace Seaman.Web.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest();
-            var fileToSave = model.SampleId.ToString() + "_" + model.ConsentFormName;
-            var destFileName = _uploadFolder + "/" + fileToSave;
-            SampleManager.AddConsentForm(destFileName, model.SampleId);
+            if (!String.IsNullOrEmpty(model.ConsentFormName))
+            {
+                var fileToSave = model.SampleId.ToString() + "_" + model.ConsentFormName;
+                var destFileName = _uploadFolder + "/" + fileToSave;
+                SampleManager.AddConsentForm(destFileName, model.SampleId);
+            }
             foreach (var id in model.LocationIds)
             {
                 SampleManager.DeleteLocation(id);
@@ -145,7 +147,7 @@ namespace Seaman.Web.Controllers
 
         [HttpGet]
         [Route("extract")]
-        public List<SampleBriefModel> GetExtracted()
+        public List<SampleReportModel> GetExtracted()
         {
             return SampleManager.GetExtractedSamples();
         }
@@ -195,7 +197,7 @@ namespace Seaman.Web.Controllers
                 File.Delete(mappedDestFileName);
             }
             File.Move(file.LocalFileName, mappedDestFileName);
-            return Ok(new { allowExtract = true, uploadedFile = fileName });
+            return Ok(fileName);
         }
 
         #endregion

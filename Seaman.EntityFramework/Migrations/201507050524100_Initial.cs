@@ -8,31 +8,7 @@ namespace Seaman.EntityFramework.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Cane",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        CanisterId = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Canister", t => t.CanisterId)
-                .Index(t => t.CanisterId, name: "IX_Canister_Id");
-            
-            CreateTable(
-                "dbo.Canister",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                        TankId = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Tank", t => t.TankId)
-                .Index(t => t.TankId, name: "IX_Tank_Id");
-            
-            CreateTable(
-                "dbo.Tank",
+                "dbo.CollectionMethod",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -46,25 +22,23 @@ namespace Seaman.EntityFramework.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Available = c.Boolean(nullable: false),
+                        Extracted = c.Boolean(nullable: false),
+                        Tank = c.String(maxLength: 10),
+                        Canister = c.Int(nullable: false),
+                        Cane = c.String(maxLength: 20),
+                        Position = c.Int(nullable: false),
                         UniqName = c.String(maxLength: 50),
+                        DateStored = c.DateTime(),
+                        DateExtracted = c.DateTime(),
+                        CollectionMethodId = c.Int(),
                         Name = c.String(),
-                        CaneId = c.Int(),
                         SampleId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Cane", t => t.CaneId)
+                .ForeignKey("dbo.CollectionMethod", t => t.CollectionMethodId)
                 .ForeignKey("dbo.Sample", t => t.SampleId)
-                .Index(t => t.CaneId, name: "IX_Cane_Id")
+                .Index(t => t.CollectionMethodId)
                 .Index(t => t.SampleId, name: "IX_Sample_Id");
-            
-            CreateTable(
-                "dbo.CollectionMethod",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.Sample",
@@ -73,11 +47,11 @@ namespace Seaman.EntityFramework.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         DepositorFirstName = c.String(maxLength: 50),
                         DepositorLastName = c.String(maxLength: 50),
-                        DepositorDob = c.String(maxLength: 50),
+                        DepositorDob = c.DateTime(nullable: false),
                         DepositorSsn = c.String(maxLength: 20),
                         PartnerFirstName = c.String(maxLength: 50),
                         PartnerLastName = c.String(maxLength: 50),
-                        PartnerDob = c.String(maxLength: 50),
+                        PartnerDob = c.DateTime(),
                         PartnerSsn = c.String(maxLength: 20),
                         Autologous = c.Boolean(nullable: false),
                         Refreeze = c.Boolean(nullable: false),
@@ -89,20 +63,19 @@ namespace Seaman.EntityFramework.Migrations
                         DirectedDonorId = c.String(maxLength: 20),
                         DirectedDonorLastName = c.String(maxLength: 50),
                         DirectedDonorFirstName = c.String(maxLength: 50),
+                        DirectedDonorDob = c.DateTime(),
                         AnonymousDonor = c.Boolean(nullable: false),
                         AnonymousDonorId = c.String(maxLength: 20),
+                        ConsentFormUrl = c.String(),
                         CreatedDate = c.DateTime(nullable: false),
                         CreatedByUserId = c.Int(),
                         ModifiedDate = c.DateTime(nullable: false),
                         ModifiedByUserId = c.Int(),
                         PhysicianId = c.Int(),
-                        CollectionMethodId = c.Int(),
-                        CommentId = c.Int(),
+                        Comment = c.String(maxLength: 1000),
                         UserId = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.CollectionMethod", t => t.CollectionMethodId)
-                .ForeignKey("dbo.Comment", t => t.CommentId)
                 .ForeignKey("dbo.User", t => t.UserId)
                 .ForeignKey("dbo.User", t => t.CreatedByUserId)
                 .ForeignKey("dbo.User", t => t.ModifiedByUserId)
@@ -110,18 +83,7 @@ namespace Seaman.EntityFramework.Migrations
                 .Index(t => t.CreatedByUserId)
                 .Index(t => t.ModifiedByUserId)
                 .Index(t => t.PhysicianId)
-                .Index(t => t.CollectionMethodId)
-                .Index(t => t.CommentId)
                 .Index(t => t.UserId, name: "IX_User_Id");
-            
-            CreateTable(
-                "dbo.Comment",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.User",
@@ -162,6 +124,27 @@ namespace Seaman.EntityFramework.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.ExtractReason",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.Tank",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        CanistersCount = c.Int(nullable: false),
+                        CanesCount = c.Int(nullable: false),
+                        PositionsCount = c.Int(nullable: false),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.UserRole",
                 c => new
                     {
@@ -185,36 +168,26 @@ namespace Seaman.EntityFramework.Migrations
             DropForeignKey("dbo.Sample", "UserId", "dbo.User");
             DropForeignKey("dbo.UserRole", "RoleId", "dbo.Role");
             DropForeignKey("dbo.UserRole", "UserId", "dbo.User");
-            DropForeignKey("dbo.Sample", "CommentId", "dbo.Comment");
-            DropForeignKey("dbo.Sample", "CollectionMethodId", "dbo.CollectionMethod");
-            DropForeignKey("dbo.Location", "CaneId", "dbo.Cane");
-            DropForeignKey("dbo.Canister", "TankId", "dbo.Tank");
-            DropForeignKey("dbo.Cane", "CanisterId", "dbo.Canister");
+            DropForeignKey("dbo.Location", "CollectionMethodId", "dbo.CollectionMethod");
             DropIndex("dbo.UserRole", "IX_Role_Id");
             DropIndex("dbo.UserRole", "IX_User_Id");
             DropIndex("dbo.Role", "IX_Role_Name");
             DropIndex("dbo.User", "IX_User_UserName");
             DropIndex("dbo.Sample", "IX_User_Id");
-            DropIndex("dbo.Sample", new[] { "CommentId" });
-            DropIndex("dbo.Sample", new[] { "CollectionMethodId" });
             DropIndex("dbo.Sample", new[] { "PhysicianId" });
             DropIndex("dbo.Sample", new[] { "ModifiedByUserId" });
             DropIndex("dbo.Sample", new[] { "CreatedByUserId" });
             DropIndex("dbo.Location", "IX_Sample_Id");
-            DropIndex("dbo.Location", "IX_Cane_Id");
-            DropIndex("dbo.Canister", "IX_Tank_Id");
-            DropIndex("dbo.Cane", "IX_Canister_Id");
+            DropIndex("dbo.Location", new[] { "CollectionMethodId" });
             DropTable("dbo.UserRole");
+            DropTable("dbo.Tank");
+            DropTable("dbo.ExtractReason");
             DropTable("dbo.Physician");
             DropTable("dbo.Role");
             DropTable("dbo.User");
-            DropTable("dbo.Comment");
             DropTable("dbo.Sample");
-            DropTable("dbo.CollectionMethod");
             DropTable("dbo.Location");
-            DropTable("dbo.Tank");
-            DropTable("dbo.Canister");
-            DropTable("dbo.Cane");
+            DropTable("dbo.CollectionMethod");
         }
     }
 }

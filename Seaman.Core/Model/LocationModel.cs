@@ -17,11 +17,14 @@ namespace Seaman.Core.Model
         public Boolean Extracted { get; set; }
         public String Tank { get; set; }
         public Int32 Canister { get; set; }
-        public String Cane { get; set; }
+        public String CaneLetter { get; set; }
+        public String CaneColor { get; set; }
         public Int32 Position { get; set; }
 
         public String UniqName { get; set; }
+        public String SpecimenNumber { get; set; }
         public DateTime? DateStored { get; set; }
+        public DateTime? DateExtracted { get; set; }
         public Int32? CollectionMethodId { get; set; }
     }
 
@@ -30,6 +33,7 @@ namespace Seaman.Core.Model
         public Int32 Id { get; set; }
         public String UniqName { get; set; }
         public String DateStored { get; set; }
+        public String DateExtracted { get; set; }
         public Int32? CollectionMethodId { get; set; }
         public String CollectionMethod { get; set; }
     }
@@ -45,6 +49,7 @@ namespace Seaman.Core.Model
         public String Physician { get; set; }
 
         public String Extracted { get; set; }
+        public String DateExtracted { get; set; }
     }
 
     public class ExtractLocationsModel
@@ -52,6 +57,5 @@ namespace Seaman.Core.Model
         public List<Int32> LocationIds { get; set; }
         public Int32 SampleId { get; set; }
         public String ConsentFormName { get; set; }
-        
     }
 }

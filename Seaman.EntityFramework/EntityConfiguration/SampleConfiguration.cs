@@ -28,6 +28,8 @@ namespace Seaman.EntityFramework.EntityConfiguration
             Property(it => it.DirectedDonorLastName).HasMaxLength(50);
 
             Property(it => it.AnonymousDonorId).HasMaxLength(20);
+
+            Property(it => it.Comment).HasMaxLength(1000);
         }
     }
 }

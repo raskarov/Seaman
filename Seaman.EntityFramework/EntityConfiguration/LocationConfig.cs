@@ -14,7 +14,8 @@ namespace Seaman.EntityFramework.EntityConfiguration
         {
             Property(it => it.UniqName).HasMaxLength(50);
             Property(it => it.Tank).HasMaxLength(10);
-            Property(it => it.Cane).HasMaxLength(20);
+            Property(it => it.CaneColor).HasMaxLength(20);
+            Property(it => it.SpecimenNumber).HasMaxLength(20);
         }
     }
 }

@@ -411,6 +411,7 @@
     <Content Include="Scripts\angular-ui\ng-flow-standalone.js" />
     <Content Include="Scripts\angular-ui\ngMask.js" />
     <Content Include="Content\ui-grid\ui-grid.svg" />
+    <Content Include="Scripts\jquery.slimscroll.js" />
     <Content Include="Scripts\ui-grid\ui-grid-unstable.js" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-aria.js" />
