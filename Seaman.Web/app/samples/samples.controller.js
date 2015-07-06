@@ -17,6 +17,7 @@
         vm.isRowsSelected = false;
         vm.isSubRowsSelected = false;
         vm.printSample = printSample;
+        vm.import = importSamples;
 
         $scope.gridOptions = {
             showGridFooter: true,
@@ -161,11 +162,7 @@
         function getSelectedRows() {
             return $scope.gridApi.selection.getSelectedRows();
         }
-
-        function getSelectedSubRows() {
-            return $scope.subGridApi && $scope.subGridApi.selection.getSelectedRows();
-        }
-
+    
         function printSample(ev) {
             $scope.sample = getSelectedRows()[0];
             $timeout(function() {
@@ -203,7 +200,7 @@
                         consentFormName: result.uploadedFile
                     };
                     sampleService.extract(model).then(function() {
-                        getData(1, $scope.gridOptions.paginationPageSize);
+                        getData();
                     });
                 });
 
@@ -247,6 +244,42 @@
                     scope.uploadedFile = data;
                 });
             }
+        }
+
+        function importSamples(ev) {
+            $mdDialog.show({
+                controller: ["$scope", "$mdDialog", ImportController],
+                templateUrl: '/app/samples/import.dialog.html',
+                parent: angular.element(document.body),
+                targetEvent: ev
+            }).then(function() {
+                getData();
+            });
+        }
+
+        function ImportController(scope, $mdDialog) {
+            scope.$on("cfpLoadingBar:started", function () {
+                scope.showProgress = true;
+            });
+
+            scope.$on("cfpLoadingBar:completed", function () {
+                scope.showProgress = false;
+            });
+
+            scope.upload = upload;
+
+            scope.cancel = cancel;
+
+            function upload(e, files) {
+                if (!files.length) return false;
+                sampleService.importSamples(files).success(function (data) {
+                    scope.uploadedFile = data;
+                });
+            }
+
+            function cancel() {
+                $mdDialog.cancel();
+            };
         }
     };
 })();

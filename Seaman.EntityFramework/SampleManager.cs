@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using ClosedXML.Excel;
 using Seaman.Core;
 using Seaman.Core.Model;
 using Seaman.EntityFramework.Entity;
@@ -105,7 +107,7 @@ namespace Seaman.EntityFramework
                 location.CollectionMethodId = locationToAdd.CollectionMethodId;
                 location.SpecimenNumber = locationToAdd.SpecimenNumber;
                 location.Available = false;
-                location.UniqName = String.Format("{0}-{1}-{2}-{3}-{4}", location.Tank,  location.Canister, location.CaneLetter, location.Position, location.CaneColor);
+                location.UniqName = String.Format("{0}-{1}-{2}-{3}-{4}", location.Tank, location.Canister, location.CaneLetter, location.Position, location.CaneColor);
 
             }
             foreach (var locationToRemove in model.LocationsToRemove)
@@ -163,6 +165,30 @@ namespace Seaman.EntityFramework
                 sample.Locations = sample.Locations.Where(l => !l.Extracted).ToList();
             }
             return Mapper.Map<List<SampleReportModel>>(samples);
+        }
+
+        public override List<SampleReportModel> ImportSamples(String fileUrl)
+        {
+            if (String.IsNullOrEmpty(fileUrl) || !File.Exists(fileUrl)) return null;
+            var wb = new XLWorkbook(fileUrl);
+            var ws = wb.Worksheets.FirstOrDefault();
+
+            if (ws != null)
+            {
+                var firstRowUsed = ws.FirstRowUsed();
+                var firstRowNumber = firstRowUsed.RowNumber();
+
+                var firstAdress = ws.Row(firstRowNumber).FirstCell().Address;
+                var lastAdress = ws.LastCellUsed().Address;
+
+                var wordsRange = ws.Range(firstAdress, lastAdress).RangeUsed();
+
+                var wordsTable = wordsRange.AsTable();
+
+                var result = wordsTable.DataRange.Rows()
+                    .Select(wordRow => wordRow);
+            }
+            return null;
         }
 
         public override PagedResult<SampleBriefModel> GetSamplesByTank(int tankId)
@@ -338,7 +364,7 @@ namespace Seaman.EntityFramework
             _context.Tanks.Remove(tank);
             _context.SaveChanges();
         }
-       
+
         public override List<ExtractReasonModel> GetExtractReasons()
         {
             return Mapper.Map<List<ExtractReasonModel>>(_context.ExtractReasons);

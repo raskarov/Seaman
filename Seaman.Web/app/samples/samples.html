@@ -4,6 +4,7 @@
             <h2 class="section-header">{{slc.title}}</h2>
             <div class="row well-lg" ng-if="!isReportGenerator()">
                 <div class="pull-right">
+                    <!--<md-button type="button" class="md-raised md-primary btn-w-md" ng-click="slc.import($event)">Import Samples</md-button>-->
                     <md-button type="button" class="md-raised md-primary btn-w-md" ng-disabled="!slc.isRowSelected()" ng-click="slc.printSample()">
                         <i class="fa fa-print"></i> Print Receipt
                     </md-button>

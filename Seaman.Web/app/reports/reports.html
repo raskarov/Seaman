@@ -51,20 +51,20 @@
                         </div>
                     </md-input-container>
                     <div class="col-md-2">
-                        <p>Physicians</p>
-                        <md-select ng-model="rc.reportModel.physicianId" name="physicians" id="physicians" placeholder="Choose Physicians">
+                        <p class="col-md-12">Physicians</p>
+                        <md-select ng-model="rc.reportModel.physicianId" class="col-md-12" name="physicians" id="physicians" placeholder="Choose Physicians">
                             <md-option ng-repeat="physician in rc.physicians" value="{{physician.id}}">{{physician.name}}</md-option>
                         </md-select>
                     </div>
                     <div class="col-md-2">
-                        <p>Tank</p>
-                        <md-select ng-model="rc.reportModel.tankId" name="tank" id="tank" placeholder="Choose Tank">
+                        <p class="col-md-12">Tank</p>
+                        <md-select ng-model="rc.reportModel.tankId" class="col-md-12" name="tank" id="tank" placeholder="Choose Tank">
                             <md-option ng-repeat="tank in rc.tanks" value="{{tank.id}}">{{tank.name}}</md-option>
                         </md-select>
                     </div>
                     <div class="col-md-2">
-                        <p>Type</p>
-                        <md-select ng-model="rc.reportModel.type" name="type" id="type" placeholder="Choose Type">
+                        <p class="col-md-12">Type</p>
+                        <md-select ng-model="rc.reportModel.type" class="col-md-12" name="type" id="type" placeholder="Choose Type">
                             <md-option ng-repeat="type in rc.types" value="{{type}}">{{type}}</md-option>
                         </md-select>
                     </div>

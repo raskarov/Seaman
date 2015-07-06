@@ -168,7 +168,6 @@ namespace Seaman.Web.Controllers
             {
                 return BadRequest();
             }
-            var sampleId = Int32.Parse(sampleIdString);
             var file = provider.FileData[0];
             if (string.IsNullOrEmpty(file.Headers.ContentDisposition.FileName))
             {
@@ -200,11 +199,52 @@ namespace Seaman.Web.Controllers
             return Ok(fileName);
         }
 
+        [HttpPost]
+        [Route("import")]
+        public async Task<IHttpActionResult> ImportSamples()
+        {
+            if (!Request.Content.IsMimeMultipartContent())
+            {
+                Request.CreateResponse(HttpStatusCode.UnsupportedMediaType);
+                return null;
+            }
+            var provider = GetMultipartProvider();
+            await Request.Content.ReadAsMultipartAsync(provider);
+            var file = provider.FileData[0];
+            if (string.IsNullOrEmpty(file.Headers.ContentDisposition.FileName))
+            {
+                Request.CreateResponse(HttpStatusCode.NotAcceptable, "This request is not properly formatted");
+                return BadRequest();
+            }
+            string fileName = file.Headers.ContentDisposition.FileName;
+            if (fileName.StartsWith("\"") && fileName.EndsWith("\""))
+            {
+                fileName = fileName.Trim('"');
+            }
+            if (fileName.Contains(@"/") || fileName.Contains(@"\"))
+            {
+                fileName = Path.GetFileName(fileName);
+            }
+
+            var fileUrl = HttpContext.Current.Server.MapPath(Path.Combine(_storageFolder, fileName));
+            if (File.Exists(fileUrl))
+            {
+                File.Delete(fileUrl);
+            }
+            File.Move(file.LocalFileName, fileUrl);
+            SampleManager.ImportSamples(fileUrl);
+            if (File.Exists(fileUrl))
+            {
+                File.Delete(fileUrl);
+            }
+            return Ok(fileName);
+        }
+
         #endregion
         #region Privat
 
         private String _uploadFolder = "/uploads";
-        private readonly String _storageFolder = "~/App_Data";
+        private readonly String _storageFolder = "~/App_Data/t/";
         private String _tempFolder;
         private readonly Lazy<ISampleManager> _sampleManagerLazy;
 
@@ -218,7 +258,7 @@ namespace Seaman.Web.Controllers
 
         private MultipartFormDataStreamProvider GetMultipartProvider()
         {
-            _tempFolder = HttpContext.Current.Server.MapPath(_storageFolder + "/t/");
+            _tempFolder = HttpContext.Current.Server.MapPath(_storageFolder);
             if (!Directory.Exists(_tempFolder))
             {
                 Directory.CreateDirectory(_tempFolder);

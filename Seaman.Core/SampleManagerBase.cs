@@ -17,6 +17,7 @@ namespace Seaman.Core
         List<SampleReportModel> GetReportSamples(ICollection<Int32> ids);
         List<SampleReportModel> GetExtractedSamples();
         List<SampleReportModel> GetSamples();
+        List<SampleReportModel> ImportSamples(String fileUrl);
         PagedResult<SampleBriefModel> GetSamplesByTank(Int32 tankId);
         PagedResult<SampleBriefModel> GetSamplesByDoctor(Int32 doctorId);
         List<LocationReportModel> GetReport(ReportModel model);
@@ -55,6 +56,7 @@ namespace Seaman.Core
         public abstract List<SampleReportModel> GetReportSamples(ICollection<int> ids);
         public abstract List<SampleReportModel> GetExtractedSamples();
         public abstract List<SampleReportModel> GetSamples();
+        public abstract List<SampleReportModel> ImportSamples(String fileUrl);
         public abstract PagedResult<SampleBriefModel> GetSamplesByTank(int tankId);
         public abstract PagedResult<SampleBriefModel> GetSamplesByDoctor(int doctorId);
         public abstract List<LocationReportModel> GetReport(ReportModel model);

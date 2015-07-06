@@ -1,0 +1,27 @@
+﻿<md-dialog aria-label="Import Samples" flow-init
+           flow-files-submitted="upload($event, $files)"
+           flow-file-added="!!{xlsx:1}[$file.getExtension()]"
+           flow-drop>
+    <form name="importForm">
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Import Samples</h2>
+            </div>
+        </md-toolbar>
+        <md-dialog-content class="row">
+            <md-input-container class="col-md-12">
+                <md-button class="md-primary" flow-btn>
+                    Upload .xlsx file with samples
+                </md-button>
+                <md-progress-linear ng-style="{opacity : showProgress ? '1' : '0'}" md-mode="indeterminate"></md-progress-linear>
+                <p>You can upload only .xlsx file</p>
+                <p ng-if="uploadedFile"> Import "{{uploadedFile}}" completed</p>
+            </md-input-container>
+        </md-dialog-content>
+        <div class="md-actions" layout="row">
+            <md-button ng-click="cancel()" class="md-primary">
+                Cancel
+            </md-button>
+        </div>
+    </form>
+</md-dialog>

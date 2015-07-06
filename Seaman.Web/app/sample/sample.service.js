@@ -22,7 +22,8 @@
             removeLocation: removeLocation,
             generateReport: generateReport,
             generateRandomReport: generateRandomReport,
-            uploadConsentForm: uploadConsentForm
+            uploadConsentForm: uploadConsentForm,
+            importSamples: importSamples
         };
         return service;
 
@@ -193,5 +194,22 @@
 
             return $http(request);
         };
+
+        function importSamples(files) {
+            if (!files.length) return false;
+            var data = new FormData();
+            var file = files[0];
+            data.append("file", file.file);
+            file.cancel();
+            var request = {
+                url: apiList.importSamples,
+                method: "POST",
+                data: data,
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            };
+
+            return $http(request);
+        }
     }
 })();

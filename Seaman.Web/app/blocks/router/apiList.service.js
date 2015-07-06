@@ -40,6 +40,7 @@
         var locations = samplePrefix + "/locations";
         var consentForm = samplePrefix + "/consent";
         var extract = samplePrefix + "/extract";
+        var importSamples = samplePrefix + "/import";
         return {
             ////Account api
             roles: roles,
@@ -68,7 +69,8 @@
             random: random,
             locations: locations,
             consentForm: consentForm,
-            extract: extract
+            extract: extract,
+            importSamples: importSamples
         };
     };
 })();

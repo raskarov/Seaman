@@ -337,6 +337,7 @@
     <Content Include="app\reports\reports.routes.js" />
     <Content Include="app\samples\expandableRowTemplate.html" />
     <Content Include="app\samples\extract.dialog.html" />
+    <Content Include="app\samples\import.dialog.html" />
     <Content Include="app\widgets\print\print.directive.js" />
     <Content Include="app\widgets\print\print.html" />
     <Content Include="app\widgets\print\print.module.js" />
