@@ -10,6 +10,7 @@
         var extractedSamples = [];
         var service = {
             checkLocation: checkLocation,
+            checkCaneForEmpty: checkCaneForEmpty,
             saveSample: saveSample,
             getSamples: getSamples,
             getSample: getSample,
@@ -31,6 +32,12 @@
             if (!location) return false;
             location = helper.toPascalCase(location);
             return $http.post(apiList.locationAvailable, location);
+        }
+
+        function checkCaneForEmpty(location) {
+            if (!location) return false;
+            location = helper.toPascalCase(location);
+            return $http.post(apiList.caneAvailable, location);
         }
 
         function saveSample(model) {

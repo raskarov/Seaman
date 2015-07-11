@@ -42,6 +42,7 @@
             red: "Red",
             yellow: "Yellow",
             purple: "Purple",
-            orange: "Orange"
+            orange: "Orange",
+            pink: "Pink"
         });
 })();

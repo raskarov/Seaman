@@ -35,6 +35,13 @@ namespace Seaman.Web.Controllers
         }
 
         [HttpPost]
+        [Route("caneAvailable")]
+        public IHttpActionResult CheckCaneForEmpty(LocationModel model)
+        {
+            return Ok(SampleManager.CheckCaneForEmpty(model));
+        }
+
+        [HttpPost]
         [Route("")]
         public SampleModel SaveSample(SaveSampleModel model)
         {

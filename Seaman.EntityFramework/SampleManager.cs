@@ -107,7 +107,7 @@ namespace Seaman.EntityFramework
                 location.CollectionMethodId = locationToAdd.CollectionMethodId;
                 location.SpecimenNumber = locationToAdd.SpecimenNumber;
                 location.Available = false;
-                location.UniqName = String.Format("{0}-{1}-{2}-{3}-{4}", location.Tank, location.Canister, location.CaneLetter, location.Position, location.CaneColor);
+                location.UniqName = GetUniqNameByLocation(locationToAdd);
 
             }
             foreach (var locationToRemove in model.LocationsToRemove)
@@ -318,6 +318,15 @@ namespace Seaman.EntityFramework
             _context.SaveChanges();
         }
 
+        public override bool CheckCaneForEmpty(LocationModel location)
+        {
+            return
+                !_context.Locations.Any(
+                    l =>
+                        l.Tank == location.Tank && l.Canister == location.Canister &&
+                        l.CaneLetter == location.CaneLetter && l.CaneColor == location.CaneColor && !l.Extracted);
+        }
+
         public override List<PhysicianModel> GetPhysicians()
         {
             return Mapper.Map<List<PhysicianModel>>(_context.Physicians);
@@ -383,6 +392,11 @@ namespace Seaman.EntityFramework
             var reason = _context.ExtractReasons.Get(id, "Tank not found");
             _context.ExtractReasons.Remove(reason);
             _context.SaveChanges();
+        }
+
+        private String GetUniqNameByLocation(LocationModel location)
+        {
+            return String.Format("{0}-{1}-{2}-{3}-{4}", location.Tank, location.Canister, location.CaneLetter, location.Position, location.CaneColor);
         }
     }
 }

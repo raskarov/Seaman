@@ -71,6 +71,7 @@
         vm.onTankChange = onTankChange;
         vm.isFormValid = isFormValid;
         vm.extractLocation = extractLocation;
+        vm.takeAllPosition = takeAllPosition;
 
         activate();
 
@@ -100,12 +101,9 @@
                         _.forEach(data.locations, function(item, i) {
                             item.dateStored = item.dateStored ? moment(item.dateStored).format("MM/DD/YYYY") : null;
                             item.exists = true;
+                            item.caneColor = helper.toPascalCase(item.caneColor);
                             vm.locations[i] = item;
                             onTankChange(i);
-                            vm.canes[i] = {
-                                name: item.caneLetter,
-                                color: item.caneColor
-                            };
                         });
                         delete vm.sampleModel.locations;
                         $timeout(function() {
@@ -163,16 +161,23 @@
 
         function onStorageChange(name) {
             var location = vm.locations[name];
-            if (!location || !location.tank || !location.canister || !location.caneLetter || !location.caneColor || !location.position) return false;
+            var isCaneChoosed = location && location.tank && location.canister && location.caneLetter && location.caneColor;
+            if (!isCaneChoosed) return false;
+
+            sampleService.checkCaneForEmpty(location).success(function(data) {
+                location.caneIsEmpty = data;
+            });
+
+            if (!location.position) return false;
             location.filled = true;
             location.uniqName = helper.format("{0}-{1}-{2}-{3}-{4}", location.tank, location.canister, location.caneLetter, location.position, location.caneColor);
-            sampleService.checkLocation(location).then(function (res) {
-                location.exists = vm.sampleModel.id && location.id && vm.sampleModel.id > 0 && res.data != null && res.data.sampleId === vm.sampleModel.id;
+            sampleService.checkLocation(location).success(function (data) {
+                location.exists = vm.sampleModel.id && location.id && vm.sampleModel.id > 0 && data != null && data.sampleId === vm.sampleModel.id;
                 var localCheck = _.filter(vm.locations, function (item) {
                     return item.uniqName === location.uniqName;
                 }).length === 1;
-                location.available = res.data == null && localCheck || res.data != null && res.data.available && localCheck ||
-                    res.data != null && !res.data.available && vm.sampleModel.id && res.data.sampleId === vm.sampleModel.id && localCheck;
+                location.available = data == null && localCheck || data != null && data.available && localCheck ||
+                    data != null && !data.available && vm.sampleModel.id && data.sampleId === vm.sampleModel.id && localCheck;
             });
         }
 
@@ -207,10 +212,15 @@
         function addLocation(e) {
             e.preventDefault();
             e.stopPropagation();
-            var locationLength = _.toArray(vm.locations).length;
-            vm.locations[locationLength] = {
+            addLocationToArray({
                 dateStored: moment().format("MM/DD/YYYY")
-            };
+            });
+        }
+
+        function addLocationToArray(location) {
+            var locationLength = _.toArray(vm.locations).length;
+            vm.locations[locationLength] = location;
+            return locationLength;
         }
 
         function removeLocation(e, name) {
@@ -239,6 +249,18 @@
             vm.positions = {};
             vm.letters = {};
             vm.sampleForm.$setPristine();
+        }
+
+        function takeAllPosition(e, name) {
+            var location = vm.locations[name];
+            var tank = _.find(vm.tanks, { "name": location.tank });
+            _.forEach(vm.positions[name], function(position) {
+                var newLocation = angular.copy(location);
+                newLocation.position = position.toString();
+                var name = addLocationToArray(newLocation);
+                generateStorageByTank(tank, name);
+            });
+            delete vm.locations[name];
         }
 
         function extractLocation(ev, name) {

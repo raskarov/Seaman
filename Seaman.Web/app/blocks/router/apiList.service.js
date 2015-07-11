@@ -34,6 +34,7 @@
         //Sample
         var samplePrefix = prefix + "/sample";
         var locationAvailable = samplePrefix + "/available";
+        var caneAvailable = samplePrefix + "/caneAvailable";
         var sample = samplePrefix;
         var report = samplePrefix + "/report";
         var random = samplePrefix + "/random";
@@ -64,6 +65,7 @@
             reason: reason,
             //Sample
             locationAvailable: locationAvailable,
+            caneAvailable: caneAvailable,
             sample: sample,
             report: report,
             random: random,

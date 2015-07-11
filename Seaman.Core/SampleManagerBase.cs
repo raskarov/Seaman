@@ -33,6 +33,7 @@ namespace Seaman.Core
         List<LocationBriefModel> GetLocations(Int32 sampleId);
         LocationModel SaveLocation(LocationModel location);
         void DeleteLocation(Int32 id);
+        Boolean CheckCaneForEmpty(LocationModel location);
 
         List<PhysicianModel> GetPhysicians();
         PhysicianModel SavePhysician(PhysicianModel physician);
@@ -70,6 +71,7 @@ namespace Seaman.Core
         public abstract List<LocationBriefModel> GetLocations(int sampleId);
         public abstract LocationModel SaveLocation(LocationModel location);
         public abstract void DeleteLocation(int id);
+        public abstract bool CheckCaneForEmpty(LocationModel location);
         public abstract List<PhysicianModel> GetPhysicians();
         public abstract PhysicianModel SavePhysician(PhysicianModel physician);
         public abstract void DeletePhysician(int id);
