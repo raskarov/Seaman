@@ -10,7 +10,8 @@
         vm.title = "Reports";
         vm.tanks = [];
         vm.physicians = [];
-        vm.types = ["Existing", "Extracted", "All"];
+        vm.collectionMethods = [];
+        vm.types = ["Existing", "Extracted", "Missed", "All"];
         vm.reportModel = {};
         vm.reportModel.type = "Existing";
         vm.startDateDatepickerOpened = false;
@@ -19,6 +20,7 @@
         vm.openEndDateDatepicker = openEndDateDatepicker;
         vm.generateReport = generateReport;
         vm.randomReport = randomReport;
+        vm.onTankChange = onTankChange;
         vm.gridOptions = {
             exporterMenuCsv: false,
             minRowsToShow: 20,
@@ -36,11 +38,11 @@
             exporterPdfTableHeaderStyle: { fontSize: 12, bold: true },
             exporterPdfHeader: { text: "Guided report", style: 'headerStyle' },
             exporterPdfFooter: {
-                columns: [{ text: 'Date: ____/_______/2015', style: 'footerStyle' }, { text: 'Signature: ______________', alignment: 'right', style: 'footerStyle' }]
+                columns: [{ text: 'Date: ' + moment().format("MM/DD/YYYY"), style: 'footerStyle' }, { text: 'Signature: ______________', alignment: 'right', style: 'footerStyle' }]
             },
             exporterPdfCustomFormatter: function (docDefinition) {
                 docDefinition.styles.headerStyle = { fontSize: 22, bold: true, margin: [35, 10, 0, 0] };
-                docDefinition.styles.footerStyle = { fontSize: 10, bold: true, margin: [35, 0, 35, 0] };
+                docDefinition.styles.footerStyle = { fontSize: 16, bold: true, margin: [35, 0, 35, 0] };
                 return docDefinition;
             },
             exporterPdfOrientation: 'landscape',
@@ -58,6 +60,10 @@
             adminService.getPhysician(true).then(function (data) {
                 vm.physicians = nullOpt.concat(data);
             });
+
+            adminService.getCollectionMethods(true).then(function(data) {
+                vm.collectionMethods = data;
+            });
         }
 
         function openStartDateDatepicker(e) {
@@ -70,6 +76,20 @@
             e.preventDefault();
             e.stopPropagation();
             vm.endDateDatepickerOpened = true;
+        }
+
+        function onTankChange() {
+            getCanisters();
+        }
+
+        function getCanisters() {
+            if (!vm.reportModel.tankId) return false;
+            var tank = _.find(vm.tanks, { "id": +vm.reportModel.tankId });
+            if (!tank) return false;
+            vm.canisters = [];
+            for (var i = 1; i <= tank.canistersCount; i++) {
+                vm.canisters.push(i);
+            }
         }
 
         function generateReport() {

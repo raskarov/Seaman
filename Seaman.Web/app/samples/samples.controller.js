@@ -29,7 +29,7 @@
             expandableRowHeight: 150,
             expandableRowTemplate: '/app/samples/expandableRowTemplate.html',
             columnDefs: [
-              { name: "locationsCount", maxWidth: 100, displayName: "Locations", enableFiltering: false },
+              { name: "locationsCount", maxWidth: 120, displayName: "No. of Samples", enableFiltering: false },
               { name: 'depositorFullName' },
               { name: "depositorDob" },
               { name: 'comment' },

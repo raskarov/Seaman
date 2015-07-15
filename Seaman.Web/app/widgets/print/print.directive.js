@@ -44,7 +44,7 @@
 
         function link(scope, element, attrs) {
             scope.printTitle = scope.sample && scope.sample.printTitle || "Receipt";
-            scope.year = new Date().getFullYear();
+            scope.date = moment().format("MM/DD/YYYY");
 
             $rootScope.printSample = printSample;
             function printSample(id, after) {

@@ -212,6 +212,17 @@ namespace Seaman.EntityFramework
             {
                 locations = locations.Where(l => !l.Extracted);
             }
+            else if (model.Type == ReportType.Missed.ToString())
+            {
+                locations = locations.Where(l => String.IsNullOrEmpty(l.Sample.DepositorSsn)
+                           || String.IsNullOrEmpty(l.Sample.PartnerFirstName)
+                           || String.IsNullOrEmpty(l.Sample.PartnerLastName)
+                           || String.IsNullOrEmpty(l.Sample.PartnerSsn)
+                           || l.Sample.PartnerDob.HasValue
+                           || !l.Sample.CryobankPurchased
+                           || !l.Sample.DirectedDonor
+                           || !l.Sample.AnonymousDonor);
+            }
 
             var startDate = model.StartDate ?? DateTime.MinValue;
             var endDate = model.EndDate ?? DateTime.MaxValue;
@@ -225,6 +236,17 @@ namespace Seaman.EntityFramework
             {
                 var tank = _context.Tanks.Get(model.TankId.Value, "Tank not found");
                 locations = locations.Where(l => l.Tank == tank.Name);
+                if (model.Canister.HasValue)
+                {
+                    locations = locations.Where(l => l.Canister == model.Canister.Value);
+                }
+            }
+
+            
+
+            if (model.CollectionMethodId.HasValue)
+            {
+                locations = locations.Where(l => l.CollectionMethodId == model.CollectionMethodId.Value);
             }
 
             if (model.PhysicianId.HasValue)

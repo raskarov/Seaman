@@ -263,6 +263,8 @@ namespace Seaman.Core
         public DateTime? EndDate { get; set; }
         public Int32? PhysicianId { get; set; }
         public Int32? TankId { get; set; }
+        public Int32? Canister { get; set; }
+        public Int32? CollectionMethodId { get; set; }
         public String Type { get; set; }
     }
 
@@ -270,6 +272,7 @@ namespace Seaman.Core
     {
         Existing,
         Extracted,
+        Missed, 
         All
     }
 }

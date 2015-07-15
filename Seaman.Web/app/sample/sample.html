@@ -56,7 +56,7 @@
                             <md-input-container class="col-md-6">
                                 <label for="depositorSsn">{{sc.sampleField.depositorSsn.title}}</label>
                                 <input type="text" class="form-control" id="depositorSsn" name="depositorSsn"
-                                       ng-model="sc.sampleModel.depositorSsn" mask="999-99-9999" clearn="true">
+                                       ng-model="sc.sampleModel.depositorSsn">
                                 <div ng-messages="sc.sampleForm.depositorSsn.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorSsn.$touched">
                                         <div ng-message="required">{{sc.sampleField.depositorSsn.message.required}}</div>
@@ -112,7 +112,7 @@
                             <md-input-container class="col-md-6">
                                 <label for="partnerSsn">{{sc.sampleField.partnerSsn.title}}</label>
                                 <input type="text" class="form-control" id="partnerSsn" name="partnerSsn"
-                                       ng-model="sc.sampleModel.partnerSsn" mask="999-99-9999" clearn="true">
+                                       ng-model="sc.sampleModel.partnerSsn">
                                 <div ng-messages="sc.sampleForm.partnerSsn.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerSsn.$touched">
                                         <div ng-message="required">{{sc.sampleField.partnerSsn.message.required}}</div>
