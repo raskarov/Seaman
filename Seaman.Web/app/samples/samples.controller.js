@@ -186,7 +186,7 @@
                 });
                 if (!sample) return false;
                 sample = angular.copy(sample.entity);
-                sample.reason = result.reason;
+                sample.reason = result.reason.name;
                 sample.locations = locations;
 
                 $scope.sample = sample;
@@ -197,7 +197,8 @@
                     var model = {
                         locationIds: _.map(locations, "id"),
                         sampleId: sample.id,
-                        consentFormName: result.uploadedFile
+                        consentFormName: result.uploadedFile,
+                        reasonId: result.reason.id
                     };
                     sampleService.extract(model).then(function() {
                         getData();
@@ -229,8 +230,9 @@
                 $mdDialog.cancel();
             };
             scope.extract = function () {
+                var reason = _.find(scope.reasons, { 'id': +scope.model.reason });
                 var result = {
-                    reason: scope.model.reason,
+                    reason: reason,
                     uploadedFile: scope.uploadedFile
                 };
                 $mdDialog.hide(result);

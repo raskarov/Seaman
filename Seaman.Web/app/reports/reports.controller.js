@@ -11,7 +11,7 @@
         vm.tanks = [];
         vm.physicians = [];
         vm.collectionMethods = [];
-        vm.types = ["Existing", "Extracted", "Missed", "All"];
+        vm.types = ["Existing", "Extracted", "Missing Data", "All"];
         vm.reportModel = {};
         vm.reportModel.type = "Existing";
         vm.startDateDatepickerOpened = false;

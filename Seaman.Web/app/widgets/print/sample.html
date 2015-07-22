@@ -104,22 +104,22 @@
     <div class="col-xs-12">
         <table class="table table-bordered table-striped">
             <thead>
-            <tr class="bg-dark">
-                <th class="text-center">Physician of record</th>
-                <th class="text-center">Comment / Warning</th>
-                <th class="text-center">Autologous</th>
-                <th class="text-center">CD testing on file</th>
-                <th class="text-center">Refreeze</th>
-            </tr>
+                <tr class="bg-dark">
+                    <th class="text-center">Physician of record</th>
+                    <th class="text-center">Comment / Warning</th>
+                    <th class="text-center">Autologous</th>
+                    <th class="text-center">CD testing on file</th>
+                    <th class="text-center">Refreeze</th>
+                </tr>
             </thead>
             <tbody>
-            <tr>
-                <td class="text-center">{{sample.physician}}</td>
-                <td class="text-center">{{sample.comment}}</td>
-                <td class="text-center">{{sample.autologous}}</td>
-                <td class="text-center">{{sample.testingOnFile}}</td>
-                <td class="text-center">{{sample.refreeze}}</td>
-            </tr>
+                <tr>
+                    <td class="text-center">{{sample.physician}}</td>
+                    <td class="text-center">{{sample.comment}}</td>
+                    <td class="text-center">{{sample.autologous}}</td>
+                    <td class="text-center">{{sample.testingOnFile}}</td>
+                    <td class="text-center">{{sample.refreeze}}</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -144,14 +144,17 @@
 
     <div class="col-xs-8 text-left">
         <ul class="list-unstyled" ng-if="sample.reason.length">
-            <li>Reason: {{sample.reason}}</li>
+            <li><h4>Reason: {{sample.reason}}</h4></li>
         </ul>
     </div>
-    <div class="col-xs-4 text-right">
-        <ul class="list-unstyled ">
+    <div class="col-xs-4 text-right" ng-class="{'col-xs-12': !sample.reason.length }">
+        <ul class="list-unstyled">
             <li><h4>Date: <ins>{{date}}</ins></h4></li>
+        </ul>
+    </div>
+    <div class="col-xs-12 text-right">
+        <ul class="list-unstyled">
             <li><h4>Signature: <ins>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;</ins></h4></li>
         </ul>
     </div>
-
 </div>

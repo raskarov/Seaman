@@ -9,6 +9,12 @@ namespace Seaman.EntityFramework.Entity
 {
     public class ExtractReason: ExtractReasonBase
     {
-       
+        public virtual ICollection<Location> Locations
+        {
+            get { return _locations; }
+            set { _locations = value; }
+        }
+
+        private ICollection<Location> _locations = new HashSet<Location>();
     }
 }

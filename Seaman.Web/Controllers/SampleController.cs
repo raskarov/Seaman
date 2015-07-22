@@ -129,7 +129,7 @@ namespace Seaman.Web.Controllers
         [Route("locations/{id:int}")]
         public IHttpActionResult RemoveLocation(Int32 id)
         {
-            SampleManager.DeleteLocation(id);
+            SampleManager.DeleteLocation(id, null);
             return Ok();
         }
 
@@ -147,7 +147,7 @@ namespace Seaman.Web.Controllers
             }
             foreach (var id in model.LocationIds)
             {
-                SampleManager.DeleteLocation(id);
+                SampleManager.DeleteLocation(id, model.ReasonId);
             }
             return Ok();
         }

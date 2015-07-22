@@ -11,5 +11,7 @@ namespace Seaman.EntityFramework.Entity
     {
         public virtual Sample Sample { get; set; }
         public virtual CollectionMethod CollectionMethod { get; set; }
+
+        public virtual ExtractReason ExtractReason { get; set; }
     }
 }

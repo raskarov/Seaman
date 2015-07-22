@@ -12,7 +12,7 @@
             <div class="col-md-12">
                 <label for="reason">Select reason for extraction</label>
                 <md-select required ng-model="model.reason" name="reason" id="reason" placeholder="Reasons" class="col-md-12">
-                    <md-option ng-repeat="reason in reasons track by reason.id" value="{{reason.name}}">{{reason.name}}</md-option>
+                    <md-option ng-repeat="reason in reasons track by reason.id" value="{{reason.id}}">{{reason.name}}</md-option>
                 </md-select>
             </div>
             <md-input-container class="col-md-12">

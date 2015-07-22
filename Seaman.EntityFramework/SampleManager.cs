@@ -331,12 +331,13 @@ namespace Seaman.EntityFramework
             return Mapper.Map<LocationModel>(exist);
         }
 
-        public override void DeleteLocation(int id)
+        public override void DeleteLocation(Int32 id, Int32? reasonId)
         {
             var location = _context.Locations.Get(id, "Location not found");
             location.Extracted = true;
             location.DateExtracted = DateTime.Now;
             location.Available = true;
+            location.ExtractReasonId = reasonId;
             _context.SaveChanges();
         }
 

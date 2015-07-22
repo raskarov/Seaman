@@ -364,6 +364,7 @@
     <Content Include="app\core\application.controller.js" />
     <Content Include="app\core\core.module.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\print.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Content\angular-material\angular-material.css" />
     <Content Include="Content\angular-material\angular-material.min.css" />

@@ -89,6 +89,14 @@
     <Compile Include="Migrations\201507050615539_LocationChanges.Designer.cs">
       <DependentUpon>201507050615539_LocationChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201507220614473_ReasonForExtraction.cs" />
+    <Compile Include="Migrations\201507220614473_ReasonForExtraction.Designer.cs">
+      <DependentUpon>201507220614473_ReasonForExtraction.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201507220637248_ChangeExtractReason.cs" />
+    <Compile Include="Migrations\201507220637248_ChangeExtractReason.Designer.cs">
+      <DependentUpon>201507220637248_ChangeExtractReason.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleManager.cs" />
@@ -114,6 +122,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201507050615539_LocationChanges.resx">
       <DependentUpon>201507050615539_LocationChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507220614473_ReasonForExtraction.resx">
+      <DependentUpon>201507220614473_ReasonForExtraction.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201507220637248_ChangeExtractReason.resx">
+      <DependentUpon>201507220637248_ChangeExtractReason.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

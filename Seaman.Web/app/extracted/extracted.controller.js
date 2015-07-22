@@ -78,7 +78,8 @@
                     { name: 'uniqName', displayName: "Stored Location" },
                     { name: 'collectionMethod' },
                     { name: 'dateStored' },
-                    {name: 'dateExtracted'}
+                    { name: 'dateExtracted' },
+                    {name: 'reasonForExtraction'}
                 ],
                 enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
                 data: locations,

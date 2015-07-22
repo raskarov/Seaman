@@ -26,6 +26,7 @@ namespace Seaman.Core.Model
         public DateTime? DateStored { get; set; }
         public DateTime? DateExtracted { get; set; }
         public Int32? CollectionMethodId { get; set; }
+        public Int32? ExtractReasonId { get; set; }
     }
 
     public class LocationBriefModel
@@ -36,6 +37,7 @@ namespace Seaman.Core.Model
         public String DateExtracted { get; set; }
         public Int32? CollectionMethodId { get; set; }
         public String CollectionMethod { get; set; }
+        public String ReasonForExtraction { get; set; }
     }
 
     public class LocationReportModel
@@ -57,5 +59,6 @@ namespace Seaman.Core.Model
         public List<Int32> LocationIds { get; set; }
         public Int32 SampleId { get; set; }
         public String ConsentFormName { get; set; }
+        public Int32? ReasonId { get; set; }
     }
 }

@@ -27,8 +27,22 @@ namespace Seaman.EntityFramework
 
             Mapper.CreateMap<Location, LocationBriefModel>()
                 .ForMember(it => it.CollectionMethod, ctx => ctx.MapFrom(l => l.CollectionMethod.Name))
-                .ForMember(it => it.DateStored, ctx => ctx.MapFrom(l => l.DateStored.HasValue ? l.DateStored.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture) : String.Empty))
-                .ForMember(it => it.DateExtracted, ctx => ctx.MapFrom(l => l.DateExtracted.HasValue ? l.DateExtracted.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture) : String.Empty));
+                .ForMember(it => it.DateStored,
+                    ctx =>
+                        ctx.MapFrom(
+                            l =>
+                                l.DateStored.HasValue
+                                    ? l.DateStored.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)
+                                    : String.Empty))
+                .ForMember(it => it.DateExtracted,
+                    ctx =>
+                        ctx.MapFrom(
+                            l =>
+                                l.DateExtracted.HasValue
+                                    ? l.DateExtracted.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)
+                                    : String.Empty))
+                .ForMember(it => it.ReasonForExtraction, ctx => ctx.MapFrom(l => l.ExtractReason.Name));
+                
 
             Mapper.CreateMap<Location, LocationReportModel>()
                 .ForMember(it => it.CollectionMethod, ctx => ctx.MapFrom(l => l.CollectionMethod.Name))

@@ -24,7 +24,9 @@
                     originalContents = document.body.innerHTML;
                     popupWin = $window.open();
                     popupWin.document.open();
-                    popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="/Content/main.css" /></head><body>' + printContents + '</html>');
+                    popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="/Content/main.css" />' +
+                        '<link rel="stylesheet" type="text/css" href="/Content/print.css" />' + 
+                        '</head><body>' + printContents + '</html>');
                     popupWin.document.close();
                 }
             }
