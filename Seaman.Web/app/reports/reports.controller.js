@@ -2,9 +2,14 @@
     angular.module("seaman.reports")
         .controller("ReportsController", reportsController);
 
-    reportsController.$inject = ["adminService", 'sampleService', 'uiGridExporterConstants', "$timeout"];
+    reportsController.$inject = ["$scope", "adminService", 'sampleService', 'uiGridExporterConstants', "$timeout"];
 
-    function reportsController(adminService, sampleService, uiGridExporterConstants, $timeout) {
+    function reportsController($scope, adminService, sampleService, uiGridExporterConstants, $timeout) {
+        $scope.toggleMin = function () {
+            $scope.maxDate = $scope.maxDate ? null : new Date();
+        };
+        $scope.toggleMin();
+
         var vm = this;
         var nullOpt = [{ name: "Empty" }];
         vm.title = "Reports";

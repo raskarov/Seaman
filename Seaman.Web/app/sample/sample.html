@@ -32,14 +32,15 @@
                                     </div>
                                 </div>
                             </md-input-container>
-                            <md-input-container class="col-md-6">
-                                <div class="input-group ui-datepicker">
+                            <md-input-container class="col-md-6 md-date">
+                                <div class="input-group ui-datepicker auto-width">
                                     <label for="depositorDob">{{sc.sampleField.depositorDob.title}}</label>
-                                    <input type="text" class="form-control" ng-required="true" id="depositorDob" name="depositorDob"
+                                    <input type="text" class="form-control auto-width" ng-required="true" id="depositorDob" name="depositorDob"
                                            ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
                                            mask="19/39/9999"
                                            datepicker-popup
                                            is-open="sc.depositorDatepickerOpened"
+                                           max-date="maxDate"
                                            clearn="true"
                                            ng-model="sc.sampleModel.depositorDob">
                                     <span class="input-group-btn">
@@ -88,13 +89,14 @@
                                     </div>
                                 </div>
                             </md-input-container>
-                            <md-input-container class="col-md-6">
-                                <div class="input-group ui-datepicker">
+                            <md-input-container class="col-md-6 md-date">
+                                <div class="input-group ui-datepicker auto-width">
                                     <label for="partnerDob">{{sc.sampleField.partnerDob.title}}</label>
-                                    <input type="text" class="form-control" id="partnerDob" name="partnerDob"
+                                    <input type="text" class="form-control auto-width" id="partnerDob" name="partnerDob"
                                            ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
                                            datepicker-popup
                                            is-open="sc.partnerDatepickerOpened"
+                                           max-date="maxDate"
                                            mask="19/39/9999"
                                            clearn="true"
                                            ng-model="sc.sampleModel.partnerDob">
@@ -212,13 +214,13 @@
                                     </div>
                                 </div>
                             </md-input-container>
-                            <md-input-container class="col-md-6">
-                                <div class="input-group ui-datepicker">
+                            <md-input-container class="col-md-6 md-date">
+                                <div class="input-group ui-datepicker auto-width">
                                     <label for="directedDonorDob">{{sc.sampleField.directedDonorDob.title}}</label>
-                                    <input type="text" class="form-control" ng-required="sc.sampleModel.directedDonor"
-                                           id="directedDonorDob" name="directedDonorDob" ng-model="sc.sampleModel.directedDonorDob"
+                                    <input type="text" class="form-control dob-dateauto-widthctedDonorDob" ng-model="sc.sampleModel.directedDonorDob"
                                            ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
                                            data-mask="19/39/9999"
+                                           max-date="maxDate"
                                            data-clearn="true"
                                            datepicker-popup
                                            is-open="sc.directedDonorDatepickerOpened" />
@@ -302,14 +304,15 @@
                                         <md-option ng-repeat="position in sc.positions[key]" value="{{position}}">{{position}}</md-option>
                                     </md-select>
                                 </div>
-                                <div class="col-md-5">
-                                    <md-input-container class="col-md-3">
+                                <div class="col-md-5 auto-width">
+                                    <md-input-container class="col-md-3 md-date-stored">
                                         <div class="input-group ui-datepicker">
                                             <label for="{{'dateStored' + key}}">{{sc.sampleField.dateStored.title}}</label>
                                             <input type="text" class="form-control"
                                                    id="{{'dateStored' + key}}" name="{{'dateStored' + key}}" ng-model="sc.locations[key].dateStored"
                                                    ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
                                                    data-mask="19/39/9999"
+                                                   max-date="maxDate"
                                                    datepicker-popup
                                                    is-open="sc['dateStoredDatepickerOpened' + key]"/>
                                             <span class="input-group-btn">
@@ -318,12 +321,12 @@
                                         </div>
                                     </md-input-container>
 
-                                    <md-input-container class="col-md-4">
+                                    <md-input-container class="col-md-3">
                                         <label for="specimenNumber">{{sc.sampleField.specimenNumber.title}}</label>
                                         <input type="text" class="form-control" id="specimenNumber" name="specimenNumber" ng-model="sc.locations[key].specimenNumber"/>
                                     </md-input-container>
 
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
                                         <md-select ng-model="sc.locations[key].collectionMethodId" class="location-method-padding" required name="methodOfCollection" id="methodOfCollection" placeholder="Choose Method Of Location">
                                             <md-option ng-repeat="method in sc.collectionMethods" value="{{method.id}}">{{method.name}}</md-option>
                                         </md-select>
@@ -341,7 +344,7 @@
                                         Take All position
                                     </md-button>
                                 </md-input-container>
-                                <div class="error location-error col-md-12" ng-show="!sc.locations[key].available && sc.locations[key].filled">Selected location has already used</div>
+                                <div class="error location-error col-md-12" ng-show="!sc.locations[key].available && sc.locations[key].filled">Selected location is currently in use</div>
                             </div>
                             <md-button type="button" aria-label="headphones" class="md-raised md-accent btn-w-md" ng-click="sc.addLocation($event)">
                                 Add Location

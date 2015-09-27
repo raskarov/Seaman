@@ -6537,3 +6537,12 @@ md-tooltip {
 
 .md-whiteframe-z5 {
   box-shadow: 0px 27px 24px 0 rgba(0, 0, 0, 0.2); }
+
+.md-date {
+    width: 220px !important; }
+
+.md-date-stored {
+    width: 160px !important; }
+
+.auto-width {
+    width: auto !important; }

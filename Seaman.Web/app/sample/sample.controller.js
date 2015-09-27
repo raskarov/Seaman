@@ -75,6 +75,11 @@
 
         activate();
 
+        $scope.toggleMin = function () {
+            $scope.maxDate = $scope.maxDate ? null : new Date();
+        };
+        $scope.toggleMin();
+
         function activate() {
             var promises = [];
             var tankPromise = adminService.getTanks(true).then(function (data) {

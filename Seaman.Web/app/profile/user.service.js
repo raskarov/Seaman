@@ -26,7 +26,7 @@
 
         function processUser(user) {
             user = helper.toCamelCase(user);
-            session.create(Date.now(), user.id, user.roles);
+            session.create(Date.now(), user.id, user.roles, user.fullName);
             return user;
         };
 

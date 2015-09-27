@@ -18,6 +18,7 @@
                                     <input type="text" class="form-control" id="startDate" name="startDate"
                                            ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
                                            mask="19/39/9999"
+                                           max-date="maxDate"
                                            datepicker-popup
                                            is-open="rc.startDateDatepickerOpened"
                                            clearn="true"
@@ -38,6 +39,7 @@
                                     <input type="text" class="form-control" id="endDate" name="endDate"
                                            ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
                                            mask="19/39/9999"
+                                           max-date="maxDate"
                                            datepicker-popup
                                            is-open="rc.endDateDatepickerOpened"
                                            clearn="true"

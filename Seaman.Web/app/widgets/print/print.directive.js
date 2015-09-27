@@ -6,8 +6,7 @@
 
     appPrint.$inject = ['$window'];
 
-    samplePrint.$inject = ['$rootScope', "sampleService", "$timeout"];
-
+    samplePrint.$inject = ['$rootScope', "sampleService", "$timeout", "session"];
     function appPrint($window) {
         return {
             restrict: "AE",
@@ -33,7 +32,7 @@
         };
     }
 
-    function samplePrint($rootScope, sampleService, $timeout) {
+    function samplePrint($rootScope, sampleService, $timeout, session) {
         return {
             restrict: "AE",
             replace: true,
@@ -47,7 +46,7 @@
         function link(scope, element, attrs) {
             scope.printTitle = scope.sample && scope.sample.printTitle || "Receipt";
             scope.date = moment().format("MM/DD/YYYY");
-
+            scope.userName = session.fullname;
             $rootScope.printSample = printSample;
             function printSample(id, after) {
                 loadSample(id).then(function() {
