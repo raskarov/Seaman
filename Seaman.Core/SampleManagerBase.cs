@@ -136,10 +136,28 @@ namespace Seaman.Core
         public String DepositorLastName { get; set; }
         public DateTime DepositorDob { get; set; }
         public String DepositorSsn { get; set; }
+        public SsnType DepositorSsnType { get; set; }
         public String PartnerFirstName { get; set; }
         public String PartnerLastName { get; set; }
         public DateTime? PartnerDob { get; set; }
         public String PartnerSsn { get; set; }
+        public SsnType PartnerSsnType { get; set; }
+
+        public String DepositorAddress { get; set; }
+        public String DepositorCity { get; set; }
+        public String DepositorState { get; set; }
+        public Int64? DepositorZip { get; set; }
+        public String DepositorHomePhone { get; set; }
+        public String DepositorCellPhone { get; set; }
+        public String DepositorEmail { get; set; }
+
+        public String PartnerAddress { get; set; }
+        public String PartnerCity { get; set; }
+        public String PartnerState { get; set; }
+        public Int64? PartnerZip { get; set; }
+        public String PartnerHomePhone { get; set; }
+        public String PartnerCellPhone { get; set; }
+        public String PartnerEmail { get; set; }
 
         public Boolean Autologous { get; set; }
         public Boolean Refreeze { get; set; }
@@ -223,10 +241,12 @@ namespace Seaman.Core
         public String DepositorLastName { get; set; }
         public DateTime DepositorDob { get; set; }
         public String DepositorSsn { get; set; }
+        public SsnType DepositorSsnType { get; set; }
         public String PartnerFirstName { get; set; }
         public String PartnerLastName { get; set; }
         public DateTime? PartnerDob { get; set; }
         public String PartnerSsn { get; set; }
+        public SsnType PartnerSsnType { get; set; }
         public Boolean Autologous { get; set; }
         public Boolean Refreeze { get; set; }
         public Boolean TestingOnFile { get; set; }
@@ -255,6 +275,22 @@ namespace Seaman.Core
         public Int32? PhysicianId { get; set; }
 
         public String Comment { get; set; }
+
+        public String DepositorAddress { get; set; }
+        public String DepositorCity { get; set; }
+        public String DepositorState { get; set; }
+        public Int64? DepositorZip { get; set; }
+        public String DepositorHomePhone { get; set; }
+        public String DepositorCellPhone { get; set; }
+        public String DepositorEmail { get; set; }
+
+        public String PartnerAddress { get; set; }
+        public String PartnerCity { get; set; }
+        public String PartnerState { get; set; }
+        public Int64? PartnerZip { get; set; }
+        public String PartnerHomePhone { get; set; }
+        public String PartnerCellPhone { get; set; }
+        public String PartnerEmail { get; set; }
     }
 
     public class ReportModel
@@ -274,5 +310,13 @@ namespace Seaman.Core
         Extracted,
         Missed, 
         All
+    }
+
+    public enum SsnType
+    {
+        SSN = 10 ,
+        Dl = 20,
+        Passport = 30,
+        Other = 40
     }
 }

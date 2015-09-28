@@ -5,9 +5,28 @@
     sampleController.$inject = ["$scope", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state", "$timeout", "$mdDialog", "$q", "helper"];
 
     function sampleController($scope, validation, colors, adminService, consts, sampleService, $state, $timeout, $mdDialog, $q, helper) {
+
+        $scope.options = [{ name: "SSN", id: 10 }, { name: "DL", id: 20 }, { name: "Passport", id: 30 }, { name: "Other", id: 40 }];
+
+        $scope.$watch('sc.sampleModel.depositorZip', function () {
+            if ($scope.sc.sampleModel.depositorZip) {
+                var tempVal = $scope.sc.sampleModel.depositorZip.toString();
+                tempVal = tempVal.replace(/\D/g, '');
+                $scope.sc.sampleModel.depositorZip = tempVal;
+            }
+        });
+
+        $scope.$watch('sc.sampleModel.partnerZip', function () {
+            if ($scope.sc.sampleModel.partnerZip) {
+                var tempVal = $scope.sc.sampleModel.partnerZip.toString();
+                tempVal = tempVal.replace(/\D/g, '');
+                $scope.sc.sampleModel.partnerZip = tempVal;
+            }
+        });
+
         var vm = this;
         var letters = angular.copy(consts.alphabet);
-        vm.title = "Sample";
+        vm.title = "Record";
         vm.sampleModel = { dateStored: moment().format("MM/DD/YYYY") };
         vm.locations = {
             0: {
@@ -21,10 +40,12 @@
             depositorFirstName: validation.newField('First Name', { required: true }),
             depositorDob: validation.newField('Dob', { required: true, date: true }),
             depositorSsn: validation.newField('SSN/Passport/DL/Other', { required: false }),
+            depositorSsnType: validation.newField('Type', { requiredSelect: false }),
             partnerLastName: validation.newField('Last Name', { required: false }),
             partnerFirstName: validation.newField('First Name', { required: false }),
             partnerDob: validation.newField('Dob', { required: false, date: true }),
             partnerSsn: validation.newField('SSN/Passport/DL/Other', { required: false }),
+            partnerSsnType: validation.newField('Type', { requiredSelect: false }),
             cryobankName: validation.newField('Cryobank name', { required: true }),
             cryobankVialId: validation.newField('Cryobank’s Vial ID #', { required: true }),
             directedDonorId: validation.newField('Unique donor ID #', { required: true }),
@@ -41,7 +62,21 @@
             position: validation.newField('Position', { requiredSelect: true }),
             physician: validation.newField('Physician of record i.e.', { requiredSelect: true }),
             comment: validation.newField('Comment / Warning', { required: true }),
-            specimenNumber: validation.newField("Specimen Number")
+            specimenNumber: validation.newField("Specimen Number"),
+            depositorAddress: validation.newField('Address', { required: false }),
+            depositorCity: validation.newField('City', { required: false }),
+            depositorState: validation.newField('State', { required: false }),
+            depositorZip: validation.newField('Zip code', { required: false }),
+            depositorHomePhone: validation.newField('Home phone', { required: false }),
+            depositorCellPhone: validation.newField('Cell phone', { required: false }),
+            depositorEmail: validation.newField('Email', { required: false }),
+            partnerAddress: validation.newField('Address', { required: false }),
+            partnerCity: validation.newField('City', { required: false }),
+            partnerState: validation.newField('State', { required: false }),
+            partnerZip: validation.newField('Zip code', { required: false }),
+            partnerHomePhone: validation.newField('Home phone', { required: false }),
+            partnerCellPhone: validation.newField('Cell phone', { required: false }),
+            partnerEmail: validation.newField('Email', { required: false })
         };
 
         vm.tanks = [];

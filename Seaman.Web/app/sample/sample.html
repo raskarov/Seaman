@@ -18,7 +18,7 @@
                                 <label for="depositorLastName">{{sc.sampleField.depositorLastName.title}}</label>
                                 <input type="text" class="form-control" required id="depositorLastName" name="depositorLastName" ng-model="sc.sampleModel.depositorLastName" />
                                 <div ng-messages="sc.sampleForm.depositorLastName.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorLastName.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorLastName.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorLastName.message.required}}</div>
                                     </div>
                                 </div>
@@ -27,7 +27,7 @@
                                 <label for="depositorFirstName">{{sc.sampleField.depositorFirstName.title}}</label>
                                 <input type="text" class="form-control" required id="depositorFirstName" name="depositorFirstName" ng-model="sc.sampleModel.depositorFirstName">
                                 <div ng-messages="sc.sampleForm.depositorFirstName.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorFirstName.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorFirstName.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorFirstName.message.required}}</div>
                                     </div>
                                 </div>
@@ -48,19 +48,83 @@
                                     </span>
                                 </div>
                                 <div ng-messages="sc.sampleForm.depositorDob.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorDob.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorDob.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorDob.message.required}}</div>
                                         <div ng-message="pattern">{{sc.sampleField.depositorDob.message.date}}</div>
                                     </div>
                                 </div>
                             </md-input-container>
                             <md-input-container class="col-md-6">
+                                <select ng-options="o.id as o.name for o in options"
+                                        ng-model="sc.sampleModel.depositorSsnType" name="posterVariants"
+                                        class="form-control">
+                                    </select>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
                                 <label for="depositorSsn">{{sc.sampleField.depositorSsn.title}}</label>
                                 <input type="text" class="form-control" id="depositorSsn" name="depositorSsn"
                                        ng-model="sc.sampleModel.depositorSsn">
                                 <div ng-messages="sc.sampleForm.depositorSsn.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorSsn.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorSsn.$touched || sc.sampleForm.depositorLastName.$invalid || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorSsn.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="depositorAddress">{{sc.sampleField.depositorAddress.title}}</label>
+                                <input type="text" class="form-control" id="depositorAddress" name="depositorAddress" ng-model="sc.sampleModel.depositorAddress" />
+                                <div ng-messages="sc.sampleForm.depositorAddress.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorAddress.$touched || sc.sampleForm.depositorAddress.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.depositorAddress.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="depositorCity">{{sc.sampleField.depositorCity.title}}</label>
+                                <input type="text" class="form-control" id="depositorCity" name="depositorCity" ng-model="sc.sampleModel.depositorCity">
+                                <div ng-messages="sc.sampleForm.depositorCity.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorCity.$touched || sc.sampleForm.depositorCity.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.depositorCity.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="depositorState">{{sc.sampleField.depositorState.title}}</label>
+                                <input type="text" class="form-control" id="depositorState" name="depositorState" ng-model="sc.sampleModel.depositorState" />
+                                <div ng-messages="sc.sampleForm.depositorState.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorState.$touched || sc.sampleForm.depositorState.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.depositorState.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="depositorZip">{{sc.sampleField.depositorZip.title}}</label>
+                                <input type="text" class="form-control" id="depositorZip" name="depositorZip" ng-model="sc.sampleModel.depositorZip">
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="depositorHomePhone">{{sc.sampleField.depositorHomePhone.title}}</label>
+                                <input type="text" class="form-control" id="depositorHomePhone" name="depositorHomePhone" ng-model="sc.sampleModel.depositorHomePhone"/>
+                                <div ng-messages="sc.sampleForm.depositorHomePhone.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorHomePhone.$touched || sc.sampleForm.depositorHomePhone.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.depositorHomePhone.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="depositorCellPhone">{{sc.sampleField.depositorCellPhone.title}}</label>
+                                <input type="text" class="form-control" id="depositorCellPhone" name="depositorCellPhone" ng-model="sc.sampleModel.depositorCellPhone">
+                                <div ng-messages="sc.sampleForm.depositorCellPhone.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorCellPhone.$touched || sc.sampleForm.depositorCellPhone.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.depositorCellPhone.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="depositorEmail">{{sc.sampleField.depositorEmail.title}}</label>
+                                <input type="text" class="form-control" id="depositorEmail" name="depositorEmail" ng-model="sc.sampleModel.depositorEmail">
+                                <div ng-messages="sc.sampleForm.depositorEmail.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorEmail.$touched || sc.sampleForm.depositorEmail.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.depositorEmail.message.required}}</div>
                                     </div>
                                 </div>
                             </md-input-container>
@@ -84,7 +148,7 @@
                                 <label for="partnerFirstName">{{sc.sampleField.partnerFirstName.title}}</label>
                                 <input type="text" class="form-control" id="partnerFirstName" name="partnerFirstName" ng-model="sc.sampleModel.partnerFirstName">
                                 <div ng-messages="sc.sampleForm.partnerFirstName.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerFirstName.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerFirstName.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.partnerFirstName.message.required}}</div>
                                     </div>
                                 </div>
@@ -105,19 +169,83 @@
                                     </span>
                                 </div>
                                 <div ng-messages="sc.sampleForm.partnerDob.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerDob.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerDob.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.partnerDob.message.required}}</div>
                                         <div ng-message="pattern">{{sc.sampleField.partnerDob.message.date}}</div>
                                     </div>
                                 </div>
                             </md-input-container>
                             <md-input-container class="col-md-6">
+                                <select ng-options="o.id as o.name for o in options"
+                                        ng-model="sc.sampleModel.partnerSsnType" name="posterVariants"
+                                        class="form-control">
+                                    </select>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
                                 <label for="partnerSsn">{{sc.sampleField.partnerSsn.title}}</label>
                                 <input type="text" class="form-control" id="partnerSsn" name="partnerSsn"
                                        ng-model="sc.sampleModel.partnerSsn">
                                 <div ng-messages="sc.sampleForm.partnerSsn.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerSsn.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerSsn.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.partnerSsn.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="partnerAddress">{{sc.sampleField.partnerAddress.title}}</label>
+                                <input type="text" class="form-control" id="partnerAddress" name="partnerAddress" ng-model="sc.sampleModel.partnerAddress" />
+                                <div ng-messages="sc.sampleForm.partnerAddress.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerAddress.$touched || sc.sampleForm.partnerAddress.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.partnerAddress.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="partnerCity">{{sc.sampleField.partnerCity.title}}</label>
+                                <input type="text" class="form-control" id="partnerCity" name="partnerCity" ng-model="sc.sampleModel.partnerCity">
+                                <div ng-messages="sc.sampleForm.partnerCity.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerCity.$touched || sc.sampleForm.partnerCity.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.partnerCity.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="partnerState">{{sc.sampleField.partnerState.title}}</label>
+                                <input type="text" class="form-control" id="partnerState" name="partnerState" ng-model="sc.sampleModel.partnerState" />
+                                <div ng-messages="sc.sampleForm.partnerState.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerState.$touched || sc.sampleForm.partnerState.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.partnerState.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="partnerZip">{{sc.sampleField.depositorZip.title}}</label>
+                                <input type="text" class="form-control" id="partnerZip" name="partnerZip" ng-model="sc.sampleModel.partnerZip">
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="partnerHomePhone">{{sc.sampleField.partnerHomePhone.title}}</label>
+                                <input type="text" class="form-control" id="partnerHomePhone" name="partnerHomePhone" ng-model="sc.sampleModel.partnerHomePhone" />
+                                <div ng-messages="sc.sampleForm.partnerHomePhone.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerHomePhone.$touched || sc.sampleForm.partnerHomePhone.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.partnerHomePhone.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="partnerCellPhone">{{sc.sampleField.partnerCellPhone.title}}</label>
+                                <input type="text" class="form-control" id="partnerCellPhone" name="partnerCellPhone" ng-model="sc.sampleModel.partnerCellPhone">
+                                <div ng-messages="sc.sampleForm.partnerCellPhone.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerCellPhone.$touched || sc.sampleForm.partnerCellPhone.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.partnerCellPhone.message.required}}</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-6">
+                                <label for="partnerEmail">{{sc.sampleField.partnerEmail.title}}</label>
+                                <input type="text" class="form-control" id="partnerEmail" name="partnerEmail" ng-model="sc.sampleModel.partnerEmail">
+                                <div ng-messages="sc.sampleForm.partnerEmail.$error">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerEmail.$touched || sc.sampleForm.partnerEmail.$invalid">
+                                        <div ng-message="required">{{sc.sampleField.partnerEmail.message.required}}</div>
                                     </div>
                                 </div>
                             </md-input-container>
@@ -131,16 +259,16 @@
                                     <md-option ng-repeat="physician in sc.physicians" value="{{physician.id}}">{{physician.name}}</md-option>
                                 </md-select>
                                 <div ng-messages="sc.sampleForm.physician.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.physician.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.physician.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.physician.message.required}}</div>
                                     </div>
                                 </div>
                             </div>
-                            <md-input-container class="col-md-6 comment-padding">
+                            <md-input-container class="col-md-6">
                                 <label for="partnerSsn">{{sc.sampleField.comment.title}}</label>
-                                <input type="text" class="form-control col-md-12" ng-model="sc.sampleModel.comment" ng-required="sc.sampleField.comment.required" name="comment" id="comment">
+                                <input type="text" class="form-control col-md-12" ng-model="sc.sampleModel.comment" required name="comment" id="comment">
                                 <div ng-messages="sc.sampleForm.comment.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.comment.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.comment.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.comment.message.required}}</div>
                                     </div>
                                 </div>
@@ -184,7 +312,7 @@
                                 <input type="text" class="form-control" ng-required="sc.sampleModel.cryobankPurchased"
                                        id="cryobankName" name="cryobankName" ng-model="sc.sampleModel.cryobankName" />
                                 <div ng-messages="sc.sampleForm.cryobankName.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.cryobankName.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.cryobankName.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.cryobankName.message.required}}</div>
                                     </div>
                                 </div>
@@ -194,7 +322,7 @@
                                 <input type="text" class="form-control" ng-required="sc.sampleModel.cryobankPurchased"
                                        id="cryobankVialId" name="cryobankVialId" ng-model="sc.sampleModel.cryobankVialId" />
                                 <div ng-messages="sc.sampleForm.cryobankVialId.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.cryobankVialId.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.cryobankVialId.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.cryobankVialId.message.required}}</div>
                                     </div>
                                 </div>
@@ -209,7 +337,7 @@
                                 <input type="text" class="form-control" ng-required="sc.sampleModel.directedDonor"
                                        id="directedDonorId" name="directedDonorId" ng-model="sc.sampleModel.directedDonorId" />
                                 <div ng-messages="sc.sampleForm.directedDonorId.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorId.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorId.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.directedDonorId.message.required}}</div>
                                     </div>
                                 </div>
@@ -229,7 +357,7 @@
                                     </span>
                                 </div>
                                 <div ng-messages="sc.sampleForm.directedDonorDob.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorDob.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorDob.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.directedDonorDob.message.required}}</div>
                                         <div ng-message="pattern">{{sc.sampleField.directedDonorDob.message.date}}</div>
                                     </div>
@@ -240,7 +368,7 @@
                                 <input type="text" class="form-control" ng-required="sc.sampleModel.directedDonor"
                                        id="directedDonorLastName" name="directedDonorLastName" ng-model="sc.sampleModel.directedDonorLastName" />
                                 <div ng-messages="sc.sampleForm.directedDonorLastName.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorLastName.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorLastName.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.directedDonorLastName.message.required}}</div>
                                     </div>
                                 </div>
@@ -250,7 +378,7 @@
                                 <input type="text" class="form-control" ng-required="sc.sampleModel.directedDonor"
                                        id="directedDonorFirstName" name="directedDonorFirstName" ng-model="sc.sampleModel.directedDonorFirstName" />
                                 <div ng-messages="sc.sampleForm.directedDonorFirstName.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorFirstName.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.directedDonorFirstName.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.directedDonorFirstName.message.required}}</div>
                                     </div>
                                 </div>
@@ -265,7 +393,7 @@
                                 <input type="text" class="form-control" ng-required="sc.sampleModel.anonymousDonor"
                                        id="anonymousDonorId" name="anonymousDonorId" ng-model="sc.sampleModel.anonymousDonorId" />
                                 <div ng-messages="sc.sampleForm.anonymousDonorId.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.anonymousDonorId.$touched">
+                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.anonymousDonorId.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.anonymousDonorId.message.required}}</div>
                                     </div>
                                 </div>

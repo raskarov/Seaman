@@ -68,15 +68,33 @@ namespace Seaman.EntityFramework
             sample.DepositorLastName = model.DepositorLastName;
             sample.DepositorDob = model.DepositorDob;
             sample.DepositorSsn = model.DepositorSsn;
+            sample.DepositorSsnType = model.DepositorSsnType;
 
             sample.PartnerFirstName = model.PartnerFirstName;
             sample.PartnerLastName = model.PartnerLastName;
             sample.PartnerDob = model.PartnerDob;
             sample.PartnerSsn = model.PartnerSsn;
+            sample.PartnerSsnType = model.PartnerSsnType;
 
             sample.Autologous = model.Autologous;
             sample.TestingOnFile = model.TestingOnFile;
             sample.Refreeze = model.Refreeze;
+
+            sample.DepositorAddress = model.DepositorAddress;
+            sample.DepositorCity = model.DepositorCity;
+            sample.DepositorState = model.DepositorState;
+            sample.DepositorZip = model.DepositorZip;
+            sample.DepositorHomePhone = model.DepositorHomePhone;
+            sample.DepositorCellPhone = model.DepositorCellPhone;
+            sample.DepositorEmail = model.DepositorEmail;
+
+            sample.PartnerAddress = model.PartnerAddress;
+            sample.PartnerCity = model.PartnerCity;
+            sample.PartnerState = model.PartnerState;
+            sample.PartnerZip = model.PartnerZip;
+            sample.PartnerHomePhone = model.PartnerHomePhone;
+            sample.PartnerCellPhone = model.PartnerCellPhone;
+            sample.PartnerEmail = model.PartnerEmail;
 
             foreach (var locationToAdd in model.LocationsToAdd)
             {
@@ -108,7 +126,6 @@ namespace Seaman.EntityFramework
                 location.SpecimenNumber = locationToAdd.SpecimenNumber;
                 location.Available = false;
                 location.UniqName = GetUniqNameByLocation(locationToAdd);
-
             }
             foreach (var locationToRemove in model.LocationsToRemove)
             {

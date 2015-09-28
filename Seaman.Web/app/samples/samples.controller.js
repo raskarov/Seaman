@@ -6,7 +6,7 @@
 
     function samplesListController($scope, uiGridConstants, sampleService, $q, $state, $mdDialog, adminService, $timeout) {
         var vm = this;
-        vm.title = "Samples";
+        vm.title = "Records";
 
         var selectedSubrows = [];
         vm.gridApi = {};

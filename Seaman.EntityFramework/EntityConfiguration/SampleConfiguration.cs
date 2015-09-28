@@ -30,6 +30,25 @@ namespace Seaman.EntityFramework.EntityConfiguration
             Property(it => it.AnonymousDonorId).HasMaxLength(20);
 
             Property(it => it.Comment).HasMaxLength(1000);
+
+            Property(it => it.DepositorSsnType);
+            Property(it => it.PartnerSsnType);
+
+            Property(it => it.DepositorAddress).HasMaxLength(100);
+            Property(it => it.DepositorCity).HasMaxLength(50);
+            Property(it => it.DepositorState).HasMaxLength(20);
+            Property(it => it.DepositorZip);
+            Property(it => it.DepositorHomePhone).HasMaxLength(50);
+            Property(it => it.DepositorCellPhone).HasMaxLength(50);
+            Property(it => it.DepositorEmail).HasMaxLength(50);
+
+            Property(it => it.PartnerAddress).HasMaxLength(100);
+            Property(it => it.PartnerCity).HasMaxLength(50);
+            Property(it => it.PartnerState).HasMaxLength(20);
+            Property(it => it.PartnerZip);
+            Property(it => it.PartnerHomePhone).HasMaxLength(50);
+            Property(it => it.PartnerCellPhone).HasMaxLength(50);
+            Property(it => it.PartnerEmail).HasMaxLength(50);
         }
     }
 }
