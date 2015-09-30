@@ -24,6 +24,22 @@
             }
         });
 
+        $scope.$watch('sc.sampleModel.autologous', function () {
+            switchActivate();
+        });
+
+        $scope.$watch('sc.sampleModel.anonymousDonor', function () {
+            switchActivate();
+        });
+
+        $scope.$watch('sc.sampleModel.directedDonor', function () {
+            switchActivate();
+        });
+
+        $scope.$watch('sc.sampleModel.cryobankPurchased', function () {
+            switchActivate();
+        });
+
         var vm = this;
         var letters = angular.copy(consts.alphabet);
         vm.title = "Record";
@@ -101,7 +117,6 @@
         vm.openDateStoredDatepicker = openDateStoredDatepicker;
         vm.directedDonorDatepickerOpened = false;
         vm.openDirectedDonorDatepicker = openDirectedDonorDatepicker;
-
         
         vm.onTankChange = onTankChange;
         vm.isFormValid = isFormValid;
@@ -114,6 +129,35 @@
             $scope.maxDate = $scope.maxDate ? null : new Date();
         };
         $scope.toggleMin();
+
+        function switchActivate() {
+            if ($scope.sc.sampleModel.anonymousDonor || $scope.sc.sampleModel.cryobankPurchased) {
+                $scope.sc.sampleModel.directedDonor = false;
+                $scope.sc.sampleModel.autologous = false;
+                $scope.directedDonorDisabled = true;
+                $scope.autologousDisabled = true;
+                $scope.anonymousDonorDisabled = false;
+            }
+            else if ($scope.sc.sampleModel.autologous) {
+                $scope.sc.sampleModel.directedDonor = false;
+                $scope.sc.sampleModel.anonymousDonor = false;
+                $scope.directedDonorDisabled = true;
+                $scope.anonymousDonorDisabled = true;
+                $scope.autologousDisabled = false;
+            }
+            else if ($scope.sc.sampleModel.directedDonor) {
+                $scope.sc.sampleModel.anonymousDonor = false;
+                $scope.sc.sampleModel.autologous = false;
+                $scope.anonymousDonorDisabled = true;
+                $scope.autologousDisabled = true;
+                $scope.directedDonorDisabled = false;
+            }
+            else {
+                $scope.directedDonorDisabled = false;
+                $scope.anonymousDonorDisabled = false;
+                $scope.autologousDisabled = false;
+            }
+        }
 
         function activate() {
             var promises = [];

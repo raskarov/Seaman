@@ -276,7 +276,7 @@
                         </div>
                         <div class="row clearfix">
                             <div class="col-md-4">
-                                <md-switch ng-model="sc.sampleModel.autologous" aria-label="Autologous" class="md-primary no-margin-top no-margin-bottom">Autologous</md-switch>
+                                <md-switch ng-model="sc.sampleModel.autologous" aria-label="Autologous" class="md-primary no-margin-top no-margin-bottom" ng-disabled="autologousDisabled">Autologous</md-switch>
                             </div>
                             <div class="col-md-4">
                                 <md-switch ng-model="sc.sampleModel.testingOnFile" aria-label="TestingOnFile" class="md-primary no-margin-top no-margin-bottom">STD testing on file</md-switch>
@@ -293,10 +293,10 @@
                                 <md-switch ng-model="sc.sampleModel.cryobankPurchased" aria-label="CryobankPurchased" class="md-primary">Cryobank Purchased</md-switch>
                             </div>
                             <div class="col-md-4">
-                                <md-switch ng-model="sc.sampleModel.directedDonor" aria-label="DirectedDonor" class="md-primary">Directed Donor</md-switch>
+                                <md-switch ng-model="sc.sampleModel.directedDonor" aria-label="DirectedDonor" class="md-primary" ng-disabled="directedDonorDisabled">Directed Donor</md-switch>
                             </div>
                             <div class="col-md-4">
-                                <md-switch ng-model="sc.sampleModel.anonymousDonor" aria-label="AnonymousDonor" class="md-primary">Anonymous Donor</md-switch>
+                                <md-switch ng-model="sc.sampleModel.anonymousDonor" aria-label="AnonymousDonor" class="md-primary" ng-disabled="anonymousDonorDisabled">Anonymous Donor</md-switch>
                             </div>
                         </div>
                     </div>
