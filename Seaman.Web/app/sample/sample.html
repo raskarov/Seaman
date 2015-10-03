@@ -428,7 +428,7 @@
                                     </md-select>
                                 </div>
                                 <div class="col-md-1">
-                                    <md-select ng-model="sc.locations[key].position" placeholder="Position" ng-change="sc.onStorageChange(key)" class="col-md">
+                                    <md-select multiple required ng-model="sc.locations[key].posForShow" placeholder="Position" ng-change="sc.onStorageChange(key)" class="col-md">
                                         <md-option ng-repeat="position in sc.positions[key]" value="{{position}}">{{position}}</md-option>
                                     </md-select>
                                 </div>

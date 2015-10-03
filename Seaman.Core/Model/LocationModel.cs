@@ -19,7 +19,8 @@ namespace Seaman.Core.Model
         public Int32 Canister { get; set; }
         public String CaneLetter { get; set; }
         public String CaneColor { get; set; }
-        public Int32 Position { get; set; }
+        public String Position { get; set; }
+        public String[] PosForShow { get; set; }
 
         public String UniqName { get; set; }
         public String SpecimenNumber { get; set; }

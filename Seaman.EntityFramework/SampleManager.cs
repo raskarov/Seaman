@@ -120,7 +120,12 @@ namespace Seaman.EntityFramework
                 location.Canister = locationToAdd.Canister;
                 location.CaneLetter = locationToAdd.CaneLetter;
                 location.CaneColor = locationToAdd.CaneColor;
-                location.Position = locationToAdd.Position;
+                String position = "";
+                foreach (var pos in locationToAdd.PosForShow)
+                {
+                    position += position.Length == 0 ? pos : "," + pos;
+                }
+                location.Position = position;
                 location.DateStored = locationToAdd.DateStored;
                 location.CollectionMethodId = locationToAdd.CollectionMethodId;
                 location.SpecimenNumber = locationToAdd.SpecimenNumber;

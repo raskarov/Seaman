@@ -75,7 +75,7 @@
             canister: validation.newField('Canister', { requiredSelect: true }),
             caneLetter: validation.newField('Cane letter', { requiredSelect: true }),
             caneColor: validation.newField('Cane color', { requiredSelect: true }),
-            position: validation.newField('Position', { requiredSelect: true }),
+            //posForShow: validation.newField('Position', { requiredSelect: true }),
             physician: validation.newField('Physician of record i.e.', { requiredSelect: true }),
             comment: validation.newField('Comment / Warning', { required: true }),
             specimenNumber: validation.newField("Specimen Number"),
@@ -251,10 +251,9 @@
             sampleService.checkCaneForEmpty(location).success(function(data) {
                 location.caneIsEmpty = data;
             });
-
-            if (!location.position) return false;
+            if (!location.posForShow) return false;
             location.filled = true;
-            location.uniqName = helper.format("{0}-{1}-{2}-{3}-{4}", location.tank, location.canister, location.caneLetter, location.position, location.caneColor);
+            location.uniqName = helper.format("{0}-{1}-{2}-{3}-{4}", location.tank, location.canister, location.caneLetter, location.posForShow, location.caneColor);
             sampleService.checkLocation(location).success(function (data) {
                 location.exists = vm.sampleModel.id && location.id && vm.sampleModel.id > 0 && data != null && data.sampleId === vm.sampleModel.id;
                 var localCheck = _.filter(vm.locations, function (item) {

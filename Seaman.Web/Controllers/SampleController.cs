@@ -53,7 +53,15 @@ namespace Seaman.Web.Controllers
         [Route("{id:int}")]
         public SampleModel GetSample(Int32 id)
         {
-            return SampleManager.GetSample(id);
+            var sample = SampleManager.GetSample(id);
+            string[] separators = { ","};
+            for (int i = 0; i < sample.Locations.Count; i++)
+            {
+                sample.Locations[i].PosForShow =
+                    sample.Locations[i].Position.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            }
+            
+            return sample;
         }
 
         [HttpGet]
