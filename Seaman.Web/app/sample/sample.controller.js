@@ -105,6 +105,7 @@
         vm.removeLocation = removeLocation;
 
         vm.saveSample = saveSample;
+        vm.copyAddressInformation = copyAddressInformation;
 
         vm.collectionMethods = [];
         vm.physicians = [];
@@ -290,6 +291,16 @@
         function onTankChange(name) {
             var tank = _.find(vm.tanks, { "name": vm.locations[name].tank });
             generateStorageByTank(tank, name);
+        }
+
+        function copyAddressInformation(name) {
+            $scope.sc.sampleModel.partnerAddress = $scope.sc.sampleModel.depositorAddress;
+            $scope.sc.sampleModel.partnerCity = $scope.sc.sampleModel.depositorCity;
+            $scope.sc.sampleModel.partnerState = $scope.sc.sampleModel.depositorState;
+            $scope.sc.sampleModel.partnerZip = $scope.sc.sampleModel.depositorZip;
+            $scope.sc.sampleModel.partnerHomePhone = $scope.sc.sampleModel.depositorHomePhone;
+            $scope.sc.sampleModel.partnerCellPhone = $scope.sc.sampleModel.depositorCellPhone;
+            $scope.sc.sampleModel.partnerEmail = $scope.sc.sampleModel.depositorEmail;
         }
 
         function addLocation(e) {
