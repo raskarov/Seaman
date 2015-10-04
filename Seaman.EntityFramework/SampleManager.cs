@@ -408,6 +408,7 @@ namespace Seaman.EntityFramework
             exist.CanesCount = tank.CanesCount;
             exist.CanistersCount = tank.CanistersCount;
             exist.PositionsCount = tank.PositionsCount;
+            exist.TankDescription = tank.TankDescription;
             _context.SaveChanges();
             return Mapper.Map<TankModel>(exist);
         }

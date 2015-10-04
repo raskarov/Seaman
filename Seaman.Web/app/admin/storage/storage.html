@@ -5,14 +5,22 @@
         </div>
         <div class="col-md-12">
             <div class="row">
-                <section class="panel panel-default col-lg-6 col-lg-offset-3">
-                    <div class="panel-body">
-                        <form class="form-inline" role="form" name="sc.tankForm" ng-submit="sc.addTank()" novalidate>
-                            <md-input-container class="col-md-3">
+                <section class="panel panel-default col-lg-6 col-lg-offset-0 auto-width">
+                    <div class="panel-body auto-width">
+                        <form class="form-inline auto-width" role="form" name="sc.tankForm" ng-submit="sc.addTank()" novalidate>
+                            <!--<md-input-container class="col-md-3">
                                 <label>Next letter</label>
-                                <input type="text" ng-disabled="true" class="form-control" name="name" ng-model="sc.tankModel.name">
+                                <input type="text" ng-disabled="false" class="form-control" name="name" ng-model="sc.tankModel.name">
+                            </md-input-container>-->
+                            <md-input-container class="col-md-1">                         
+                                <div>
+                                    <select ng-options="o.id as o.name for o in options"
+                                            ng-model="sc.tankModel.name" name="name"
+                                            class="form-control">
+                                    </select>
+                                </div>
                             </md-input-container>
-                            <md-input-container class="col-md-3">
+                            <md-input-container class="col-md-2">
                                 <label>Canisters Count</label>
                                 <input type="text" required mask="6" class="form-control" name="canistersCount" ng-model="sc.tankModel.canistersCount">
                             </md-input-container>
@@ -23,6 +31,10 @@
                             <md-input-container class="col-md-3">
                                 <label>Positions Count</label>
                                 <input type="text" required mask="6" class="form-control" name="positionsCount" ng-model="sc.tankModel.positionsCount">
+                            </md-input-container>
+                            <md-input-container class="col-md-3">
+                                <label>Tank Description</label>
+                                <input type="text" required class="form-control" name="tankDescription" ng-model="sc.tankModel.tankDescription">
                             </md-input-container>
                             <md-button type="submit" class="md-raised md-accent btn-w-md" ng-disabled="sc.physicianForm.$invalid">Save Tank</md-button>
                         </form>
@@ -40,6 +52,7 @@
                                 <th>Canisters Count</th>
                                 <th>Canes Count</th>
                                 <th>Positions Count</th>
+                                <th>Tank Description</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -49,7 +62,7 @@
                                 <td>{{tank.canistersCount}}</td>
                                 <td>{{tank.canesCount}}</td>
                                 <td>{{tank.positionsCount}}</td>
-
+                                <td>{{tank.tankDescription}}</td>
                             </tr>
 
                             </tbody>

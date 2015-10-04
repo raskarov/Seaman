@@ -2,9 +2,9 @@
     angular.module("admin.storage")
         .controller("StorageController", storageController);
 
-    storageController.$inject = ["$q", "adminService", "COLORS", "COMMON"];
+    storageController.$inject = ['$scope', "$q", "adminService", "COLORS", "COMMON"];
 
-    function storageController($q, adminService, colors, consts) {
+    function storageController($scope, $q, adminService, colors, consts) {
         var vm = this;
         vm.title = "Storage";
         vm.tanks = [];
@@ -26,7 +26,7 @@
         vm.addPosition = addPosition;
         vm.remove = remove;
         vm.removeCane = removeCane;
-
+        var letters = [];
         activate();
 
         function activate() {
@@ -41,10 +41,24 @@
 
         function getTanks() {
             adminService.getTanks().then(function (data) {
+                vm.letters = consts.alphabet.split("");
+                var t = vm.letters;
+                for (var i = 0; i < data.length; i++) {
+                    if (t.indexOf(data[i].name.toLowerCase()) != -1)
+                        vm.letters.splice(t.indexOf(data[i].name.toLowerCase()), 1);
+                }
                 vm.tanks = data;
                 var length = vm.tanks.length;
                 if (length >= vm.letters.length) return false;
-                vm.tankModel.name = vm.letters[length].toUpperCase();
+                vm.tankModel.name = vm.letters[0].toUpperCase();
+                letters = [];
+                for (var i = 0; i < vm.letters.length; i++) {
+                    letters.push({
+                        id: vm.letters[i].toUpperCase(),
+                        name: vm.letters[i].toUpperCase()
+                    });
+                }
+                $scope.options = letters;
             });
         };
 
@@ -78,6 +92,29 @@
 
         function editTank(tank) {
             vm.tankModel = tank;
+            vm.letters = consts.alphabet.split("");
+            adminService.getTanks().then(function (data) {
+                var t = vm.letters;
+                for (var i = 0; i < data.length; i++) {
+                    if (t.indexOf(data[i].name.toLowerCase()) != -1)
+                        vm.letters.splice(t.indexOf(data[i].name.toLowerCase()), 1);
+                }
+                var length = vm.tanks.length;
+                if (length >= vm.letters.length) return false;
+                letters = [];
+                letters.push({
+                    id: tank.name.toUpperCase(),
+                    name: tank.name.toUpperCase()
+                });
+                for (var i = 0; i < vm.letters.length; i++) {
+                    letters.push({
+                        id: vm.letters[i].toUpperCase(),
+                        name: vm.letters[i].toUpperCase()
+                    });
+                }
+                $scope.options = letters;
+            });
+            //vm.tankModel.name = lettersForEdit[tank.name.toUpperCase()];
         }
 
         function addCanister() {
@@ -87,7 +124,7 @@
                 name: +lastCanister + 1
             };
 
-            adminService.saveCanister(model).then(function() {
+            adminService.saveCanister(model).then(function () {
                 getCanisters();
             });
         }
@@ -97,7 +134,7 @@
             if (length >= vm.letters.length) return false;
             var newLetter = vm.letters[length].toUpperCase();
             var promises = [];
-            _.forEach(colors, function(color) {
+            _.forEach(colors, function (color) {
                 var model = {
                     name: vm.letters[length].toUpperCase(),
                     color: color
@@ -106,7 +143,7 @@
                 promises.push(adminService.saveCane(model));
             });
 
-            $q.all(promises).then(function() {
+            $q.all(promises).then(function () {
                 getCanes();
             });
         }
@@ -130,6 +167,7 @@
             adminService["remove" + name.capitalize()](id).then(function (data) {
                 vm['get' + name.capitalize() + 's']();
             });
+            vm.letters = consts.alphabet.split("");
         };
 
         function removeCane() {
@@ -137,7 +175,7 @@
             var lastCaneLetter = vm.canes[length - 1].name;
             var canesToDelete = _.filter(vm.canes, { 'name': lastCaneLetter });
             var promises = [];
-            _.forEach(canesToDelete, function(cane) {
+            _.forEach(canesToDelete, function (cane) {
                 promises.push(adminService.removeCane(cane.id));
             });
 

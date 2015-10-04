@@ -15,5 +15,6 @@ namespace Seaman.Core.Model
         public Int32 CanistersCount { get; set; }
         public Int32 CanesCount { get; set; }
         public Int32 PositionsCount { get; set; }
+        public String TankDescription { get; set; }
     }
 }
