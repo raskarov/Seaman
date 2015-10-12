@@ -11,6 +11,7 @@ namespace Seaman.Core
     {
         void AddConsentForm(String fileName, Int32 id);
         SampleModel SaveSample(SaveSampleModel model, Int32? byUserId);
+        Boolean CheckDepositor(SaveSampleModel model);
         SampleModel GetSample(Int32 id);
         SampleModel GetSample(String uniqLocatonName);
         SampleReportModel GetReportSample(Int32 id);
@@ -28,7 +29,7 @@ namespace Seaman.Core
         CollectionMethodModel SaveCollectionMethod(CollectionMethodModel collectionMethod);
         void DeleteCollectionMethod(Int32 id);
 
-        LocationModel GetLocation(String uniqName);
+        LocationModel GetLocation(LocationModel model);
         List<LocationModel> GetLocations();
         List<LocationBriefModel> GetLocations(Int32 sampleId);
         LocationModel SaveLocation(LocationModel location);
@@ -51,6 +52,7 @@ namespace Seaman.Core
     {
         public abstract void AddConsentForm(string fileName, int id);
         public abstract SampleModel SaveSample(SaveSampleModel model, Int32? byUserId);
+        public abstract Boolean CheckDepositor(SaveSampleModel model);
         public abstract SampleModel GetSample(int id);
         public abstract SampleModel GetSample(string uniqLocatonName);
         public abstract SampleReportModel GetReportSample(int id);
@@ -66,7 +68,7 @@ namespace Seaman.Core
         public abstract List<CollectionMethodModel> GetCollectionMethods();
         public abstract CollectionMethodModel SaveCollectionMethod(CollectionMethodModel collectionMethod);
         public abstract void DeleteCollectionMethod(int id);
-        public abstract LocationModel GetLocation(string uniqName);
+        public abstract LocationModel GetLocation(LocationModel model);
         public abstract List<LocationModel> GetLocations();
         public abstract List<LocationBriefModel> GetLocations(int sampleId);
         public abstract LocationModel SaveLocation(LocationModel location);

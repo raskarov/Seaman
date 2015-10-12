@@ -16,7 +16,7 @@
                         <div class="panel-body row">
                             <md-input-container class="col-md-6">
                                 <label for="depositorLastName">{{sc.sampleField.depositorLastName.title}}</label>
-                                <input type="text" class="form-control" required id="depositorLastName" name="depositorLastName" ng-model="sc.sampleModel.depositorLastName"/>
+                                <input type="text" class="form-control" required id="depositorLastName" name="depositorLastName" ng-model="sc.sampleModel.depositorLastName" ng-model-onblur ng-change="sc.onDepositorChange()"/>
                                 <div ng-messages="sc.sampleForm.depositorLastName.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorLastName.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorLastName.message.required}}</div>
@@ -25,13 +25,14 @@
                             </md-input-container>
                             <md-input-container class="col-md-6">
                                 <label for="depositorFirstName">{{sc.sampleField.depositorFirstName.title}}</label>
-                                <input type="text" class="form-control" required id="depositorFirstName" name="depositorFirstName" ng-model="sc.sampleModel.depositorFirstName">
+                                <input type="text" class="form-control" required id="depositorFirstName" name="depositorFirstName" ng-model="sc.sampleModel.depositorFirstName" ng-model-onblur ng-change="sc.onDepositorChange()"/>
                                 <div ng-messages="sc.sampleForm.depositorFirstName.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorFirstName.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorFirstName.message.required}}</div>
                                     </div>
                                 </div>
                             </md-input-container>
+                            <div class="error location-error col-md-12" ng-show="findName">This patient already exists</div>
                             <md-input-container class="col-md-6 md-date">
                                 <div class="input-group ui-datepicker auto-width">
                                     <label for="depositorDob">{{sc.sampleField.depositorDob.title}}</label>
@@ -42,7 +43,8 @@
                                            is-open="sc.depositorDatepickerOpened"
                                            max-date="maxDate"
                                            clearn="true"
-                                           ng-model="sc.sampleModel.depositorDob">
+                                           ng-model="sc.sampleModel.depositorDob"
+                                           ng-change="changeDob(sc.sampleModel.depositorDob, 'depositor')">
                                     <span class="input-group-btn">
                                         <button type="button" class="btn btn-default" ng-click="sc.openDepositorDatepicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                     </span>
@@ -144,7 +146,7 @@
                         <div class="panel-body row">
                             <md-input-container class="col-md-6">
                                 <label for="partnerLastName">{{sc.sampleField.partnerLastName.title}}</label>
-                                <input type="text" class="form-control" required id="partnerLastName" name="partnerLastName" ng-model="sc.sampleModel.partnerLastName"/>
+                                <input type="text" class="form-control" id="partnerLastName" name="partnerLastName" ng-model="sc.sampleModel.partnerLastName"/>
                                 <div ng-messages="sc.sampleForm.partnerLastName.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerLastName.$touched || sc.sampleForm.partnerLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.partnerLastName.message.required}}</div>
@@ -153,7 +155,7 @@
                             </md-input-container>
                             <md-input-container class="col-md-6">
                                 <label for="partnerFirstName">{{sc.sampleField.partnerFirstName.title}}</label>
-                                <input type="text" class="form-control" required id="partnerFirstName" name="partnerFirstName" ng-model="sc.sampleModel.partnerFirstName">
+                                <input type="text" class="form-control" id="partnerFirstName" name="partnerFirstName" ng-model="sc.sampleModel.partnerFirstName">
                                 <div ng-messages="sc.sampleForm.partnerFirstName.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerFirstName.$touched || sc.sampleForm.partnerLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.partnerFirstName.message.required}}</div>
@@ -163,16 +165,17 @@
                             <md-input-container class="col-md-6 md-date">
                                 <div class="input-group ui-datepicker auto-width">
                                     <label for="partnerDob">{{sc.sampleField.partnerDob.title}}</label>
-                                    <input type="text" class="form-control auto-width" ng-required="true" id="partnerDob" name="partnerDob"
+                                    <input type="text" class="form-control auto-width" id="partnerDob" name="partnerDob"
                                            ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
                                            mask="19/39/9999"
                                            datepicker-popup
                                            is-open="sc.partnerDatepickerOpened"
                                            max-date="maxDate"
                                            clearn="true"
-                                           ng-model="sc.sampleModel.partnerDob">
+                                           ng-model="sc.sampleModel.partnerDob"
+                                           ng-change="changeDob(sc.sampleModel.partnerDob, 'partner')">
                                     <span class="input-group-btn">
-                                        <button type="button" class="btn btn-default" ng-click="sc.openpartnerDatepicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                        <button type="button" class="btn btn-default" ng-click="sc.openPartnerDatepicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                     </span>
                                 </div>
                                 <div ng-messages="sc.sampleForm.partnerDob.$error">
@@ -374,7 +377,8 @@
                                                max-date="maxDate"
                                                data-clearn="true"
                                                datepicker-popup
-                                               is-open="sc.directedDonorDatepickerOpened" />
+                                               ng-change="changeDob(sc.sampleModel.directedDonorDob, 'directedDonor')"
+                                               is-open="sc.directedDonorDatepickerOpened"/>
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="sc.openDirectedDonorDatepicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                         </span>

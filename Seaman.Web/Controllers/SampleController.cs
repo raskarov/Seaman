@@ -29,8 +29,8 @@ namespace Seaman.Web.Controllers
         [Route("available")]
         public IHttpActionResult CheckLocation(LocationModel model)
         {
-            var uniqName = String.Format("{0}-{1}-{2}-{3}-{4}", model.Tank, model.Canister, model.CaneLetter, model.Position, model.CaneColor);
-            var location = SampleManager.GetLocation(uniqName);
+            //var uniqName = String.Format("{0}-{1}-{2}-{3}-{4}", model.Tank, model.Canister, model.CaneLetter, model.Position, model.CaneColor);
+            var location = SampleManager.GetLocation(model);
             return Ok(location);
         }
 
@@ -39,6 +39,13 @@ namespace Seaman.Web.Controllers
         public IHttpActionResult CheckCaneForEmpty(LocationModel model)
         {
             return Ok(SampleManager.CheckCaneForEmpty(model));
+        }
+
+        [HttpPost]
+        [Route("depositorAvailable")]
+        public Boolean CheckDepositor(SaveSampleModel model)
+        {
+            return SampleManager.CheckDepositor(model);
         }
 
         [HttpPost]

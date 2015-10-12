@@ -2,11 +2,13 @@
     angular.module("seaman.sample")
         .controller("SampleController", sampleController);
 
-    sampleController.$inject = ["$scope", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state", "$timeout", "$mdDialog", "$q", "helper"];
+    sampleController.$inject = ["$scope", "$filter", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state", "$timeout", "$mdDialog", "$q", "helper"];
 
-    function sampleController($scope, validation, colors, adminService, consts, sampleService, $state, $timeout, $mdDialog, $q, helper) {
+    function sampleController($scope, $filter, validation, colors, adminService, consts, sampleService, $state, $timeout, $mdDialog, $q, helper) {
 
         $scope.options = [{ name: "SSN", id: 10 }, { name: "DL", id: 20 }, { name: "Passport", id: 30 }, { name: "Other", id: 40 }];
+
+        $scope.findName = false;
 
         $scope.$watch('sc.sampleModel.depositorZip', function () {
             if ($scope.sc.sampleModel.depositorZip) {
@@ -126,10 +128,25 @@
 
         activate();
 
-        $scope.toggleMin = function () {
+        $scope.setMaxDate = function () {
             $scope.maxDate = $scope.maxDate ? null : new Date();
         };
-        $scope.toggleMin();
+        $scope.setMaxDate();
+
+        $scope.changeDob = function (val, type) {
+            if (val !== undefined) {
+                var today = $filter('date')(new Date(), 'MM/dd/yyyy');
+                if (type == 'partner') {
+                    $scope.sc.sampleModel.partnerDob = new Date(val) > new Date() ? today : val;
+                }
+                else if (type == 'depositor') {
+                    $scope.sc.sampleModel.depositorDob = new Date(val) > new Date() ? today : val;
+                }
+                else if (type == 'directedDonor') {
+                    $scope.sc.sampleModel.directedDonorDob = new Date(val) > new Date() ? today : val;
+                }
+            }
+        };
 
         function switchActivate() {
             if ($scope.sc.sampleModel.anonymousDonor || $scope.sc.sampleModel.cryobankPurchased) {
@@ -193,10 +210,12 @@
                         delete vm.sampleModel.locations;
                         $timeout(function() {
                             vm.onStorageChange = onStorageChange;
+                            vm.onDepositorChange = onDepositorChange;
                         });
                     });
                 } else {
                     vm.onStorageChange = onStorageChange;
+                    vm.onDepositorChange = onDepositorChange;
                 }
             });
         }
@@ -231,6 +250,9 @@
             var sample = angular.copy(vm.sampleModel);
             sample.locationsToAdd = _.toArray(vm.locations);
             sample.locationsToRemove = _.toArray(vm.locationsToRemove);
+            sampleService.checkDepositor(sample).success(function (data) {
+                var t = data;
+            });
             sampleService.saveSample(sample).then(function (sample) {
                 clearForm();
                 sampleService.getSampleReport(sample.id).then(function (data) {
@@ -251,7 +273,7 @@
 
             sampleService.checkCaneForEmpty(location).success(function(data) {
                 location.caneIsEmpty = data;
-            });
+            });                          
             if (!location.posForShow) return false;
             location.filled = true;
             location.uniqName = helper.format("{0}-{1}-{2}-{3}-{4}", location.tank, location.canister, location.caneLetter, location.posForShow, location.caneColor);
@@ -262,6 +284,16 @@
                 }).length === 1;
                 location.available = data == null && localCheck || data != null && data.available && localCheck ||
                     data != null && !data.available && vm.sampleModel.id && data.sampleId === vm.sampleModel.id && localCheck;
+            });
+        }
+
+        function onDepositorChange() {
+            var sampleModel = vm.sampleModel;
+            var isCaneChoosed = sampleModel && sampleModel.depositorLastName && sampleModel.depositorFirstName;
+            if (!isCaneChoosed) return false;
+
+            sampleService.checkDepositor(sampleModel).success(function (data) {
+                $scope.findName = data;
             });
         }
 
@@ -299,8 +331,8 @@
             $scope.sc.sampleModel.partnerState = $scope.sc.sampleModel.depositorState;
             $scope.sc.sampleModel.partnerZip = $scope.sc.sampleModel.depositorZip;
             $scope.sc.sampleModel.partnerHomePhone = $scope.sc.sampleModel.depositorHomePhone;
-            $scope.sc.sampleModel.partnerCellPhone = $scope.sc.sampleModel.depositorCellPhone;
-            $scope.sc.sampleModel.partnerEmail = $scope.sc.sampleModel.depositorEmail;
+            //$scope.sc.sampleModel.partnerCellPhone = $scope.sc.sampleModel.depositorCellPhone;
+            //$scope.sc.sampleModel.partnerEmail = $scope.sc.sampleModel.depositorEmail;
         }
 
         function addLocation(e) {
@@ -332,7 +364,7 @@
         }
 
         function isFormValid() {
-            return vm.sampleForm.$valid && !hasUsedLocations();
+            return vm.sampleForm.$valid && !hasUsedLocations() && !$scope.findName;
         }
 
         function clearForm() {

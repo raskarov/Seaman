@@ -35,6 +35,7 @@
         var samplePrefix = prefix + "/sample";
         var locationAvailable = samplePrefix + "/available";
         var caneAvailable = samplePrefix + "/caneAvailable";
+        var depositorAvailable = samplePrefix + "/depositorAvailable";
         var sample = samplePrefix;
         var report = samplePrefix + "/report";
         var random = samplePrefix + "/random";
@@ -66,6 +67,7 @@
             //Sample
             locationAvailable: locationAvailable,
             caneAvailable: caneAvailable,
+            depositorAvailable: depositorAvailable,
             sample: sample,
             report: report,
             random: random,

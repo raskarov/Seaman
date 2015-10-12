@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core.Mapping;
 using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
@@ -32,6 +33,22 @@ namespace Seaman.EntityFramework
                 sample.ConsentFormUrl = fileName;
             }
             _context.SaveChanges();
+        }
+
+        public override Boolean CheckDepositor(SaveSampleModel model)
+        {
+            if (model.Id == 0)
+            {
+                var samples = _context.Samples
+                .Where(x => x.DepositorFirstName == model.DepositorFirstName
+                    && x.DepositorLastName == model.DepositorLastName);
+
+                return samples.Count() != 0 ? true : false;  
+            }
+            else
+            {
+                return false;  
+            }
         }
 
         public override SampleModel SaveSample(SaveSampleModel model, Int32? byUserId)
@@ -329,10 +346,39 @@ namespace Seaman.EntityFramework
             _context.SaveChanges();
         }
 
-        public override LocationModel GetLocation(string uniqName)
+        public override LocationModel GetLocation(LocationModel model)
         {
-            var location = _context.Locations.FirstOrDefault(x => x.UniqName == uniqName && !x.Extracted);
-            return Mapper.Map<LocationModel>(location);
+            Boolean isFindLocation = false;
+            var findLocation = _context.Locations.FirstOrDefault(x => !x.Extracted);
+            var locations = _context.Locations.Where(x => x.Tank == model.Tank
+                                                          && x.Canister == model.Canister
+                                                          && x.CaneColor == model.CaneColor
+                                                          && x.CaneLetter == model.CaneLetter
+                                                          && x.Id != model.Id
+                                                          && !x.Extracted);
+            var newPositions = model.PosForShow.ToList();
+            foreach (var location in locations)
+            {
+                var positions = location.Position.Split(',');
+                foreach (var position in positions)
+                {
+                    foreach (var newPosition in newPositions)
+                    {
+                        if (position == newPosition)
+                        {
+                            isFindLocation = true;
+                        }
+                    }
+                }
+            }
+            if (isFindLocation)
+            {
+                return Mapper.Map<LocationModel>(findLocation);              
+            }               
+            else
+            {
+                return Mapper.Map<LocationModel>(null);
+            }          
         }
 
         public override List<LocationModel> GetLocations()
