@@ -488,7 +488,12 @@ namespace Seaman.EntityFramework
 
         private String GetUniqNameByLocation(LocationModel location)
         {
-            return String.Format("{0}-{1}-{2}-{3}-{4}", location.Tank, location.Canister, location.CaneLetter, location.Position, location.CaneColor);
+            String position = "";
+            foreach (var pos in location.PosForShow)
+            {
+                position += position.Length == 0 ? pos : "," + pos;
+            }
+            return String.Format("{0}-{1}-{2}-{3}-{4}", location.Tank, location.Canister, location.CaneLetter, position, location.CaneColor);
         }
     }
 }
