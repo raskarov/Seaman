@@ -13,7 +13,7 @@
                     <div class="col-md-10">
                         <div class="row">
                             <md-input-container class="col-md-3">
-                                <p>From Stored Date:</p>
+                                <p>From Stored/Received Date:</p>
                                 <div class="input-group ui-datepicker">
                                     <input type="text" class="form-control" id="startDate" name="startDate"
                                            ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
@@ -34,7 +34,7 @@
                                 </div>
                             </md-input-container>
                             <md-input-container class="col-md-3">
-                                <p>To Stored Date:</p>
+                                <p>To Stored/Received Date:</p>
                                 <div class="input-group ui-datepicker">
                                     <input type="text" class="form-control" id="endDate" name="endDate"
                                            ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
@@ -54,6 +54,53 @@
                                     </div>
                                 </div>
                             </md-input-container>
+                            
+                            <md-input-container class="col-md-3">
+                                <p>From Frozen Date:</p>
+                                <div class="input-group ui-datepicker">
+                                    <input type="text" class="form-control" id="frozenStartDate" name="frozenStartDate"
+                                           ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
+                                           mask="19/39/9999"
+                                           max-date="maxDate"
+                                           datepicker-popup
+                                           is-open="rc.frozenStartDateDatepickerOpened"
+                                           clearn="true"
+                                           ng-model="rc.reportModel.frozenStartDate">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="rc.openFrozenStartDateDatepicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                                <div ng-messages="rc.reportForm.frozenStartDate.$error">
+                                    <div ng-show="rc.reportForm.$submitted || rc.reportForm.frozenStartDate.$touched">
+                                        <div ng-message="pattern">Enter date in format "MM/DD/YYYY"</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+                            <md-input-container class="col-md-3">
+                                <p>To Stored/Received Date:</p>
+                                <div class="input-group ui-datepicker">
+                                    <input type="text" class="form-control" id="frozenEndDate" name="frozenEndDate"
+                                           ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
+                                           mask="19/39/9999"
+                                           max-date="maxDate"
+                                           datepicker-popup
+                                           is-open="rc.frozenEndDateDatepickerOpened"
+                                           clearn="true"
+                                           ng-model="rc.reportModel.frozenEndDate">
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="rc.openFrozenEndDateDatepicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </div>
+                                <div ng-messages="rc.reportForm.frozenEndDate.$error">
+                                    <div ng-show="rc.reportForm.$submitted || rc.reportForm.frozenEndDate.$touched">
+                                        <div ng-message="pattern">Enter date in format "MM/DD/YYYY"</div>
+                                    </div>
+                                </div>
+                            </md-input-container>
+
+
+                        </div>
+                        <div class="row">
                             <div class="col-md-3">
                                 <p class="col-md-12">Physicians</p>
                                 <md-select ng-model="rc.reportModel.physicianId" class="col-md-12" name="physicians" id="physicians" placeholder="Choose Physicians">
@@ -66,8 +113,6 @@
                                     <md-option ng-repeat="method in rc.collectionMethods" value="{{method.id}}">{{method.name}}</md-option>
                                 </md-select>
                             </div>
-                        </div>
-                        <div class="row">
                             <div class="col-md-3">
                                 <p class="col-md-12">Type</p>
                                 <md-select ng-model="rc.reportModel.type" class="col-md-12" name="type" id="type" placeholder="Choose Type">

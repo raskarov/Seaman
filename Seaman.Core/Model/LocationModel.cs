@@ -25,6 +25,7 @@ namespace Seaman.Core.Model
         public String UniqName { get; set; }
         public String SpecimenNumber { get; set; }
         public DateTime? DateStored { get; set; }
+        public DateTime? DateFrozen { get; set; }
         public DateTime? DateExtracted { get; set; }
         public Int32? CollectionMethodId { get; set; }
         public Int32? ExtractReasonId { get; set; }
@@ -35,6 +36,7 @@ namespace Seaman.Core.Model
         public Int32 Id { get; set; }
         public String UniqName { get; set; }
         public String DateStored { get; set; }
+        public String DateFrozen { get; set; }
         public String DateExtracted { get; set; }
         public Int32? CollectionMethodId { get; set; }
         public String CollectionMethod { get; set; }
@@ -46,6 +48,7 @@ namespace Seaman.Core.Model
         public Int32 Id { get; set; }
         public String UniqName { get; set; }
         public String DateStored { get; set; }
+        public String DateFrozen { get; set; }
         public String CollectionMethod { get; set; }
         public String DepositorFullName { get; set; }
         public String DepositorDob { get; set; }

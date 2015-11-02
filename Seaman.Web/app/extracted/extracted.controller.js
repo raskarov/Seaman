@@ -78,6 +78,7 @@
                     { name: 'uniqName', displayName: "Stored Location" },
                     { name: 'collectionMethod' },
                     { name: 'dateStored' },
+                    { name: 'dateFrozen' },
                     { name: 'dateExtracted' },
                     {name: 'reasonForExtraction'}
                 ],

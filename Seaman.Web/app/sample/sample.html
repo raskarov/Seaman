@@ -320,7 +320,7 @@
                         <div class="panel-body row">
                             <div class="col-md-12">
                                 <label for="partnerSsn">{{sc.sampleField.comment.title}}</label>
-                                <input type="text" class="form-control col-md-12" ng-model="sc.sampleModel.comment" required name="comment" id="comment">
+                                <textarea class="form-control col-md-12" ng-model="sc.sampleModel.comment" required name="comment" id="comment"></textarea>
                                 <div ng-messages="sc.sampleForm.comment.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.comment.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.comment.message.required}}</div>
@@ -329,11 +329,11 @@
                             </div>
                         </div>
                         <div class="row clearfix">
-                            <div ng-show="sc.sampleModel.cryobankPurchased" class="col-md-4 panel-body">
+                            <div ng-show="sc.sampleModel.cryobankPurchased" class="col-md-10">
                                 <div class="panel-heading">
                                     <h5 class="panel-title">Third Party</h5>
                                 </div>
-                                <md-input-container class="col-md-6">
+                                <md-input-container class="col-md-5">
                                     <label for="cryobankName">{{sc.sampleField.cryobankName.title}}</label>
                                     <input type="text" class="form-control" ng-required="sc.sampleModel.cryobankPurchased"
                                            id="cryobankName" name="cryobankName" ng-model="sc.sampleModel.cryobankName" />
@@ -343,7 +343,7 @@
                                         </div>
                                     </div>
                                 </md-input-container>
-                                <md-input-container class="col-md-6">
+                                <md-input-container class="col-md-5">
                                     <label for="cryobankVialId">{{sc.sampleField.cryobankVialId.title}}</label>
                                     <input type="text" class="form-control" ng-required="sc.sampleModel.cryobankPurchased"
                                            id="cryobankVialId" name="cryobankVialId" ng-model="sc.sampleModel.cryobankVialId" />
@@ -477,13 +477,29 @@
                                         </div>
                                     </md-input-container>
 
+                                    <md-input-container class="col-md-3 md-date-frozen">
+                                        <div class="input-group ui-datepicker">
+                                            <label for="{{'dateFrozen' + key}}">{{sc.sampleField.dateFrozen.title}}</label>
+                                            <input type="text" class="form-control"
+                                                   id="{{'dateFrozen' + key}}" name="{{'dateFrozen' + key}}" ng-model="sc.locations[key].dateFrozen"
+                                                   ng-pattern="/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/"
+                                                   data-mask="19/39/9999"
+                                                   max-date="maxDate"
+                                                   datepicker-popup
+                                                   is-open="sc['dateFrozenDatepickerOpened' + key]"/>
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default" ng-click="sc.openDateFrozenDatepicker($event, key)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                            </span>
+                                        </div>
+                                    </md-input-container>
+
                                     <md-input-container class="col-md-3">
                                         <label for="specimenNumber">{{sc.sampleField.specimenNumber.title}}</label>
                                         <input type="text" class="form-control" id="specimenNumber" name="specimenNumber" ng-model="sc.locations[key].specimenNumber"/>
                                     </md-input-container>
 
                                     <div class="col-md-4">
-                                        <md-select ng-model="sc.locations[key].collectionMethodId" class="location-method-padding" required name="methodOfCollection" id="methodOfCollection" placeholder="Choose Method Of Location">
+                                        <md-select ng-model="sc.locations[key].collectionMethodId" class="location-method-padding" required name="methodOfCollection" id="methodOfCollection" placeholder="Choose Method Of Collection">
                                             <md-option ng-repeat="method in sc.collectionMethods" value="{{method.id}}">{{method.name}}</md-option>
                                         </md-select>
                                     </div>

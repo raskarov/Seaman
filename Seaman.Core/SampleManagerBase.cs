@@ -97,6 +97,7 @@ namespace Seaman.Core
         public String PartnerLastName { get; set; }
         public String PartnerDob { get; set; }
         public String PartnerSsn { get; set; }
+        public String CreatedDateString { get; set; }
 
         public String Autologous { get; set; }
         public String Refreeze { get; set; }
@@ -271,6 +272,7 @@ namespace Seaman.Core
         public String ConsentFormUrl { get; set; }
 
         public DateTime CreatedDate { get; set; }
+        public String CreatedDateString { get; set; }
         public Int32? CreatedByUserId { get; set; }
         public DateTime ModifiedDate { get; set; }
         public Int32? ModifiedByUserId { get; set; }
@@ -299,6 +301,8 @@ namespace Seaman.Core
     {
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+        public DateTime? FrozenStartDate { get; set; }
+        public DateTime? FrozenEndDate { get; set; }
         public Int32? PhysicianId { get; set; }
         public Int32? TankId { get; set; }
         public Int32? Canister { get; set; }

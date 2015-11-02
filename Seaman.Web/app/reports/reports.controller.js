@@ -23,6 +23,10 @@
         vm.openStartDateDatepicker = openStartDateDatepicker;
         vm.endDateDatepickerOpened = false;
         vm.openEndDateDatepicker = openEndDateDatepicker;
+        vm.frozenStartDateDatepickerOpened = false;
+        vm.openFrozenStartDateDatepicker = openFrozenStartDateDatepicker;
+        vm.frozeEendDateDatepickerOpened = false;
+        vm.openFrozenEndDateDatepicker = openFrozenEndDateDatepicker;
         vm.generateReport = generateReport;
         vm.randomReport = randomReport;
         vm.onTankChange = onTankChange;
@@ -32,6 +36,7 @@
             columnDefs: [
                 { name: "uniqName" },
                 { name: "dateStored" },
+                { name: "dateFrozen" },
                 { name: "collectionMethod" },
                 { name: 'depositorFullName' },
                 { name: "depositorDob" },
@@ -81,6 +86,18 @@
             e.preventDefault();
             e.stopPropagation();
             vm.endDateDatepickerOpened = true;
+        }
+
+        function openFrozenStartDateDatepicker(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            vm.frozenStartDateDatepickerOpened = true;
+        }
+
+        function openFrozenEndDateDatepicker(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            vm.frozenEndDateDatepickerOpened = true;
         }
 
         function onTankChange() {

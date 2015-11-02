@@ -46,7 +46,7 @@
         function link(scope, element, attrs) {
             scope.printTitle = scope.sample && scope.sample.printTitle || "Receipt";
             scope.date = moment().format("MM/DD/YYYY");
-            scope.userName = session.fullname;
+            scope.userName = (session.fullname.trim() != "") ? session.fullname : session.name;
             $rootScope.printSample = printSample;
             function printSample(id, after) {
                 loadSample(id).then(function() {

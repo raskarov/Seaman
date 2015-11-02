@@ -68,7 +68,7 @@
             },
             exporterPdfOrientation: 'landscape',
             exporterFieldCallback: function (grid, row, col, input) {
-                if (col.name === 'dateStored' || col.name === "depositorDob") {
+                if (col.name === 'dateStored' || col.name === "depositorDob" || col.name === 'dateFrozen') {
                     return moment(input).format("MM/DD/YYYY");
                 } else {
                     return input;
@@ -117,7 +117,8 @@
                 columnDefs: [
                     { name: 'uniqName', displayName: "Stored Location" },
                     { name: 'collectionMethod' },
-                    { name: 'dateStored' }
+                    { name: 'dateStored' },
+                    { name: 'dateFrozen' }
                 ],
                 enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
                 enableGridMenu: true,

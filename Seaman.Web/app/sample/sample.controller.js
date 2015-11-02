@@ -10,6 +10,85 @@
 
         $scope.findName = false;
 
+        var isDepositorSsn = false;
+        var isPartnerSsn = false;
+
+        $scope.$watch('sc.sampleModel.depositorZip', function () {
+            if ($scope.sc.sampleModel.depositorZip) {
+                var tempVal = $scope.sc.sampleModel.depositorZip.toString();
+                tempVal = tempVal.replace(/\D/g, '');
+                $scope.sc.sampleModel.depositorZip = tempVal;
+            }
+        });
+
+        $scope.$watch('sc.sampleModel.partnerZip', function () {
+            if ($scope.sc.sampleModel.partnerZip) {
+                var tempVal = $scope.sc.sampleModel.partnerZip.toString();
+                tempVal = tempVal.replace(/\D/g, '');
+                $scope.sc.sampleModel.partnerZip = tempVal;
+            }
+        });
+
+        $scope.$watch('sc.sampleModel.depositorSsnType', function (newValue, oldValue) {
+            if (newValue == 10) {
+                isDepositorSsn = true;
+            }
+            else {
+                isDepositorSsn = false;
+            }
+            if(newValue != oldValue)
+                $scope.sc.sampleModel.depositorSsn = "";
+        });
+
+        $scope.$watch('sc.sampleModel.partnerSsnType', function (newValue, oldValue) {
+            if (newValue == 10) {
+                isPartnerSsn = true;
+            }
+            else {
+                isPartnerSsn = false;
+            }
+            if (newValue != oldValue)
+                $scope.sc.sampleModel.partnerSsn = "";
+        });
+
+        $scope.$watch('sc.sampleModel.depositorSsn', function () {
+            if (isDepositorSsn) {
+                var tempVal = $scope.sc.sampleModel.depositorSsn.toString();
+                tempVal = tempVal.replace(/\D/g, '');
+                len = tempVal.length;
+                if (len < 4) {
+                    $scope.sc.sampleModel.depositorSsn = tempVal;
+                } else if (3 < len && len < 6) {
+                    $scope.sc.sampleModel.depositorSsn = tempVal.substr(0, 3) + '-' + tempVal.substr(3);
+                } else if (len > 5) {
+                    $scope.sc.sampleModel.depositorSsn = tempVal.substr(0, 3) + '-' + tempVal.substr(3, 2) + '-' + tempVal.substr(5, 4);
+                }
+            }
+        });
+
+        $scope.$watch('sc.sampleModel.partnerSsn', function () {
+            if (isPartnerSsn) {
+                var tempVal = $scope.sc.sampleModel.partnerSsn.toString();
+                tempVal = tempVal.replace(/\D/g, '');
+                len = tempVal.length;
+                if (len < 4) {
+                    $scope.sc.sampleModel.partnerSsn = tempVal;
+                } else if (3 < len && len < 6) {
+                    $scope.sc.sampleModel.partnerSsn = tempVal.substr(0, 3) + '-' + tempVal.substr(3);
+                } else if (len > 5) {
+                    $scope.sc.sampleModel.partnerSsn = tempVal.substr(0, 3) + '-' + tempVal.substr(3, 2) + '-' + tempVal.substr(5, 4);
+                }
+            }
+        });
+
+        $scope.$watch('sc.sampleModel.partnerZip', function () {
+            if ($scope.sc.sampleModel.partnerZip) {
+                var tempVal = $scope.sc.sampleModel.partnerZip.toString();
+                tempVal = tempVal.replace(/\D/g, '');
+                $scope.sc.sampleModel.partnerZip = tempVal;
+            }
+        });
+
         $scope.$watch('sc.sampleModel.depositorZip', function () {
             if ($scope.sc.sampleModel.depositorZip) {
                 var tempVal = $scope.sc.sampleModel.depositorZip.toString();
@@ -45,10 +124,11 @@
         var vm = this;
         var letters = angular.copy(consts.alphabet);
         vm.title = "Record";
-        vm.sampleModel = { dateStored: moment().format("MM/DD/YYYY") };
+        vm.sampleModel = { dateStored: moment().format("MM/DD/YYYY"), dateFrozen: moment().format("MM/DD/YYYY") };
         vm.locations = {
             0: {
-                dateStored: moment().format("MM/DD/YYYY")
+                dateStored: moment().format("MM/DD/YYYY"),
+                dateFrozen: moment().format("MM/DD/YYYY")
             }
         };
         vm.locationsToRemove = [];
@@ -71,7 +151,8 @@
             directedDonorFirstName: validation.newField('First name', { required: true }),
             directedDonorDob: validation.newField('Dob', { required: true, date: true }),
             anonymousDonorId: validation.newField('Unique donor ID #', { required: true }),
-            dateStored: validation.newField('Date stored', { required: true, date: true }),
+            dateStored: validation.newField('Date stored/received', { required: true, date: true }),
+            dateFrozen: validation.newField('Date frozen', { required: false, date: true }),
             methodOfCollection: validation.newField('Method of collection', { requiredSelect: true }),
             tank: validation.newField('Tank', { requiredSelect: true }),
             canister: validation.newField('Canister', { requiredSelect: true }),
@@ -118,6 +199,8 @@
         vm.openPartnerDatepicker = openPartnerDatepicker;
         vm.dateStoredDatepickerOpened = false;
         vm.openDateStoredDatepicker = openDateStoredDatepicker;
+        vm.dateFrozenDatepickerOpened = false;
+        vm.openDateFrozenDatepicker = openDateFrozenDatepicker;
         vm.directedDonorDatepickerOpened = false;
         vm.openDirectedDonorDatepicker = openDirectedDonorDatepicker;
         
@@ -202,6 +285,7 @@
                         vm.sampleModel = data;
                         _.forEach(data.locations, function(item, i) {
                             item.dateStored = item.dateStored ? moment(item.dateStored).format("MM/DD/YYYY") : null;
+                            item.dateFrozen = item.dateFrozen ? moment(item.dateFrozen).format("MM/DD/YYYY") : null;
                             item.exists = true;
                             item.caneColor = helper.toPascalCase(item.caneColor);
                             vm.locations[i] = item;
@@ -236,6 +320,12 @@
             e.preventDefault();
             e.stopPropagation();
             vm['dateStoredDatepickerOpened' + key] = true;
+        }
+
+        function openDateFrozenDatepicker(e, key) {
+            e.preventDefault();
+            e.stopPropagation();
+            vm['dateFrozenDatepickerOpened' + key] = true;
         }
 
         function openDirectedDonorDatepicker(e) {
@@ -339,7 +429,8 @@
             e.preventDefault();
             e.stopPropagation();
             addLocationToArray({
-                dateStored: moment().format("MM/DD/YYYY")
+                dateStored: moment().format("MM/DD/YYYY"),
+                dateFrozen: moment().format("MM/DD/YYYY")
             });
         }
 

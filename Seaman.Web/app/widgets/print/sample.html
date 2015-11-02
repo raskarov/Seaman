@@ -129,7 +129,8 @@
                 <tr class="bg-dark">
                     <th class="text-center">Stored Location</th>
                     <th class="text-center">Collection Method</th>
-                    <th class="text-center">Date stored</th>
+                    <th class="text-center">Date stored/received </th>
+                    <th class="text-center">Date frozen </th>
                 </tr>
             </thead>
             <tbody>
@@ -137,6 +138,7 @@
                     <td class="text-center">{{location.uniqName}}</td>
                     <td class="text-center">{{location.collectionMethod}}</td>
                     <td class="text-center">{{location.dateStored}}</td>
+                    <td class="text-center">{{location.dateFrozen}}</td>
                 </tr>
             </tbody>
         </table>
@@ -149,7 +151,7 @@
     </div>
     <div class="col-xs-4 text-right" ng-class="{'col-xs-12': !sample.reason.length }">
         <ul class="list-unstyled">
-            <li><h4>Date: <ins>{{date}}</ins></h4></li>
+            <li><h4>Date: <ins>{{sample.createdDateString}}</ins></h4></li>
         </ul>
     </div>
     <div class="col-xs-12 text-right">

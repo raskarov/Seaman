@@ -34,6 +34,13 @@ namespace Seaman.EntityFramework
                                 l.DateStored.HasValue
                                     ? l.DateStored.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)
                                     : String.Empty))
+                .ForMember(it => it.DateFrozen,
+                    ctx =>
+                        ctx.MapFrom(
+                            l =>
+                                l.DateFrozen.HasValue
+                                    ? l.DateFrozen.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)
+                                    : String.Empty))
                 .ForMember(it => it.DateExtracted,
                     ctx =>
                         ctx.MapFrom(
@@ -52,6 +59,13 @@ namespace Seaman.EntityFramework
                             l =>
                                 l.DateStored.HasValue
                                     ? l.DateStored.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)
+                                    : String.Empty))
+                .ForMember(it => it.DateFrozen,
+                    ctx =>
+                        ctx.MapFrom(
+                            l =>
+                                l.DateFrozen.HasValue
+                                    ? l.DateFrozen.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture)
                                     : String.Empty))
                 .ForMember(it => it.DateExtracted, ctx => ctx.MapFrom(l => l.DateExtracted.HasValue ? l.DateExtracted.Value.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture) : String.Empty))
                 .ForMember(it => it.DepositorFullName,

@@ -144,6 +144,7 @@ namespace Seaman.EntityFramework
                 }
                 location.Position = position;
                 location.DateStored = locationToAdd.DateStored;
+                location.DateFrozen = locationToAdd.DateFrozen;
                 location.CollectionMethodId = locationToAdd.CollectionMethodId;
                 location.SpecimenNumber = locationToAdd.SpecimenNumber;
                 location.Available = false;
@@ -198,11 +199,14 @@ namespace Seaman.EntityFramework
 
         public override List<SampleReportModel> GetSamples()
         {
-            var samples = _context.Samples.ToList();
+            var samples = _context.Samples.OrderByDescending(x => x.CreatedDate).ToList();
             foreach (var sample in samples)
             {
+                sample.CreatedDateString = sample.CreatedDate.Month.ToString("00") + 
+                    "/" + sample.CreatedDate.Day.ToString("00") + "/" + sample.CreatedDate.Year;
                 sample.Locations = sample.Locations.Where(l => !l.Extracted).ToList();
             }
+            
             return Mapper.Map<List<SampleReportModel>>(samples);
         }
 
@@ -265,12 +269,16 @@ namespace Seaman.EntityFramework
 
             var startDate = model.StartDate ?? DateTime.MinValue;
             var endDate = model.EndDate ?? DateTime.MaxValue;
+    
             if (startDate > endDate)
             {
                 startDate = endDate;
             }
 
-            locations = locations.Where(l => l.DateStored >= startDate && l.DateStored <= endDate);
+            var frozenStartDate = model.FrozenStartDate ?? DateTime.MinValue;
+            var frozenEndDate = model.FrozenEndDate ?? DateTime.MaxValue;
+            locations = locations.Where(l => l.DateStored >= startDate && l.DateStored <= endDate 
+                && l.DateFrozen >= frozenStartDate && l.DateFrozen <= frozenEndDate);
             if (model.TankId.HasValue)
             {
                 var tank = _context.Tanks.Get(model.TankId.Value, "Tank not found");
