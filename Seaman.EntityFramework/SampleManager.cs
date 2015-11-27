@@ -165,7 +165,8 @@ namespace Seaman.EntityFramework
         {            
              var extractedSample =
                   _context.Samples.FirstOrDefault(x => x.Locations.Any(l => l.Extracted) && x.Id == id);
-             extractedSample.Locations = extractedSample.Locations.Where(l => l.Extracted).OrderByDescending(l => l.DateExtracted).ToList();
+             if (extractedSample != null && extractedSample.Locations!=null)
+                extractedSample.Locations = extractedSample.Locations.Where(l => l.Extracted).OrderByDescending(l => l.DateExtracted).ToList();
              return Mapper.Map<SampleReportModel>(extractedSample);
         }
 

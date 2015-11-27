@@ -23,7 +23,7 @@
             showGridFooter: true,
             enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
             enableFiltering: true,
-            enableSorting: false,
+            enableSorting: true,
             exporterMenuCsv: false,
             minRowsToShow: 20,
             expandableRowHeight: 150,
