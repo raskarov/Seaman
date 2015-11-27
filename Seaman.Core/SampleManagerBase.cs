@@ -41,6 +41,10 @@ namespace Seaman.Core
         PhysicianModel SavePhysician(PhysicianModel physician);
         void DeletePhysician(Int32 id);
 
+        List<CryobankModel> GetCryobanks();
+        CryobankModel SaveCryobank(CryobankModel physician);
+        void DeleteCryobank(Int32 id);
+
         List<TankModel> GetTanks();
         TankModel SaveTank(TankModel tank);
         void DeleteTank(Int32 id);
@@ -79,6 +83,9 @@ namespace Seaman.Core
         public abstract List<PhysicianModel> GetPhysicians();
         public abstract PhysicianModel SavePhysician(PhysicianModel physician);
         public abstract void DeletePhysician(int id);
+        public abstract List<CryobankModel> GetCryobanks();
+        public abstract CryobankModel SaveCryobank(CryobankModel physician);
+        public abstract void DeleteCryobank(Int32 id);
         public abstract List<TankModel> GetTanks();
         public abstract TankModel SaveTank(TankModel tank);
         public abstract void DeleteTank(int id);
