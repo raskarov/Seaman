@@ -20,6 +20,7 @@
             getAllReportSamples: getAllReportSamples,
             getSampleLocations: getSampleLocations,
             getExtractedSamples: getExtractedSamples,
+            getExtractedSample: getExtractedSample,
             extract: extract,
             removeLocation: removeLocation,
             generateReport: generateReport,
@@ -84,6 +85,18 @@
         function getSample(id) {
             var deferred = $q.defer();
             $http.get(apiList.sample + "/" + id).success(success);
+
+            return deferred.promise;
+
+            function success(data) {
+                data = helper.processData(data);
+                deferred.resolve(data);
+            };
+        }
+
+        function getExtractedSample(id) {
+            var deferred = $q.defer();
+            $http.get(apiList.extractSample + "/" + id).success(success);
 
             return deferred.promise;
 

@@ -2,9 +2,9 @@
     angular.module("seaman.sample")
         .controller("SampleController", sampleController);
 
-    sampleController.$inject = ["$scope", "$filter", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state", "$timeout", "$mdDialog", "$q", "helper"];
+    sampleController.$inject = ["$scope","uiGridConstants", "$filter", "validation", "COLORS", "adminService", 'COMMON', 'sampleService', "$state", "$timeout", "$mdDialog", "$q", "helper"];
 
-    function sampleController($scope, $filter, validation, colors, adminService, consts, sampleService, $state, $timeout, $mdDialog, $q, helper) {
+    function sampleController($scope, uiGridConstants, $filter, validation, colors, adminService, consts, sampleService, $state, $timeout, $mdDialog, $q, helper) {
 
         $scope.options = [{ name: "SSN", id: 10 }, { name: "DL", id: 20 }, { name: "Passport", id: 30 }, { name: "Other", id: 40 }];
 
@@ -259,6 +259,8 @@
                 $scope.autologousDisabled = false;
             }
         }
+
+
 
         function activate() {
             var promises = [];
@@ -530,5 +532,35 @@
                 $mdDialog.hide($scope.reason);
             };
         }
+
+        $scope.extractedGridOptions = {
+            showGridFooter: true,
+            enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
+            enableFiltering: false,
+            enableSorting: false,
+            exporterMenuCsv: false,
+            columnDefs: [
+                    { name: 'uniqName', displayName: "Stored Location" },
+                    { name: 'collectionMethod' },
+                    { name: 'dateStored' },
+                    { name: 'dateFrozen' },
+                    { name: 'dateExtracted' },
+                    { name: 'reasonForExtraction' }
+            ]
+        };
+
+        getData();
+
+        function getData() {
+            if ($state.params && $state.params.id) {
+               
+                return sampleService.getExtractedSample($state.params.id)
+                .then(function (data) {
+                    $scope.extractedGridOptions.data = data.locations;
+                    $scope.extractedGridOptions.totalItems = data.locations.length;
+                });
+
+            }
+        };
     }
 })();

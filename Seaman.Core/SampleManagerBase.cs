@@ -13,6 +13,7 @@ namespace Seaman.Core
         SampleModel SaveSample(SaveSampleModel model, Int32? byUserId);
         Boolean CheckDepositor(SaveSampleModel model);
         SampleModel GetSample(Int32 id);
+        SampleReportModel GetExtractedSample(Int32 id);
         SampleModel GetSample(String uniqLocatonName);
         SampleReportModel GetReportSample(Int32 id);
         List<SampleReportModel> GetReportSamples(ICollection<Int32> ids);
@@ -54,6 +55,7 @@ namespace Seaman.Core
         public abstract SampleModel SaveSample(SaveSampleModel model, Int32? byUserId);
         public abstract Boolean CheckDepositor(SaveSampleModel model);
         public abstract SampleModel GetSample(int id);
+        public abstract SampleReportModel GetExtractedSample(int id);
         public abstract SampleModel GetSample(string uniqLocatonName);
         public abstract SampleReportModel GetReportSample(int id);
         public abstract List<SampleReportModel> GetReportSamples(ICollection<int> ids);

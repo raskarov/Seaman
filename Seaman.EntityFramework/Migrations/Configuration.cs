@@ -13,7 +13,7 @@ namespace Seaman.EntityFramework.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
+
         }
 
         protected override void Seed(SeamanDbContext context)

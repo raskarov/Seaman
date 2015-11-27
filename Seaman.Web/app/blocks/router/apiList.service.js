@@ -42,6 +42,7 @@
         var locations = samplePrefix + "/locations";
         var consentForm = samplePrefix + "/consent";
         var extract = samplePrefix + "/extract";
+        var extractSample = samplePrefix + "/extractSample";
         var importSamples = samplePrefix + "/import";
         return {
             ////Account api
@@ -74,6 +75,7 @@
             locations: locations,
             consentForm: consentForm,
             extract: extract,
+            extractSample: extractSample,
             importSamples: importSamples
         };
     };

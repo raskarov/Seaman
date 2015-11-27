@@ -161,6 +161,14 @@ namespace Seaman.EntityFramework
             return Mapper.Map<SampleModel>(sample);
         }
 
+        public override SampleReportModel GetExtractedSample(int id)
+        {            
+             var extractedSample =
+                  _context.Samples.FirstOrDefault(x => x.Locations.Any(l => l.Extracted) && x.Id == id);
+             extractedSample.Locations = extractedSample.Locations.Where(l => l.Extracted).OrderByDescending(l => l.DateExtracted).ToList();
+             return Mapper.Map<SampleReportModel>(extractedSample);
+        }
+
         public override SampleModel GetSample(int id)
         {
             return Mapper.Map<SampleModel>(_context.Samples.Get(id, "Sample not found"));

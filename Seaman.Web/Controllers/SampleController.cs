@@ -72,6 +72,14 @@ namespace Seaman.Web.Controllers
         }
 
         [HttpGet]
+        [Route("extractSample/{id:int}")]
+        public SampleReportModel GetExtractedSample(Int32 id)
+        {
+            var sample = SampleManager.GetExtractedSample(id);
+            return sample;
+        }
+
+        [HttpGet]
         [Route("")]
         public List<SampleReportModel> GetSamples()
         {
