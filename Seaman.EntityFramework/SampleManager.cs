@@ -458,6 +458,27 @@ namespace Seaman.EntityFramework
             _context.SaveChanges();
         }
 
+        public override List<CryobankModel> GetCryobanks()
+        {
+            return Mapper.Map<List<CryobankModel>>(_context.Cryobanks);
+        }
+
+        public override CryobankModel SaveCryobank(CryobankModel cryobank)
+        {
+            var exist = cryobank.Id == 0 ? _context.CreateAndAdd<Cryobank>() : _context.Cryobanks.Get(cryobank.Id, "Location not found");
+            exist.Name = cryobank.Name;
+            exist.VialId = cryobank.VialId;
+            _context.SaveChanges();
+            return Mapper.Map<CryobankModel>(exist);
+        }
+
+        public override void DeleteCryobank(int VialId)
+        {
+            var cryobanks = _context.Cryobanks.Get(VialId, "Physician not found");
+            _context.Cryobanks.Remove(cryobanks);
+            _context.SaveChanges();
+        }
+
         public override List<TankModel> GetTanks()
         {
             return Mapper.Map<List<TankModel>>(_context.Tanks);

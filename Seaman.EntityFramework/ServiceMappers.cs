@@ -117,7 +117,10 @@ namespace Seaman.EntityFramework
 
             Mapper.CreateMap<Tank, TankModel>();
             Mapper.CreateMap<TankModel, Tank>();
-            
+
+            Mapper.CreateMap<Cryobank, CryobankModel>();
+            Mapper.CreateMap<CryobankModel, Cryobank>();
+
             Mapper.CreateMap<ExtractReasonModel, ExtractReason>();
             Mapper.CreateMap<ExtractReason, ExtractReasonModel>();
         }

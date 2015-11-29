@@ -93,6 +93,29 @@ namespace Seaman.Web.Controllers
         }
 
         [HttpGet]
+        [Route("cryobank")]
+        public List<CryobankModel> GetCryobank()
+        {
+            return SampleManager.GetCryobanks();
+        }
+
+        [HttpPost]
+        [Route("cryobank")]
+        public CryobankModel PostCryobank(CryobankModel model)
+        {
+            if (!ModelState.IsValid)
+                throw new SeamanInvalidModelException();
+            return SampleManager.SaveCryobank(model);
+        }
+
+        [HttpDelete]
+        [Route("cryobank/{id:int}")]
+        public void DeleteCryobank(Int32 id)
+        {
+            SampleManager.DeleteCryobank(id);
+        }
+
+        [HttpGet]
         [Route("tank")]
         public List<TankModel> GetTanks()
         {
