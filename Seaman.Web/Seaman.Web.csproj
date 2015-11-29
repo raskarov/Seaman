@@ -275,6 +275,10 @@
     <Content Include="app\admin\extractReason\extractReason.html" />
     <Content Include="app\admin\extractReason\extractReason.module.js" />
     <Content Include="app\admin\extractReason\extractReason.routes.js" />
+    <Content Include="app\admin\cryobank\cryobank.controller.js" />
+    <Content Include="app\admin\cryobank\cryobank.html" />
+    <Content Include="app\admin\cryobank\cryobank.module.js" />
+    <Content Include="app\admin\cryobank\cryobank.routes.js" />
     <Content Include="app\admin\physician\physician.controller.js" />
     <Content Include="app\admin\physician\physician.html" />
     <Content Include="app\admin\physician\physician.module.js" />

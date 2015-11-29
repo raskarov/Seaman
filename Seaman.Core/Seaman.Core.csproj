@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\CollectionMethodModel.cs" />
+    <Compile Include="Model\CryobankModel.cs" />
     <Compile Include="Model\ExtractReasonModel.cs" />
     <Compile Include="Model\NamedBase.cs" />
     <Compile Include="Model\PhysicianModel.cs" />

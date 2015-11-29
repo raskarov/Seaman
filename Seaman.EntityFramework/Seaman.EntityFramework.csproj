@@ -73,6 +73,7 @@
     <Compile Include="EntityConfiguration\SampleConfiguration.cs" />
     <Compile Include="EntityConfiguration\UserConfig.cs" />
     <Compile Include="Entity\CollectionMethod.cs" />
+    <Compile Include="Entity\Cryobank.cs" />
     <Compile Include="Entity\ExtractReason.cs" />
     <Compile Include="Entity\Location.cs" />
     <Compile Include="Entity\Physician.cs" />
@@ -116,6 +117,10 @@
     <Compile Include="Migrations\201511012341276_02_11_2015_00.cs" />
     <Compile Include="Migrations\201511012341276_02_11_2015_00.Designer.cs">
       <DependentUpon>201511012341276_02_11_2015_00.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201511270736082_addVialIdToCryobank.cs" />
+    <Compile Include="Migrations\201511270736082_addVialIdToCryobank.Designer.cs">
+      <DependentUpon>201511270736082_addVialIdToCryobank.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -163,6 +168,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201511012341276_02_11_2015_00.resx">
       <DependentUpon>201511012341276_02_11_2015_00.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201511270736082_addVialIdToCryobank.resx">
+      <DependentUpon>201511270736082_addVialIdToCryobank.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

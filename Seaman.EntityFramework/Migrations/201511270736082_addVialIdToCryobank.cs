@@ -7,7 +7,7 @@ namespace Seaman.EntityFramework.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.Cryobank", "VialId", c => c.Int(nullable: false));
+            AddColumn("dbo.Cryobank", "VialId", c => c.String());
         }
         
         public override void Down()
