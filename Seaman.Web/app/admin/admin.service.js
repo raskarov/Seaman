@@ -8,7 +8,6 @@
         var collectionMethods = [];
         var comments = [];
         var physicians = [];
-        var cryobanks = [];
         var tanks = [];
         var canisters = [];
         var canes = [];
@@ -25,9 +24,6 @@
             getPhysician: getPhysician,
             savePhysician: savePhysician,
             removePhysician: removePhysician,
-            getCryobank: getCryobank,
-            saveCryobank: saveCryobank,
-            removeCryobank: removeCryobank,
             getTanks: getTanks,
             saveTank: saveTank,
             removeTank: removeTank,
@@ -176,50 +172,6 @@
 
             function deleted(data) {
                 _.remove(physicians, { "id": id });
-            }
-        }
-
-        function getCryobank(reload) {
-            var deferred = $q.defer();
-            if (cryobanks.length && !reload) {
-                deferred.resolve(cryobanks);
-            } else {
-                $http.get(apiList.cryobank).then(recieved);
-            }
-            return deferred.promise;
-
-            function recieved(data) {
-                data = helper.processData(data.data);
-                cryobanks = data;
-                deferred.resolve(data);
-            };
-        }
-
-        function saveCryobank(model) {
-            var deferred = $q.defer();
-            if (!model.id) {
-                model.id = 0;
-            }
-            model = helper.toPascalCase(model);
-            $http.post(apiList.cryobank, model).then(added);
-            return deferred.promise;
-            function added(data) {
-                data = helper.processData(data.data);
-                var index = _.findIndex(cryobanks, { "VialId": data.VialId });
-                if (index === -1) {
-                    cryobanks.push(data);
-                } else {
-                    cryobanks[index] = data;
-                }
-                deferred.resolve(data);
-            }
-        };
-
-        function removeCryobank(id) {
-            return $http.delete(apiList.cryobank + "/" + id).then(deleted);
-
-            function deleted(data) {
-                _.remove(cryobanks, { "id": id });
             }
         }
 

@@ -25,7 +25,6 @@
         var collectionMethod = adminPrefix + "/collectionMethod";
         var comment = adminPrefix + "/comment";
         var physician = adminPrefix + "/physician";
-        var cryobank = adminPrefix + "/cryobank";
         var cane = adminPrefix + "/cane";
         var canister = adminPrefix + "/canister";
         var tank = adminPrefix + "/tank";
@@ -60,7 +59,6 @@
             collectionMethod: collectionMethod,
             comment: comment,
             physician: physician,
-            cryobank: cryobank,
             cane: cane,
             canister: canister,
             tank: tank,

@@ -192,7 +192,6 @@
 
         vm.collectionMethods = [];
         vm.physicians = [];
-        vm.cryobanks = [];
 
         vm.depositorDatepickerOpened = false;
         vm.openDepositorDatepicker = openDepositorDatepicker;
@@ -277,11 +276,7 @@
                 vm.physicians = data;
             });
 
-            var cryobankPromise = adminService.getCryobank(true).then(function (data) {
-                vm.cryobanks = data;
-            });
-
-            promises = promises.concat([tankPromise, methodsPromise, cryobankPromise, physicianPromise]);
+            promises = promises.concat([tankPromise, methodsPromise, physicianPromise]);
 
             $q.all(promises).then(function () {
                 if ($state.params && $state.params.id) {

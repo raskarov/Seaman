@@ -333,7 +333,7 @@
                                 <div class="panel-heading">
                                     <h5 class="panel-title">Third Party</h5>
                                 </div>
-                                <!--<md-input-container class="col-md-5">
+                                <md-input-container class="col-md-5">
                                     <label for="cryobankName">{{sc.sampleField.cryobankName.title}}</label>
                                     <input type="text" class="form-control" ng-required="sc.sampleModel.cryobankPurchased"
                                            id="cryobankName" name="cryobankName" ng-model="sc.sampleModel.cryobankName" />
@@ -352,17 +352,7 @@
                                             <div ng-message="required">{{sc.sampleField.cryobankVialId.message.required}}</div>
                                         </div>
                                     </div>
-                                </md-input-container>-->
-
-                                <md-select ng-model="sc.sampleModel.cryobankId" required name="cryobank" class="col-md-5" id="cryobank" placeholder="Choose cryobank">
-                                    <md-option ng-repeat="cryobank in sc.cryobanks" value="{{cryobank.id}}">{{cryobank.name}}</md-option>
-                                </md-select>
-                                <div ng-messages="sc.sampleForm.cryobankName.$error">
-                                    <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.cryobankName.$touched || sc.sampleForm.depositorLastName.$invalid">
-                                        <div ng-message="required">{{sc.sampleField.cryobankName.message.required}}</div>
-                                    </div>
-                                </div>
-
+                                </md-input-container>
                             </div>
                             <div ng-show="sc.sampleModel.directedDonor" class="col-md-12 card-content">
                                 <div class="panel-heading">

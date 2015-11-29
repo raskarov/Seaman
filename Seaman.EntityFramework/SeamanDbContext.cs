@@ -51,7 +51,7 @@ namespace Seaman.EntityFramework
         public IDbSet<Physician> Physicians { get; set; }
         public IDbSet<Sample> Samples { get; set; }
         public IDbSet<Tank> Tanks { get; set; }
-        public IDbSet<Cryobank> Cryobanks { get; set; }
+        
 
         public IDbSet<ExtractReason> ExtractReasons { get; set; } 
 
