@@ -354,7 +354,7 @@
                                     </div>
                                 </md-input-container>-->
 
-                                <md-select ng-model="sc.sampleModel.cryobankId" required name="cryobank" class="col-md-5" id="cryobank" placeholder="Choose cryobank">
+                                <md-select ng-model="sc.sampleModel.cryobankId" required name="cryobank" class="col-md-5" id="cryobank" placeholder="Choose cryobank" ng-required="sc.samplemodel.cryobankpurchased">
                                     <md-option ng-repeat="cryobank in sc.cryobanks" value="{{cryobank.id}}">{{cryobank.name}}</md-option>
                                 </md-select>
                                 <div ng-messages="sc.sampleForm.cryobankName.$error">
