@@ -19,6 +19,7 @@
         vm.types = ["Existing", "Extracted", "Missing Data", "All"];
         vm.reportModel = {};
         vm.reportModel.type = "Existing";
+        vm.reportModel.startDate = moment().subtract(100, 'day').format("MM/DD/YYYY");
         vm.startDateDatepickerOpened = false;
         vm.openStartDateDatepicker = openStartDateDatepicker;
         vm.endDateDatepickerOpened = false;
@@ -119,7 +120,13 @@
 
             function recieved(data) {
                 vm.gridOptions.exporterPdfHeader.text = "Guided report";
-                vm.gridOptions.data = data;
+
+                if (data.length > 400) {
+                    alert("To many strings, only the first 400 be withdrawn");
+                    data = data.slice(0, 400);
+                }
+                vm.gridOptions.data = data;                
+                
                 $timeout(function() {
                     vm.gridApi.exporter.pdfExport(uiGridExporterConstants.ALL, uiGridExporterConstants.ALL);
                     vm.gridOptions.data = [];
