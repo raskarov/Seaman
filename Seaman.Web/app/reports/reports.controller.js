@@ -122,7 +122,7 @@
                 vm.gridOptions.exporterPdfHeader.text = "Guided report";
 
                 if (data.length > 400) {
-                    alert("To many strings, only the first 400 be withdrawn");
+                    alert("Too many records. Only first 400 records are shown. Please refine your filters and try again.");
                     data = data.slice(0, 400);
                 }
                 vm.gridOptions.data = data;                
