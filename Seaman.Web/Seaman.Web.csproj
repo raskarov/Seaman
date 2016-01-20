@@ -369,6 +369,7 @@
     <Content Include="app\core\core.module.js" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\print.css" />
+    <Content Include="Content\logo.jpg" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Content\angular-material\angular-material.css" />
     <Content Include="Content\angular-material\angular-material.min.css" />
