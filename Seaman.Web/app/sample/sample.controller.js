@@ -121,6 +121,11 @@
             switchActivate();
         });
 
+        $scope.$watch('sc.sampleModel.cryobank', function () {
+            vm.sampleModel.cryobankName = JSON.parse(vm.sampleModel.cryobank).name;
+            vm.sampleModel.cryobankVialId = JSON.parse(vm.sampleModel.cryobank).vialId;
+        });
+
         var vm = this;
         var letters = angular.copy(consts.alphabet);
         vm.title = "Record";
@@ -144,8 +149,9 @@
             partnerDob: validation.newField('Dob', { required: false, date: true }),
             partnerSsn: validation.newField('SSN/Passport/DL/Other', { required: false }),
             partnerSsnType: validation.newField('Type', { requiredSelect: false }),
-            cryobankName: validation.newField('Cryobank name', { required: true }),
-            cryobankVialId: validation.newField('Cryobank’s Vial ID #', { required: true }),
+            //cryobankName: validation.newField('Cryobank name', { required: true }),
+            //cryobankVialId: validation.newField('Cryobank’s Vial ID #', { required: true }),
+            //cryobank: validation.newField('Cryobank', { requiredSelect: true }),
             directedDonorId: validation.newField('Unique donor ID #', { required: true }),
             directedDonorLastName: validation.newField('Last name', { required: true }),
             directedDonorFirstName: validation.newField('First name', { required: true }),
