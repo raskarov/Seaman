@@ -384,6 +384,7 @@ namespace Seaman.EntityFramework
                         if (position == newPosition)
                         {
                             isFindLocation = true;
+                            findLocation = location;
                         }
                     }
                 }

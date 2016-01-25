@@ -16,7 +16,7 @@
                         <div class="panel-body row">
                             <md-input-container class="col-md-6">
                                 <label for="depositorLastName">{{sc.sampleField.depositorLastName.title}}</label>
-                                <input type="text" class="form-control" required id="depositorLastName" name="depositorLastName" ng-model="sc.sampleModel.depositorLastName" ng-model-onblur ng-change="sc.onDepositorChange()"/>
+                                <input type="text" class="form-control" required id="depositorLastName" name="depositorLastName" ng-model="sc.sampleModel.depositorLastName" ng-model-onblur ng-change="sc.onDepositorChange()" />
                                 <div ng-messages="sc.sampleForm.depositorLastName.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorLastName.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorLastName.message.required}}</div>
@@ -25,7 +25,7 @@
                             </md-input-container>
                             <md-input-container class="col-md-6">
                                 <label for="depositorFirstName">{{sc.sampleField.depositorFirstName.title}}</label>
-                                <input type="text" class="form-control" required id="depositorFirstName" name="depositorFirstName" ng-model="sc.sampleModel.depositorFirstName" ng-model-onblur ng-change="sc.onDepositorChange()"/>
+                                <input type="text" class="form-control" required id="depositorFirstName" name="depositorFirstName" ng-model="sc.sampleModel.depositorFirstName" ng-model-onblur ng-change="sc.onDepositorChange()" />
                                 <div ng-messages="sc.sampleForm.depositorFirstName.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorFirstName.$touched || sc.sampleForm.depositorLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorFirstName.message.required}}</div>
@@ -59,8 +59,7 @@
                             <md-input-container class="col-md-6">
                                 <select ng-options="o.id as o.name for o in options"
                                         ng-model="sc.sampleModel.depositorSsnType" name="posterVariants"
-                                        class="form-control">
-                                </select>
+                                        class="form-control"></select>
                             </md-input-container>
                             <md-input-container class="col-md-6">
                                 <label for="depositorSsn">{{sc.sampleField.depositorSsn.title}}</label>
@@ -81,7 +80,7 @@
                         <div class="panel-body row">
                             <md-input-container class="col-md-6">
                                 <label for="depositorAddress">{{sc.sampleField.depositorAddress.title}}</label>
-                                <input type="text" class="form-control" id="depositorAddress" name="depositorAddress" ng-model="sc.sampleModel.depositorAddress"/>
+                                <input type="text" class="form-control" id="depositorAddress" name="depositorAddress" ng-model="sc.sampleModel.depositorAddress" />
                                 <div ng-messages="sc.sampleForm.depositorAddress.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorAddress.$touched || sc.sampleForm.depositorAddress.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorAddress.message.required}}</div>
@@ -99,7 +98,7 @@
                             </md-input-container>
                             <md-input-container class="col-md-6">
                                 <label for="depositorState">{{sc.sampleField.depositorState.title}}</label>
-                                <input type="text" class="form-control" id="depositorState" name="depositorState" ng-model="sc.sampleModel.depositorState"/>
+                                <input type="text" class="form-control" id="depositorState" name="depositorState" ng-model="sc.sampleModel.depositorState" />
                                 <div ng-messages="sc.sampleForm.depositorState.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorState.$touched || sc.sampleForm.depositorState.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorState.message.required}}</div>
@@ -112,7 +111,7 @@
                             </md-input-container>
                             <md-input-container class="col-md-6">
                                 <label for="depositorHomePhone">{{sc.sampleField.depositorHomePhone.title}}</label>
-                                <input type="text" class="form-control" id="depositorHomePhone" name="depositorHomePhone" ng-model="sc.sampleModel.depositorHomePhone"/>
+                                <input type="text" class="form-control" id="depositorHomePhone" name="depositorHomePhone" ng-model="sc.sampleModel.depositorHomePhone" />
                                 <div ng-messages="sc.sampleForm.depositorHomePhone.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.depositorHomePhone.$touched || sc.sampleForm.depositorHomePhone.$invalid">
                                         <div ng-message="required">{{sc.sampleField.depositorHomePhone.message.required}}</div>
@@ -146,7 +145,7 @@
                         <div class="panel-body row">
                             <md-input-container class="col-md-6">
                                 <label for="partnerLastName">{{sc.sampleField.partnerLastName.title}}</label>
-                                <input type="text" class="form-control" id="partnerLastName" name="partnerLastName" ng-model="sc.sampleModel.partnerLastName"/>
+                                <input type="text" class="form-control" id="partnerLastName" name="partnerLastName" ng-model="sc.sampleModel.partnerLastName" />
                                 <div ng-messages="sc.sampleForm.partnerLastName.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerLastName.$touched || sc.sampleForm.partnerLastName.$invalid">
                                         <div ng-message="required">{{sc.sampleField.partnerLastName.message.required}}</div>
@@ -188,8 +187,7 @@
                             <md-input-container class="col-md-6">
                                 <select ng-options="o.id as o.name for o in options"
                                         ng-model="sc.sampleModel.partnerSsnType" name="posterVariants"
-                                        class="form-control">
-                                </select>
+                                        class="form-control"></select>
                             </md-input-container>
                             <md-input-container class="col-md-6">
                                 <label for="partnerSsn">{{sc.sampleField.partnerSsn.title}}</label>
@@ -210,7 +208,7 @@
                         <div class="panel-body row">
                             <md-input-container class="col-md-6">
                                 <label for="partnerAddress">{{sc.sampleField.partnerAddress.title}}</label>
-                                <input type="text" class="form-control" id="partnerAddress" name="partnerAddress" ng-model="sc.sampleModel.partnerAddress"/>
+                                <input type="text" class="form-control" id="partnerAddress" name="partnerAddress" ng-model="sc.sampleModel.partnerAddress" />
                                 <div ng-messages="sc.sampleForm.partnerAddress.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerAddress.$touched || sc.sampleForm.partnerAddress.$invalid">
                                         <div ng-message="required">{{sc.sampleField.partnerAddress.message.required}}</div>
@@ -228,7 +226,7 @@
                             </md-input-container>
                             <md-input-container class="col-md-6">
                                 <label for="partnerState">{{sc.sampleField.partnerState.title}}</label>
-                                <input type="text" class="form-control" id="partnerState" name="partnerState" ng-model="sc.sampleModel.partnerState"/>
+                                <input type="text" class="form-control" id="partnerState" name="partnerState" ng-model="sc.sampleModel.partnerState" />
                                 <div ng-messages="sc.sampleForm.partnerState.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerState.$touched || sc.sampleForm.partnerState.$invalid">
                                         <div ng-message="required">{{sc.sampleField.partnerState.message.required}}</div>
@@ -241,7 +239,7 @@
                             </md-input-container>
                             <md-input-container class="col-md-6">
                                 <label for="partnerHomePhone">{{sc.sampleField.partnerHomePhone.title}}</label>
-                                <input type="text" class="form-control" id="partnerHomePhone" name="partnerHomePhone" ng-model="sc.sampleModel.partnerHomePhone"/>
+                                <input type="text" class="form-control" id="partnerHomePhone" name="partnerHomePhone" ng-model="sc.sampleModel.partnerHomePhone" />
                                 <div ng-messages="sc.sampleForm.partnerHomePhone.$error">
                                     <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.partnerHomePhone.$touched || sc.sampleForm.partnerHomePhone.$invalid">
                                         <div ng-message="required">{{sc.sampleField.partnerHomePhone.message.required}}</div>
@@ -267,7 +265,7 @@
                                 </div>
                             </md-input-container>
                             <md-input-container class="col-md-10">
-                                    <md-button type="button" class="md-raised md-primary btn-w-md pull-right" ng-click="sc.copyAddressInformation()">Copy Address Info</md-button>
+                                <md-button type="button" class="md-raised md-primary btn-w-md pull-right" ng-click="sc.copyAddressInformation()">Copy Address Info</md-button>
                             </md-input-container>
                         </div>
                     </div>
@@ -333,28 +331,8 @@
                                 <div class="panel-heading">
                                     <h5 class="panel-title">Third Party</h5>
                                 </div>
-                                <!--<md-input-container class="col-md-5">
-                                    <label for="cryobankName">{{sc.sampleField.cryobankName.title}}</label>
-                                    <input type="text" class="form-control" ng-required="sc.sampleModel.cryobankPurchased"
-                                           id="cryobankName" name="cryobankName" ng-model="sc.sampleModel.cryobankName" />
-                                    <div ng-messages="sc.sampleForm.cryobankName.$error">
-                                        <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.cryobankName.$touched || sc.sampleForm.depositorLastName.$invalid">
-                                            <div ng-message="required">{{sc.sampleField.cryobankName.message.required}}</div>
-                                        </div>
-                                    </div>
-                                </md-input-container>
-                                <md-input-container class="col-md-5">
-                                    <label for="cryobankVialId">{{sc.sampleField.cryobankVialId.title}}</label>
-                                    <input type="text" class="form-control" ng-required="sc.sampleModel.cryobankPurchased"
-                                           id="cryobankVialId" name="cryobankVialId" ng-model="sc.sampleModel.cryobankVialId" />
-                                    <div ng-messages="sc.sampleForm.cryobankVialId.$error">
-                                        <div ng-show="sc.sampleForm.$submitted || sc.sampleForm.cryobankVialId.$touched || sc.sampleForm.depositorLastName.$invalid">
-                                            <div ng-message="required">{{sc.sampleField.cryobankVialId.message.required}}</div>
-                                        </div>
-                                    </div>
-                                </md-input-container>-->
 
-                                <md-select ng-model="sc.sampleModel.cryobank" required name="cryobank" class="col-md-5" id="cryobank"  placeholder="Choose cryobank" ng-required="sc.samplemodel.cryobankpurchased">
+                                <md-select ng-model="sc.sampleModel.cryobank" required name="cryobank" class="col-md-5" id="cryobank" placeholder="Choose cryobank" ng-required="sc.samplemodel.cryobankpurchased">
                                     <md-select-label>{{ sc.sampleModel.cryobankName }}</md-select-label>
                                     <md-option ng-repeat="cryobank in sc.cryobanks" value="{{cryobank}}">{{cryobank.name}}</md-option>
                                 </md-select>
@@ -389,7 +367,7 @@
                                                data-clearn="true"
                                                datepicker-popup
                                                ng-change="changeDob(sc.sampleModel.directedDonorDob, 'directedDonor')"
-                                               is-open="sc.directedDonorDatepickerOpened"/>
+                                               is-open="sc.directedDonorDatepickerOpened" />
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-default" ng-click="sc.openDirectedDonorDatepicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
                                         </span>
@@ -457,22 +435,22 @@
                             <div class="row well well-sm" ng-repeat="(key, value) in sc.locations">
 
                                 <div class="col-md-1">
-                                    <md-select ng-model="sc.locations[key].tank" placeholder="Tank" ng-change="sc.onTankChange(key)" class="col-md">
+                                    <md-select ng-model="sc.locations[key].tank" placeholder="Tank" required name="tank" ng-change="sc.onTankChange(key)" class="col-md">
                                         <md-option ng-repeat="tank in sc.tanks" value="{{tank.name}}">{{tank.name}}</md-option>
                                     </md-select>
                                 </div>
                                 <div class="col-md-1">
-                                    <md-select ng-model="sc.locations[key].canister" placeholder="Canister" ng-change="sc.onStorageChange(key)" class="col-md">
+                                    <md-select ng-model="sc.locations[key].canister" placeholder="Canister" required name="canister" ng-change="sc.onStorageChange(key)" class="col-md">
                                         <md-option ng-repeat="canister in sc.canisters[key]" value="{{canister}}">{{canister}}</md-option>
                                     </md-select>
                                 </div>
                                 <div class="col-md-1">
-                                    <md-select ng-model="sc.locations[key].caneLetter" placeholder="Cane" ng-change="sc.onStorageChange(key)" class="col-md">
+                                    <md-select ng-model="sc.locations[key].caneLetter" placeholder="Cane" required name="caneLetter" ng-change="sc.onStorageChange(key)" class="col-md">
                                         <md-option ng-repeat="letter in sc.letters[key]" value="{{letter}}">{{letter}}</md-option>
                                     </md-select>
                                 </div>
                                 <div class="col-md-1">
-                                    <md-select ng-model="sc.locations[key].caneColor" placeholder="Color" ng-change="sc.onStorageChange(key)" class="col-md">
+                                    <md-select ng-model="sc.locations[key].caneColor" placeholder="Color" required name="caneColor" ng-change="sc.onStorageChange(key)" class="col-md">
                                         <md-option ng-repeat="color in sc.colors" value="{{color}}">{{color}}</md-option>
                                     </md-select>
                                 </div>
@@ -491,7 +469,7 @@
                                                    data-mask="19/39/9999"
                                                    max-date="maxDate"
                                                    datepicker-popup
-                                                   is-open="sc['dateStoredDatepickerOpened' + key]"/>
+                                                   is-open="sc['dateStoredDatepickerOpened' + key]" />
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-default" ng-click="sc.openDateStoredDatepicker($event, key)"><i class="glyphicon glyphicon-calendar"></i></button>
                                             </span>
@@ -507,7 +485,7 @@
                                                    data-mask="19/39/9999"
                                                    max-date="maxDate"
                                                    datepicker-popup
-                                                   is-open="sc['dateFrozenDatepickerOpened' + key]"/>
+                                                   is-open="sc['dateFrozenDatepickerOpened' + key]" />
                                             <span class="input-group-btn">
                                                 <button type="button" class="btn btn-default" ng-click="sc.openDateFrozenDatepicker($event, key)"><i class="glyphicon glyphicon-calendar"></i></button>
                                             </span>
@@ -516,7 +494,7 @@
 
                                     <md-input-container class="col-md-3">
                                         <label for="specimenNumber">{{sc.sampleField.specimenNumber.title}}</label>
-                                        <input type="text" class="form-control" id="specimenNumber" name="specimenNumber" ng-model="sc.locations[key].specimenNumber"/>
+                                        <input type="text" class="form-control" id="specimenNumber" name="specimenNumber" ng-model="sc.locations[key].specimenNumber" />
                                     </md-input-container>
 
                                     <div class="col-md-4">
@@ -543,11 +521,103 @@
                                 Add Location
                             </md-button>
                             <md-button type="button" class="md-raised md-primary btn-w-md pull-right" ng-disabled="!sc.isFormValid()" ng-click="sc.saveSample($event)">Save Sample</md-button>
+
                         </div>
                     </div>
-                </form>
-            </div>
 
+
+                </form>
+                <div ng-show="sc.sampleForm.$invalid">
+
+                    <div class="col-md-12" ng-show="sc.sampleForm.$invalid">
+                        <div class="alert " style="background-color:#FF9900;color:white;background-color:#FF9900;color:white" role="alert">
+                            <div ng-transclude>
+                                <div ng-show="sc.sampleForm.depositorLastName.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.depositorLastName.message.required}}</span>
+                                </div>
+
+                                <div ng-show="sc.sampleForm.depositorFirstName.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.depositorFirstName.message.required}}</span>
+                                </div>
+
+                                <div  ng-show="sc.sampleForm.depositorDob.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.depositorDob.message.required}}</span>
+                                </div>
+
+                                <div  ng-show="sc.sampleForm.physician.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.physician.message.required}}</span>
+                                </div>
+
+                                <div  ng-show="sc.sampleForm.comment.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.comment.message.required}}</span>
+                                </div>
+
+                                <div  ng-show="sc.sampleForm.tank.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.tank.message.required}}</span>
+                                </div>
+
+                                <div  ng-show="sc.sampleForm.canister.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.canister.message.required}}</span>
+                                </div>
+
+                                <div  ng-show="sc.sampleForm.caneLetter.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.caneLetter.message.required}}</span>
+                                </div>
+
+                                <div  ng-show="sc.sampleForm.caneColor.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.caneColor.message.required}}</span>
+                                </div>
+
+                                <div  ng-show="sc.sampleForm.methodOfCollection.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.methodOfCollection.message.required}}</span>
+                                </div>
+
+                                <div ng-show="sc.sampleForm.cryobankName.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.cryobank.message.required}}</span>
+                                </div>
+
+                                <div ng-show="sc.sampleForm.directedDonorId.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.directedDonorId.message.required}}</span>
+                                </div>
+
+                                <div ng-show="sc.sampleForm.directedDonorLastName.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.directedDonorLastName.message.required}}</span>
+                                </div>
+
+                                <div ng-show="sc.sampleForm.directedDonorFirstName.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.directedDonorFirstName.message.required}}</span>
+                                </div>
+
+                                <div ng-show="sc.sampleForm.directedDonorDob.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.directedDonorDob.message.required}}</span>
+                                </div>
+
+                                <div ng-show="sc.sampleForm.anonymousDonorId.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.anonymousDonorId.message.required}}</span>
+                                </div>
+
+                                <div ng-show="sc.sampleForm.dateStored.$invalid">
+                                    <span class="ng-binding ng-scope">{{sc.sampleField.cryobank.dateStored.required}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row well well-sm" ng-repeat="(key, value) in sc.locations">
+                        <div class="col-md-12" ng-show="!sc.locations[key].available && sc.locations[key].filled">
+                            <div class="alert " style="background-color:#FF3300;color:white;background-color:#FF3300;color:white" role="alert">
+                                <div ng-transclude>
+                                    <span class="ng-binding ng-scope">Location {{sc.locations[key].uniqName}} is currently in use!!!!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
         </div>
     </div>
 </div>

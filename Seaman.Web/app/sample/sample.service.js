@@ -56,6 +56,7 @@
             if (!model.id) {
                 model.id = 0;
             }
+            //console.log(model);
 
             model = helper.toPascalCase(model);
             $http.post(apiList.sample, model).then(success);

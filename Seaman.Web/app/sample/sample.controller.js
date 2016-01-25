@@ -149,12 +149,12 @@
             partnerDob: validation.newField('Dob', { required: false, date: true }),
             partnerSsn: validation.newField('SSN/Passport/DL/Other', { required: false }),
             partnerSsnType: validation.newField('Type', { requiredSelect: false }),
-            //cryobankName: validation.newField('Cryobank name', { required: true }),
+            cryobankName: validation.newField('Cryobank name', { required: true }),
             //cryobankVialId: validation.newField('Cryobank’s Vial ID #', { required: true }),
-            //cryobank: validation.newField('Cryobank', { requiredSelect: true }),
-            directedDonorId: validation.newField('Unique donor ID #', { required: true }),
-            directedDonorLastName: validation.newField('Last name', { required: true }),
-            directedDonorFirstName: validation.newField('First name', { required: true }),
+            cryobank: validation.newField('Cryobank', { requiredSelect: true }),
+            directedDonorId: validation.newField('directed donor ID #', { required: true }),
+            directedDonorLastName: validation.newField('directed Last name', { required: true }),
+            directedDonorFirstName: validation.newField('directed First name', { required: true }),
             directedDonorDob: validation.newField('Dob', { required: true, date: true }),
             anonymousDonorId: validation.newField('Unique donor ID #', { required: true }),
             dateStored: validation.newField('Date stored/received', { required: true, date: true }),
@@ -216,6 +216,7 @@
         vm.extractLocation = extractLocation;
         vm.takeAllPosition = takeAllPosition;
 
+        vm.alerts = [];
         activate();
 
         $scope.setMaxDate = function () {
@@ -381,12 +382,15 @@
             location.filled = true;
             location.uniqName = helper.format("{0}-{1}-{2}-{3}-{4}", location.tank, location.canister, location.caneLetter, location.posForShow, location.caneColor);
             sampleService.checkLocation(location).success(function (data) {
-                location.exists = vm.sampleModel.id && location.id && vm.sampleModel.id > 0 && data != null && data.sampleId === vm.sampleModel.id;
+                
+                location.exists = vm.sampleModel.id && location.id && vm.sampleModel.id > 0 && data != null;
                 var localCheck = _.filter(vm.locations, function (item) {
                     return item.uniqName === location.uniqName;
                 }).length === 1;
-                location.available = data == null && localCheck || data != null && data.available && localCheck ||
-                    data != null && !data.available && vm.sampleModel.id && data.sampleId === vm.sampleModel.id && localCheck;
+
+                location.available = data == null && localCheck;
+
+                console.log(location.available, localCheck, data, location.uniqName);
             });
         }
 
@@ -426,6 +430,7 @@
         function onTankChange(name) {
             var tank = _.find(vm.tanks, { "name": vm.locations[name].tank });
             generateStorageByTank(tank, name);
+            onStorageChange(name);
         }
 
         function copyAddressInformation(name) {
